@@ -3,14 +3,10 @@ import { CatalogHeader, MovieCard } from '@movie-garden/ui'
 export function Catalog() {
   return (
     <div className="min-h-screen bg-custom-gradient text-white p-4">
-
       <CatalogHeader />
 
       <main className="bg-[#D9D9D9] rounded-xl bg-opacity-60 w-full">
-
-        <h1 className="text-black mb-5 font-sans text-[25px]">
-          Minha Lista
-        </h1>
+        <h1 className="text-black mb-5 font-sans text-[25px]">Minha Lista</h1>
 
         <div className="grid grid-cols-4 gap-5 max-w-[1000px]">
           <MovieCard
@@ -22,7 +18,7 @@ export function Catalog() {
 
           <MovieCard
             title="Demon Slayer: Kimetsu no Yaiba Infinity Castle"
-            date='09/11/2025'
+            date="09/11/2025"
             posterPath="https://media.themoviedb.org/t/p/w300_and_h450_face/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg"
             rating={9.2}
             category="Animation, Action, and Fantasy"

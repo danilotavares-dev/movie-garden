@@ -3,7 +3,7 @@ interface MovieCardProps {
   posterPath: string
   rating?: number
   category?: string
-  date?: string 
+  date?: string
 }
 
 export function MovieCard({
@@ -22,6 +22,7 @@ export function MovieCard({
           className="h-full w-full object-cover"
         />
       </div>
+
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90" />
 
       <div className="absolute bottom-0 left-0 p-4 w-full">
@@ -34,9 +35,8 @@ export function MovieCard({
         <h3 className="text-lg font-bold text-white leading-tight drop-shadow-sm">
           {title}
         </h3>
-        <span className="text-zinc-500 text-sm font-bold">
-          {date}
-        </span>
+
+        <span className="text-zinc-500 text-sm font-bold">{date}</span>
         {rating && (
           <div className="mt-2 flex items-center gap-1">
             <span className="text-yellow-400">★</span>

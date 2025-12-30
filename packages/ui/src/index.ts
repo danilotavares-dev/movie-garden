@@ -1,2 +1,5 @@
-export * from './MovieCard'
-export * from './CatalogHeader'
+export * from './components/CatalogHeader'
+export * from './components/MovieCard'
+export * from './components/Logo'
+export * from './components/SearchIcon'
+export * from './components/UserAvatar'
