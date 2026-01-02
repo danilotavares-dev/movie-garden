@@ -1,4 +1,4 @@
-import { use, useState } from 'react'
+import { useState } from 'react'
 import { Logo } from '@movie-garden/ui'
 
 export function Login() {
@@ -6,7 +6,7 @@ export function Login() {
 
   return (
     <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
-      <div className="w-full max-w-[400px] bg-[#D9D9D9] bg-opacity-60 rounded-2xl p-8 shadow-2xl">
+      <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 rounded-3xl p-8 shadow-2xl">
         <div className="flex flex-col items-center gap-4 mb-8">
           <Logo className="h-16 w-16" />
           <h1 className="text-2xl font-bold text-[#113A2D] tracking-wide">
@@ -100,7 +100,7 @@ export function Login() {
           </div>
 
           <button
-            type="button" // Mudaremos para 'submit' quando tiver backend
+            type="button"
             className="mt-2 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95"
           >
             Entrar
