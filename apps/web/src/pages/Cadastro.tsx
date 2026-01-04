@@ -1,5 +1,6 @@
 import { Logo } from '@movie-garden/ui'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export function Cadastro() {
   const [showPassword, setShowPassword] = useState(false)
@@ -84,12 +85,12 @@ export function Cadastro() {
         <div className="mt-6 text-center">
           <p className="text-zinc-600 text-sm">
             Já tem uma conta?{' '}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-[#113A2D] hover:underline font-medium hover:text-[#113A2D] transition-colors"
             >
               Fazer login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

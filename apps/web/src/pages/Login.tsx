@@ -1,4 +1,5 @@
 import { Logo } from '@movie-garden/ui'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 export function Login() {
@@ -110,12 +111,12 @@ export function Login() {
         <div className="mt-8 text-center">
           <p className="text-zinc-500 text-sm">
             Não tem uma conta?{' '}
-            <a
-              href="/"
+            <Link
+              to="/cadastro"
               className="text-[#113A2D] hover:underline font-medium hover:text-[#113A2D] transition-colors"
             >
               Cadastre-se
-            </a>
+            </Link>
           </p>
         </div>
       </div>

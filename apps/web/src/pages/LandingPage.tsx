@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { Logo, LanguageIcon } from '@movie-garden/ui'
 
 export function LandingPage() {
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-screen bg-custom-gradient py-3 px-4 overflow-x-hidden">
       <header className="mb-7 sticky top-3 z-50">
@@ -18,6 +21,7 @@ export function LandingPage() {
 
             <button
               type="button"
+              onClick={() => navigate('/login')}
               className="px-6 h-7 bg-[#616161]/60 hover:bg-[#616161]/80 rounded-full flex items-center justify-center text-white text-sm font-bold transition-colors"
             >
               Entrar
