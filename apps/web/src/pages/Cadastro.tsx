@@ -1,6 +1,9 @@
 import { Logo } from '@movie-garden/ui'
+import { useState } from 'react'
 
 export function Cadastro() {
+  const [showPassword, setShowPassword] = useState(false)
+
   return (
     <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 backdrop-blur-md rounded-3xl px-12 py-11 shadow-2xl animate-fade-in">
@@ -52,10 +55,11 @@ export function Cadastro() {
             </label>
             <input
               id="password"
-              type="password"
+              type={showPassword ? 'text' : 'passward'}
               className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
+
           <div className="flex flex-col gap-2">
             <label
               className="text-zinc-700 text-sm font-medium ml-1"
