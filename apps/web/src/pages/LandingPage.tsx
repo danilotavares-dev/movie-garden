@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Logo, LanguageIcon, MovieRow } from '@movie-garden/ui'
 
 export function LandingPage() {
@@ -44,7 +44,7 @@ export function LandingPage() {
       id: 5,
       title: 'Kraven',
       posterPath:
-        'https://image.tmdb.org/t/p/w600_and_h900_bestv2/1Gf3J5c9N5F5c9N5F5c9N5F5c9.jpg',
+        'https://image.tmdb.org/t/p/original/1Gf3J5c9N5F5c9N5F5c9N5F5c9.jpg',
       rating: 6.9,
       category: 'Action',
     },
@@ -165,7 +165,7 @@ export function LandingPage() {
           <button
             type="button"
             onClick={() => navigate('/cadastro')}
-            className="bg-[#113A2D] text-white px-8 py-3 rounded-xl font-bold hover:scale-105 transition-transform shadow-xl"
+            className="bg-[#113A2D] text-white px-8 py-3 rounded-xl font-bold hover:scale-105 shadow-xl"
           >
             Começar Jornada
           </button>
@@ -174,6 +174,129 @@ export function LandingPage() {
         <MovieRow title="Lançamentos no Cinema" movies={PREVIEW_MOVIES} />
 
         <MovieRow title="Séries em Alta" movies={PREVIEW_SERIES} />
+
+        <section className="w-full max-w-[1400px] mx-auto px-6 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#113A2D] mb-4">
+              Por que criar uma conta?
+            </h2>
+            <p className="text-zinc-600">
+              Leve sua paixão por cinema para o próximo nível.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M8 6h13" />
+                  <path d="M8 12h13" />
+                  <path d="M8 18h13" />
+                  <path d="M3 6h.01" />
+                  <path d="M3 12h.01" />
+                  <path d="M3 18h.01" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                Organize sua lista
+              </h3>
+              <p className="text-zinc-600 text-sm">
+                Nunca mais esqueça o que assistir. Crie listas personalizadas de
+                "Para Assistir", "Favoritos" e "Já Vistos".
+              </p>
+            </div>
+
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                Avalie e Critique
+              </h3>
+              <p className="text-zinc-600 text-sm">
+                Dê notas para os filmes e escreva reviews. Sua opinião ajuda a
+                comunidade a descobrir novas joias.
+              </p>
+            </div>
+
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                Conecte-se
+              </h3>
+              <p className="text-zinc-600 text-sm">
+                Siga amigos, veja o que eles estão assistindo e compartilhe suas
+                descobertas nas redes sociais.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full px-4 mb-12">
+          <div className="max-w-[1400px] mx-auto bg-[#113A2D] rounded-3xl p-12 relative overflow-hidden text-center group">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+
+            <div className="relative z-10 flex flex-col items-center gap-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Pronto para montar seu jardim?
+              </h2>
+              <p className="text-zinc-300 max-w-lg">
+                É rápido, fácil e totalmente gratuito. Junte-se a milhares de
+                amantes de cinema hoje mesmo.
+              </p>
+              <button
+                type="button"
+                onClick={() => navigate('/cadastro')}
+                className="bg-white text-[#113A2D] px-8 py-3 rounded-xl font-bold hover:bg-zinc-100 hover:scale-105 shadow-lg"
+              >
+                Criar Conta Grátis
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-white/60 w-full min-h-[200px] rounded-3xl backdrop-blur-sm p-8 flex flex-col items-center justify-center text-zinc-500">
