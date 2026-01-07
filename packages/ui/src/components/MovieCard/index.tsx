@@ -3,7 +3,6 @@ interface MovieCardProps {
   posterPath: string
   rating?: number
   category?: string
-  date?: string
 }
 
 export function MovieCard({
@@ -11,7 +10,6 @@ export function MovieCard({
   posterPath,
   rating,
   category,
-  date,
 }: MovieCardProps) {
   return (
     <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 shadow-lg transition-transform hover:scale-105 hover:shadow-xl cursor-pointer">
@@ -36,7 +34,6 @@ export function MovieCard({
           {title}
         </h3>
 
-        <span className="text-zinc-500 text-sm font-bold">{date}</span>
         {rating && (
           <div className="mt-2 flex items-center gap-1">
             <span className="text-yellow-400">★</span>
