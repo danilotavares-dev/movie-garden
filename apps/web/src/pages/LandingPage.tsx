@@ -132,7 +132,7 @@ export function LandingPage() {
             </button>
           </div>
         </div>
-        <div className="h-9 w-full max-w-[1400px] bg-zinc-300/60 backdrop-blur-md rounded-full text-sm font-medium text-green-900 flex items-center justify-center px-3 py-2 mx-auto gap-6 shadow-sm">
+        <div className="h-8 w-full max-w-[1400px] bg-zinc-300/60 backdrop-blur-md rounded-full text-sm font-medium text-green-900 flex items-center justify-center px-3 py-2 mx-auto gap-6 shadow-sm">
           {[
             'Filmes',
             'Séries',
@@ -143,7 +143,7 @@ export function LandingPage() {
             <a
               key={item}
               href="/"
-              className="hover:text-green-700 hover:scale-105 transition-all whitespace-nowrap"
+              className="hover:text-green-700 min-w-[30px] hover:scale-105 transition-all whitespace-nowrap"
             >
               {item}
             </a>
