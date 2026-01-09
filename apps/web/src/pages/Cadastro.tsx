@@ -1,7 +1,55 @@
+import { useState, type FormEvent } from 'react'
 import { Logo } from '@movie-garden/ui'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export function Cadastro() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  async function handleRegisterEvent(event: FormEvent) {
+    event.preventDefault()
+
+    if (password !== confirmPassword) {
+      alert('As senhas não coincidem!')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('http://localhost:3333/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      })
+
+      if (response.status === 201) {
+        alert('Conta criada com sucesso! 🌱')
+        navigate('/login')
+      } else {
+        const data = await response.json()
+        alert(`Erro: ${data.message || 'Ocorreu um erro ao criar a conta'}`)
+      }
+    } catch (error) {
+      console.error(error)
+      alert('Erro de conexão com o servidor!')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
       <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 backdrop-blur-md rounded-3xl px-12 py-11 shadow-2xl animate-fade-in">
@@ -15,7 +63,7 @@ export function Cadastro() {
           </p>
         </div>
 
-        <form className="flex flex-col gap-5">
+        <form onSubmit={handleRegisterEvent} className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
             <label
               className="text-zinc-700 text-sm font-medium ml-1"
@@ -26,7 +74,11 @@ export function Cadastro() {
             <input
               id="user"
               type="text"
-              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Seu nome"
+              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
 
@@ -40,7 +92,11 @@ export function Cadastro() {
             <input
               id="email"
               type="email"
-              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="seu@email.com"
+              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
 
@@ -54,28 +110,38 @@ export function Cadastro() {
             <input
               id="password"
               type="password"
-              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Mínimo 6 caracteres"
+              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
 
           <div className="flex flex-col gap-2">
             <label
               className="text-zinc-700 text-sm font-medium ml-1"
-              htmlFor="confirm password"
+              htmlFor="confirm-password"
             >
               Confirmação de senha
             </label>
             <input
-              id="conf_password"
+              id="confirm-password"
               type="password"
-              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Digite sua senha novamente"
+              className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
+
           <button
-            type="button"
-            className="mt-4 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95"
+            type="submit"
+            disabled={isLoading}
+            className="mt-4 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Cadastrar
+            {isLoading ? 'Criando...' : 'Criar Conta'}
           </button>
         </form>
 
