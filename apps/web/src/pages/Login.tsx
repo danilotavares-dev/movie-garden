@@ -47,7 +47,7 @@ export function Login() {
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
+                placeholder="Digite sua senha "
                 className="w-full bg-[#808080] bg-opacity-50 border border-white/5 text-zinc-900 placeholder:text-zinc-600 rounded-xl pl-4 pr-12 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
               />
 
