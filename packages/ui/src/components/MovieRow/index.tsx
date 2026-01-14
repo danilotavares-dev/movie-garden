@@ -58,7 +58,7 @@ export function MovieRow({ title, movies }: MovieRowProps) {
 
       <div
         ref={listRef}
-        className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x scroll-smooth"
+        className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide p-3 snap-x scroll-smooth"
       >
         {movies.map((movie) => (
           <div
