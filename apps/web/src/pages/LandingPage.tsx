@@ -3,6 +3,20 @@ import { Logo, LanguageIcon, MovieRow } from '@movie-garden/ui'
 import { useEffect, useState } from 'react'
 import { tmdb } from '../services/tmdb'
 
+interface TMDBMovieResult {
+  id: number
+  title: string
+  poster_path: string
+  vote_average: number
+}
+
+interface TMDBSeriesResult {
+  id: number
+  name: string
+  poster_path: string
+  vote_average: number
+}
+
 interface MediaItem {
   id: number
   title: string
@@ -14,6 +28,22 @@ interface MediaItem {
 export function LandingPage() {
   const navigate = useNavigate()
 
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
+  const [currentLang, setCurrentLang] = useState('pt-BR')
+
+  const languages = [
+    { code: 'pt-BR', label: 'Português', flag: '🇧🇷' },
+    { code: 'en-US', label: 'English', flag: '🇺🇸' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+  ]
+
+  function handleLanguageChange(langCode: string) {
+    setCurrentLang(langCode)
+    setIsLangMenuOpen(false)
+
+    console.log('Idioma alterado para:', langCode)
+  }
+
   const [movies, setMovies] = useState<MediaItem[]>([])
   const [series, setSeries] = useState<MediaItem[]>([])
 
@@ -24,21 +54,25 @@ export function LandingPage() {
         tmdb.getTrendingSeries(),
       ])
 
-      const formattedMovies = moviesData.results.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        posterPath: `https://image.tmdb.org/t/p/w-500${item.poster_path}`,
-        rating: item.vote_average,
-        category: 'Cinema',
-      }))
+      const formattedMovies = moviesData.results.map(
+        (item: TMDBMovieResult) => ({
+          id: item.id,
+          title: item.title,
+          posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+          rating: item.vote_average,
+          category: 'Cinema',
+        }),
+      )
 
-      const formattedSeries = seriesData.results.map((item: any) => ({
-        id: item.id,
-        title: item.name,
-        posterPath: `https://image.tmdb.org/t/p/w-500${item.poster_path}`,
-        rating: item.vote_average,
-        category: 'TV Show',
-      }))
+      const formattedSeries = seriesData.results.map(
+        (item: TMDBSeriesResult) => ({
+          id: item.id,
+          title: item.name,
+          posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+          rating: item.vote_average,
+          category: 'TV Show',
+        }),
+      )
 
       setMovies(formattedMovies)
       setSeries(formattedSeries)
@@ -50,16 +84,49 @@ export function LandingPage() {
   return (
     <div className="min-h-screen bg-custom-gradient py-3 px-4 overflow-x-hidden">
       <header className="mb-7 sticky top-3 z-50">
-        <div className="h-11 w-full max-w-[1600px] bg-white/60 backdrop-blur-md rounded-full flex items-center justify-between px-3 py-2 mx-auto mb-2 shadow-sm">
+        <div className="h-11 w-full max-w-[1600px] bg-white/60 backdrop-blur-md rounded-full flex items-center justify-between px-3 py-2 mx-auto mb-2 shadow-sm relative z-50">
           <Logo className="h-8 w-8" />
 
           <div className="flex gap-2 items-center">
-            <button
-              type="button"
-              className="w-12 h-7 bg-[#616161]/60 hover:bg-[#616161]/80 rounded-full flex items-center justify-center transition-colors text-white"
-            >
-              <LanguageIcon className="w-5 h-5" />
-            </button>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                className="w-12 h-7 bg-[#616161]/60 hover:bg-[#616161]/80 rounded-full flex items-center justify-center transition-colors text-white relative z-20"
+              >
+                <LanguageIcon className="w-5 h-5" />
+              </button>
+
+              {isLangMenuOpen && (
+                <>
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
+                    onClick={() => setIsLangMenuOpen(false)}
+                    aria-label="Fechar menu"
+                  />
+
+                  <div className="absolute top-full mt-2 right-0 bg-white/90 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/50 animate-fade-in">
+                    {languages.map((lang) => (
+                      <button
+                        type="button"
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-[#113A2D]/10
+                          ${currentLang === lang.code ? 'font-bold text-[#113A2D] bg-[#113A2D]/5' : 'text-zinc-600'}
+                        `}
+                      >
+                        <span className="text-lg leading-none">
+                          {lang.flag}
+                        </span>
+                        <span>{lang.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
 
             <button
               type="button"
