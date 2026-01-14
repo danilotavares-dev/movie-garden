@@ -38,5 +38,11 @@
     "title": "¿Listo para plantar tu jardín?",
     "text": "Es rápido, fácil y totalmente gratis.",
     "button": "Crear Cuenta Gratis"
+  },
+  "modal": {
+    "title": "¡Ups! Acceso restringido 🌱",
+    "text": "Para ver detalles, calificar o guardar esta película en tu jardín, necesitas iniciar sesión.",
+    "login": "Iniciar Sesión",
+    "cancel": "Solo mirando"
   }
 }

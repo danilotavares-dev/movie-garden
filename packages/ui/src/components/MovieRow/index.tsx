@@ -12,9 +12,10 @@ interface Movie {
 interface MovieRowProps {
   title: string
   movies: Movie[]
+  onMovieClick?: (movie: Movie) => void
 }
 
-export function MovieRow({ title, movies }: MovieRowProps) {
+export function MovieRow({ title, movies, onMovieClick }: MovieRowProps) {
   const listRef = useRef<HTMLDivElement>(null)
 
   const handleScrollLeft = () => {
@@ -61,9 +62,11 @@ export function MovieRow({ title, movies }: MovieRowProps) {
         className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide p-3 snap-x scroll-smooth"
       >
         {movies.map((movie) => (
-          <div
+          <button
+            type="button"
             key={movie.id}
             className="min-w-[220px] max-w-[220px] w-full h-auto snap-center"
+            onClick={() => onMovieClick?.(movie)}
           >
             <MovieCard
               title={movie.title}
@@ -71,7 +74,7 @@ export function MovieRow({ title, movies }: MovieRowProps) {
               rating={movie.rating}
               category={movie.category}
             />
-          </div>
+          </button>
         ))}
       </div>
 

@@ -38,5 +38,11 @@
     "title": "Ready to plant your garden?",
     "text": "It is fast, easy, and completely free.",
     "button": "Create Free Account"
+  },
+  "modal": {
+    "title": "Oops! Restricted Access 🌱",
+    "text": "To view details, rate, or save this movie to your garden, you need to sign in.",
+    "login": "Sign In",
+    "cancel": "Just browsing"
   }
 }

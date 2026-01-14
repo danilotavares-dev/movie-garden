@@ -38,5 +38,11 @@
     "title": "Pronto para montar seu jardim?",
     "text": "É rápido, fácil e totalmente gratuito.",
     "button": "Criar Conta Grátis"
+  },
+  "modal": {
+    "title": "Ops! Acesso restrito 🌱",
+    "text": "Para ver detalhes, avaliar ou salvar este filme no seu jardim, você precisa entrar na sua conta.",
+    "login": "Fazer Login",
+    "cancel": "Só estou olhando"
   }
 }
