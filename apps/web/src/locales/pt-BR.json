@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "movies": "Filmes",
+    "series": "Séries",
+    "releases": "Lançamentos",
+    "popular": "Listas Populares",
+    "community": "Comunidade"
+  },
+  "login": "Entrar",
+  "hero": {
+    "title": "Bem-vindo ao",
+    "subtitle": "Seu espaço para plantar ideias, colher recomendações e cultivar seu amor pelo cinema.",
+    "button": "Começar Jornada"
+  },
+  "sections": {
+    "movies": "Lançamentos no Cinema",
+    "series": "Séries em Alta"
+  },
+  "why": {
+    "title": "Por que criar uma conta?",
+    "subtitle": "Leve sua paixão por cinema para o próximo nível."
+  },
+  "cards": {
+    "organize": {
+      "title": "Organize sua lista",
+      "text": "Nunca mais esqueça o que assistir. Crie listas personalizadas."
+    },
+    "rate": {
+      "title": "Avalie e Critique",
+      "text": "Dê notas para os filmes e escreva reviews."
+    },
+    "connect": {
+      "title": "Conecte-se",
+      "text": "Siga amigos e compartilhe suas descobertas."
+    }
+  },
+  "cta": {
+    "title": "Pronto para montar seu jardim?",
+    "text": "É rápido, fácil e totalmente gratuito.",
+    "button": "Criar Conta Grátis"
+  }
+}

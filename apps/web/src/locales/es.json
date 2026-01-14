@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "movies": "Películas",
+    "series": "Series",
+    "releases": "Lanzamientos",
+    "popular": "Listas Populares",
+    "community": "Comunidad"
+  },
+  "login": "Entrar",
+  "hero": {
+    "title": "Bienvenido a",
+    "subtitle": "Tu espacio para plantar ideas, cosechar recomendaciones y cultivar tu amor por el cine.",
+    "button": "Comenzar Viaje"
+  },
+  "sections": {
+    "movies": "Estrenos en Cine",
+    "series": "Series en Tendencia"
+  },
+  "why": {
+    "title": "¿Por qué crear una cuenta?",
+    "subtitle": "Lleva tu pasión por el cine al siguiente nivel."
+  },
+  "cards": {
+    "organize": {
+      "title": "Organiza tu lista",
+      "text": "Nunca olvides qué ver. Crea listas personalizadas."
+    },
+    "rate": {
+      "title": "Califica y Reseña",
+      "text": "Califica películas y escribe reseñas."
+    },
+    "connect": {
+      "title": "Conéctate",
+      "text": "Sigue a amigos y comparte tus descubrimientos."
+    }
+  },
+  "cta": {
+    "title": "¿Listo para plantar tu jardín?",
+    "text": "Es rápido, fácil y totalmente gratis.",
+    "button": "Crear Cuenta Gratis"
+  }
+}

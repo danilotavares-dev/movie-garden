@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "movies": "Movies",
+    "series": "TV Shows",
+    "releases": "New Releases",
+    "popular": "Popular Lists",
+    "community": "Community"
+  },
+  "login": "Sign In",
+  "hero": {
+    "title": "Welcome to",
+    "subtitle": "Your space to plant ideas, harvest recommendations, and cultivate your love for cinema.",
+    "button": "Start Journey"
+  },
+  "sections": {
+    "movies": "New in Theaters",
+    "series": "Trending TV Shows"
+  },
+  "why": {
+    "title": "Why create an account?",
+    "subtitle": "Take your passion for cinema to the next level."
+  },
+  "cards": {
+    "organize": {
+      "title": "Organize your lists",
+      "text": "Never forget what to watch. Create custom lists."
+    },
+    "rate": {
+      "title": "Rate and Review",
+      "text": "Rate movies and write reviews."
+    },
+    "connect": {
+      "title": "Connect",
+      "text": "Follow friends and share your discoveries."
+    }
+  },
+  "cta": {
+    "title": "Ready to plant your garden?",
+    "text": "It is fast, easy, and completely free.",
+    "button": "Create Free Account"
+  }
+}
