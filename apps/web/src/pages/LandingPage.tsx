@@ -300,6 +300,7 @@ export function LandingPage() {
       </main>
 
       <footer className="bg-white/60 w-full min-h-[200px] rounded-3xl backdrop-blur-sm p-8 flex flex-col items-center justify-center text-zinc-500">
+        <Logo className='absolute bottom-5 w-8 '/>
         <p>© 2026 Movie Garden</p>
       </footer>
     </div>
