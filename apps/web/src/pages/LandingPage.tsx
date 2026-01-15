@@ -51,6 +51,25 @@ export function LandingPage() {
     setIsLoginModalOpen(true)
   }
 
+  const navItems = [
+    { key: 'movies', path: '/moviesPage' },
+    { key: 'series', path: '/seriesPage' },
+    { key: 'releases', path: '/releasesPage' },
+    {
+      key: 'popular',
+      path: '/',
+      subItems: [
+        { key: 'topRated', path: '/' },
+        { key: 'mostVoted', path: '/' },
+      ],
+    },
+    {
+      key: 'community',
+      path: '/',
+      subItems: [{ key: '', path: '' }],
+    },
+  ]
+
   useEffect(() => {
     async function loadContent() {
       try {
@@ -180,18 +199,58 @@ export function LandingPage() {
             </button>
           </div>
         </div>
+
         <div className="h-8 w-full max-w-[1400px] bg-zinc-300/60 backdrop-blur-md rounded-full text-sm font-medium text-green-900 flex items-center justify-center px-3 py-2 mx-auto gap-6 shadow-sm">
-          {['movies', 'series', 'releases', 'popular', 'community'].map(
-            (key) => (
-              <a
-                key={key}
-                href="/"
-                className="hover:text-green-700 min-w-[30px] hover:scale-105 transition-all whitespace-nowrap"
+          {navItems.map((item) => (
+            <div
+              key={item.key}
+              className="relative group h-full flex items-center"
+            >
+              <button
+                type="button"
+                onClick={() => navigate(`/${item.path}`)}
+                className="hover:text-green-700 min-w-[30px] hover:scale-105 transition-all whitespace-nowrap bg-transparent border-none cursor-pointer flex items-center gap-1 h-full px-2"
               >
-                {t(`nav.${key}`)}
-              </a>
-            ),
-          )}
+                {t(`nav.${item.key}`)}
+
+                {item.subItems && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="opacity-60 group-hover:rotate-180 transition-transform duration-200"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                )}
+              </button>
+
+              {item.subItems && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-40 bg-white/90 backdrop-blur-xl rounded-xl shadow-xl border border-white/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top group-hover:translate-y-0 translate-y-2 flex flex-col overflow-hidden py-1 z-50">
+                  {item.subItems.map((sub) => (
+                    <button
+                      key={sub.key}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        navigate(sub.path)
+                      }}
+                      className="text-left px-4 py-3 text-zinc-600 hover:bg-[#113A2D]/10 hover:text-[#113A2D] transition-colors text-sm"
+                    >
+                      {t(`nav.${sub.key}`)}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </header>
 
