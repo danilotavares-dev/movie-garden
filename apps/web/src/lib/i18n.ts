@@ -9,7 +9,7 @@ i18n.use(initReactI18next).init({
   resources: {
     'pt-BR': { translation: ptBR },
     'en-US': { translation: enUS },
-    es: { translation: es },
+    'es': { translation: es },
   },
   lng: 'pt-BR',
   fallbackLng: 'en-US',
