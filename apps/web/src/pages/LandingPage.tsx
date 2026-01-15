@@ -155,7 +155,11 @@ export function LandingPage() {
                         type="button"
                         key={lang.code}
                         onClick={() => handleLanguageChange(lang.code)}
-                        className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-[#113A2D]/10 ${currentLang === lang.code ? 'font-bold text-[#113A2D] bg-[#113A2D]/5' : 'text-zinc-600'}`}
+                        className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-[#113A2D]/10 ${
+                          currentLang === lang.code
+                            ? 'font-bold text-[#113A2D] bg-[#113A2D]/5'
+                            : 'text-zinc-600'
+                        }`}
                       >
                         <span className="text-lg leading-none">
                           {lang.flag}
@@ -228,7 +232,107 @@ export function LandingPage() {
             </h2>
             <p className="text-zinc-600">{t('why.subtitle')}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M8 6h13" />
+                  <path d="M8 12h13" />
+                  <path d="M8 18h13" />
+                  <path d="M3 6h.01" />
+                  <path d="M3 12h.01" />
+                  <path d="M3 18h.01" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                {t('cards.organize.title')}
+              </h3>
+              <p className="text-zinc-600 text-sm">
+                {t('cards.organize.text')}
+              </p>
+            </div>
+
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                {t('cards.rate.title')}
+              </h3>
+              <p className="text-zinc-600 text-sm">{t('cards.rate.text')}</p>
+            </div>
+            <div className="bg-white/40 backdrop-blur-md p-8 rounded-2xl border border-white/50 hover:border-[#113A2D]/50 transition-all hover:-translate-y-1 shadow-sm">
+              <div className="w-12 h-12 bg-[#113A2D]/10 rounded-full flex items-center justify-center mb-4 text-[#113A2D]">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#113A2D] mb-2">
+                {t('cards.connect.title')}
+              </h3>
+              <p className="text-zinc-600 text-sm">{t('cards.connect.text')}</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full px-4 mb-12">
+          <div className="max-w-[1400px] mx-auto bg-[#113A2D] rounded-3xl p-12 relative overflow-hidden text-center group">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+
+            <div className="relative z-10 flex flex-col items-center gap-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                {t('cta.title')}
+              </h2>
+              <p className="text-zinc-300 max-w-lg">{t('cta.text')}</p>
+              <button
+                type="button"
+                onClick={() => navigate('/cadastro')}
+                className="bg-white text-[#113A2D] px-8 py-3 rounded-xl font-bold hover:bg-zinc-100 hover:scale-105 shadow-lg"
+              >
+                {t('cta.button')}
+              </button>
+            </div>
+          </div>
         </section>
       </main>
 
