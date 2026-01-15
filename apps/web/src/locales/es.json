@@ -4,7 +4,10 @@
     "series": "Series",
     "releases": "Lanzamientos",
     "popular": "Listas Populares",
-    "community": "Comunidad"
+    "community": "Comunidad",
+
+    "topRated": "Mejor Valorados",
+    "mostVoted": "Más Votados"
   },
   "login": "Entrar",
   "hero": {

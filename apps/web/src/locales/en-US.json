@@ -4,7 +4,10 @@
     "series": "TV Shows",
     "releases": "New Releases",
     "popular": "Popular Lists",
-    "community": "Community"
+    "community": "Community",
+
+    "topRated": "Top Rated",
+    "mostVoted": "Most Voted"
   },
   "login": "Sign In",
   "hero": {
