@@ -44,5 +44,18 @@
     "text": "Para ver detalles, calificar o guardar esta película en tu jardín, necesitas iniciar sesión.",
     "login": "Iniciar Sesión",
     "cancel": "Solo mirando"
-  }
+  },
+  "loginPage": {
+    "title": "¡Bienvenido de nuevo!",
+    "subtitle": "Inicia sesión en tu cuenta para continuar",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "ejemplo@gmail.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña secreta",
+    "forgetPassword": "¿Olvidaste tu contraseña?",
+    "submitButton": "Entrar",
+    "noAccount": "¿No tienes una cuenta?",
+    "register": "Regístrate"
+  },
+  "registerPage": {}
 }

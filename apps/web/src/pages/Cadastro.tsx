@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Logo } from '@movie-garden/ui'
 import { Link, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export function Cadastro() {
   const [name, setName] = useState('')

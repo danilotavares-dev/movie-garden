@@ -44,5 +44,18 @@
     "text": "Para ver detalhes, avaliar ou salvar este filme no seu jardim, você precisa entrar na sua conta.",
     "login": "Fazer Login",
     "cancel": "Só estou olhando"
-  }
+  },
+  "loginPage": {
+    "title": "Bem-vindo de volta!",
+    "subtitle": "Acesse sua conta para continuar",
+    "emailLabel": "Email",
+    "emailPlaceholder": "exemplo@gmail.com",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Sua senha secreta",
+    "forgetPassword": "Esqueceu a senha?",
+    "submitButton": "Entrar",
+    "noAccount": "Não tem uma conta?",
+    "register": "Cadastre-se"
+  },
+  "registerPage": {}
 }

@@ -44,5 +44,18 @@
     "text": "To view details, rate, or save this movie to your garden, you need to sign in.",
     "login": "Sign In",
     "cancel": "Just browsing"
-  }
+  },
+  "loginPage": {
+    "title": "Welcome back!",
+    "subtitle": "Sign in to your account to continue",
+    "emailLabel": "Email",
+    "emailPlaceholder": "example@gmail.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your secret password",
+    "forgetPassword": "Forgot password?",
+    "submitButton": "Sign In",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up"
+  },
+  "registerPage": {}
 }

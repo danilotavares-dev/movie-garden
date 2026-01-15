@@ -1,8 +1,11 @@
 import { Logo } from '@movie-garden/ui'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export function Login() {
+  const { t } = useTranslation()
+
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -11,11 +14,9 @@ export function Login() {
         <div className="flex flex-col items-center gap-4 mb-8">
           <Logo className="h-16 w-16" />
           <h1 className="text-2xl font-bold text-[#113A2D] tracking-wide">
-            Bem-vindo de volta!
+            {t('loginPage.title')}
           </h1>
-          <p className="text-zinc-600 text-sm">
-            Acesse sua conta para continuar
-          </p>
+          <p className="text-zinc-600 text-sm">{t('loginPage.subtitle')}</p>
         </div>
 
         <form className="flex flex-col gap-5">
@@ -24,12 +25,12 @@ export function Login() {
               className="text-zinc-700 text-sm font-medium ml-1"
               htmlFor="email"
             >
-              E-mail
+              {t('loginPage.emailLabel')}
             </label>
             <input
               id="email"
               type="email"
-              placeholder="exemplo@email.com"
+              placeholder={t('loginPage.emailPlaceholder')}
               className="bg-[#808080] bg-opacity-50 border border-white/5 text-zinc-600 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all placeholder:text-zinc-600"
             />
           </div>
@@ -40,14 +41,14 @@ export function Login() {
                 className="text-zinc-700 text-sm font-medium"
                 htmlFor="password"
               >
-                Senha
+                {t('loginPage.passwordLabel')}
               </label>
             </div>
             <div className="relative">
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="Digite sua senha "
+                placeholder={t('loginPage.passwordPlaceholder')}
                 className="w-full bg-[#808080] bg-opacity-50 border border-white/5 text-zinc-900 placeholder:text-zinc-600 rounded-xl pl-4 pr-12 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
               />
 
@@ -96,7 +97,7 @@ export function Login() {
               href="/"
               className="text-xs text-[#113A2D] hover:text-[#1a5542] font-semibold transition-colors"
             >
-              Esqueceu a senha?
+              {t('loginPage.forgetPassword')}
             </a>
           </div>
 
@@ -104,18 +105,18 @@ export function Login() {
             type="button"
             className="mt-2 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95"
           >
-            Entrar
+            {t('loginPage.submitButton')}
           </button>
         </form>
 
         <div className="mt-8 text-center">
           <p className="text-zinc-500 text-sm">
-            Não tem uma conta?{' '}
+            {t('loginPage.noAccount')}{' '}
             <Link
               to="/cadastro"
               className="text-[#113A2D] hover:underline font-medium hover:text-[#113A2D] transition-colors"
             >
-              Cadastre-se
+              {t('loginPage.register')}
             </Link>
           </p>
         </div>
