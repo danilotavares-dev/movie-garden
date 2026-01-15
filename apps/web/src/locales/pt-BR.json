@@ -49,7 +49,7 @@
     "title": "Bem-vindo de volta!",
     "subtitle": "Acesse sua conta para continuar",
     "emailLabel": "Email",
-    "emailPlaceholder": "exemplo@gmail.com",
+    "emailPlaceholder": "Seu Email",
     "passwordLabel": "Senha",
     "passwordPlaceholder": "Sua senha secreta",
     "forgetPassword": "Esqueceu a senha?",
@@ -57,5 +57,20 @@
     "noAccount": "Não tem uma conta?",
     "register": "Cadastre-se"
   },
-  "registerPage": {}
+  "registerPage": {
+    "title": "Crie sua conta",
+    "subtitle": "Junte-se à comunidade Movie Garden",
+    "usernameLabel": "Nome de usuário",
+    "usernamePlaceholder": "seu_usuario",
+    "emailLabel": "Email",
+    "emailPlaceholder": "exemplo@gmail.com",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Mínimo 6 caracteres",
+    "checkPasswordLabel": "Confirmação de senha",
+    "checkPasswordPlaceholder": "Digite sua senha novamente",
+    "creatingAccount": "Criando...",
+    "createAccount": "Criar conta",
+    "alreadyAccount": "Já tem uma conta?",
+    "login": "Fazer login"
+  }
 }

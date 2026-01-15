@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 export function Cadastro() {
+  const { t } = useTranslation()
+
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -57,10 +59,10 @@ export function Cadastro() {
         <div className="flex flex-col items-center mb-8">
           <Logo className="h-16 w-16" />
           <h1 className="text-[#113A2D] text-3xl font-bold tracking-wide">
-            Crie sua conta
+            {t('registerPage.title')}
           </h1>
           <p className="text-zinc-600 text-sm mt-2">
-            Junte-se à comunidade Movie Garden
+            {t('registerPage.subtitle')}
           </p>
         </div>
 
@@ -70,7 +72,7 @@ export function Cadastro() {
               className="text-zinc-700 text-sm font-medium ml-1"
               htmlFor="user"
             >
-              Nome de usuário
+              {t('registerPage.usernameLabel')}
             </label>
             <input
               id="user"
@@ -78,7 +80,7 @@ export function Cadastro() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Seu nome"
+              placeholder={t('registerPage.usernamePlaceholder')}
               className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
@@ -88,7 +90,7 @@ export function Cadastro() {
               className="text-zinc-700 text-sm font-medium ml-1"
               htmlFor="email"
             >
-              Email
+              {t('registerPage.emailLabel')}
             </label>
             <input
               id="email"
@@ -96,7 +98,7 @@ export function Cadastro() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
+              placeholder={t('registerPage.emailPlaceholder')}
               className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
@@ -106,7 +108,7 @@ export function Cadastro() {
               className="text-zinc-700 text-sm font-medium ml-1"
               htmlFor="password"
             >
-              Senha
+              {t('registerPage.passwordLabel')}
             </label>
             <input
               id="password"
@@ -114,7 +116,7 @@ export function Cadastro() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
+              placeholder={t('registerPage.passwordPlaceholder')}
               className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
@@ -124,7 +126,7 @@ export function Cadastro() {
               className="text-zinc-700 text-sm font-medium ml-1"
               htmlFor="confirm-password"
             >
-              Confirmação de senha
+              {t('registerPage.checkPasswordLabel')}
             </label>
             <input
               id="confirm-password"
@@ -132,7 +134,7 @@ export function Cadastro() {
               required
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Digite sua senha novamente"
+              placeholder={t('registerPage.checkPasswordPlaceholder')}
               className="bg-[#808080] bg-opacity-40 border border-white/10 text-zinc-900 rounded-xl px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
             />
           </div>
@@ -142,18 +144,20 @@ export function Cadastro() {
             disabled={isLoading}
             className="mt-4 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Criando...' : 'Criar Conta'}
+            {isLoading
+              ? t('registerPage.creatingAccount')
+              : t('registerPage.createAccount')}
           </button>
         </form>
 
         <div className="mt-6 text-center">
           <p className="text-zinc-600 text-sm">
-            Já tem uma conta?{' '}
+            {t('registerPage.alreadyAccount')}{' '}
             <Link
               to="/login"
               className="text-[#113A2D] hover:underline font-medium hover:text-[#113A2D] transition-colors"
             >
-              Fazer login
+              {t('registerPage.login')}
             </Link>
           </p>
         </div>

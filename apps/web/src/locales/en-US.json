@@ -49,7 +49,7 @@
     "title": "Welcome back!",
     "subtitle": "Sign in to your account to continue",
     "emailLabel": "Email",
-    "emailPlaceholder": "example@gmail.com",
+    "emailPlaceholder": "Your email",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Your secret password",
     "forgetPassword": "Forgot password?",
@@ -57,5 +57,20 @@
     "noAccount": "Don't have an account?",
     "register": "Sign up"
   },
-  "registerPage": {}
+  "registerPage": {
+    "title": "Create your account",
+    "subtitle": "Join the Movie Garden community",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "movie_fan123",
+    "emailLabel": "Email",
+    "emailPlaceholder": "your@gmail.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Minimum 6 characters",
+    "checkPasswordLabel": "Confirm Password",
+    "checkPasswordPlaceholder": "Type your password again",
+    "creatingAccount": "Creating...",
+    "createAccount": "Create account",
+    "alreadyAccount": "Already have an account?",
+    "login": "Sign in"
+  }
 }
