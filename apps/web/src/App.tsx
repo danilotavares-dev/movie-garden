@@ -4,9 +4,10 @@ import { Catalog } from './pages/Catalog'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { LandingPage } from './pages/LandingPage'
-import { Movies } from './pages/MoviePage'
-import { Series } from './pages/SeriesPage'
-import { Releases } from './pages/ReleasesPage'
+import { Movies } from './pages/Movie'
+import { Series } from './pages/Series'
+import { Releases } from './pages/Releases'
+import { PrivateRoute } from './components/PrivateRoute'
 
 export function App() {
   return (
@@ -15,10 +16,14 @@ export function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
-        <Route path="/catalogo" element={<Catalog />} />
         <Route path="/movies" element={<Movies />} />
-        <Route path="/catalogo" element={<Series />} />
-        <Route path="/catalogo" element={<Releases />} />
+        <Route path="/series" element={<Series />} />
+        <Route path="/releases" element={<Releases />} />
+
+        <Route element={<PrivateRoute/>}>
+          <Route path='catalogo' element={<Catalog />} />
+        </Route>
+        
       </Routes>
     </BrowserRouter>
   )
