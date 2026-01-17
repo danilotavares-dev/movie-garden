@@ -20,10 +20,9 @@ export function App() {
         <Route path="/series" element={<Series />} />
         <Route path="/releases" element={<Releases />} />
 
-        <Route element={<PrivateRoute/>}>
-          <Route path='catalogo' element={<Catalog />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="catalogo" element={<Catalog />} />
         </Route>
-        
       </Routes>
     </BrowserRouter>
   )
