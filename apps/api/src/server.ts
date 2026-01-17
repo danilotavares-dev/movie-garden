@@ -2,7 +2,7 @@ import fastify from 'fastify'
 import cors from '@fastify/cors'
 import { z } from 'zod'
 import { PrismaClient } from '@prisma/client'
-import { hash } from 'bcryptjs'
+import { hash, compare } from 'bcryptjs'
 
 const app = fastify()
 const prisma = new PrismaClient()
@@ -42,6 +42,36 @@ app.post('/users', async (request, reply) => {
   return reply.status(201).send({
     userId: user.id,
     message: 'Usuário criado com sucesso!',
+  })
+})
+
+app.post('/login', async (request, reply) => {
+  const loginBodySchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
+  })
+
+  const { email, password } = loginBodySchema.parse(request.body)
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  })
+
+  if (!user) {
+    return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
+  }
+
+  const isPasswordValid = await compare(password, user.password)
+
+  if (!isPasswordValid) {
+    return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
+  }
+
+  return reply.status(200).send({
+    userId: user.id,
+    message: 'Login realizado com sucesso!.',
   })
 })
 
