@@ -1,12 +1,46 @@
 import { Logo } from '@movie-garden/ui'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export function Login() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+
+  async function handleLogin(e: any) {
+    e.preventDefault()
+
+    try {
+      const response = await fetch('http://localhost:3333/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/JSON',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+
+        localStorage.setItem('isAuthenticated', 'true')
+        localStorage.setItem('userId', data.userId)
+
+        navigate('/catalogo')
+      } else {
+        alert('Email ou senha incorretos!')
+      }
+    } catch (error) {
+      console.error('Erro de conexão:', error)
+      alert('Erro ao conectar com o servidor.')
+    }
+  }
 
   return (
     <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
@@ -30,6 +64,8 @@ export function Login() {
             <input
               id="email"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder={t('loginPage.emailPlaceholder')}
               className="bg-[#808080] bg-opacity-50 border border-white/5 text-zinc-600 rounded-xl px-4 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all placeholder:text-zinc-600"
             />
@@ -48,6 +84,8 @@ export function Login() {
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder={t('loginPage.passwordPlaceholder')}
                 className="w-full bg-[#808080] bg-opacity-50 border border-white/5 text-zinc-900 placeholder:text-zinc-600 rounded-xl pl-4 pr-12 py-3 outline-none focus:border-[#113A2D] focus:ring-1 focus:ring-[#113A2D] transition-all"
               />
@@ -102,7 +140,8 @@ export function Login() {
           </div>
 
           <button
-            type="button"
+            type="submit"
+            onClick={handleLogin}
             className="mt-2 bg-[#113A2D] hover:bg-[#1a5542] text-white font-bold py-3 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-[#113A2D]/20 active:scale-95"
           >
             {t('loginPage.submitButton')}
