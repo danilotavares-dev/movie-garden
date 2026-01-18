@@ -75,5 +75,10 @@
     "createAccount": "Criar conta",
     "alreadyAccount": "Já tem uma conta?",
     "login": "Fazer login"
+  },
+
+  "catalogPage": {
+    "logOut": "Sair",
+    "placeholderSearchBar": "Buscar"
   }
 }

@@ -75,5 +75,10 @@
     "createAccount": "Create account",
     "alreadyAccount": "Already have an account?",
     "login": "Sign in"
+  },
+
+  "catalogPage": {
+    "logOut": "Log Out",
+    "placeholderSearchBar": "Search"
   }
 }
