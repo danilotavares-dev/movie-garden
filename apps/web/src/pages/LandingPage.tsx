@@ -122,10 +122,10 @@ export function LandingPage() {
             </div>
 
             <h3 className="text-2xl font-bold text-[#113A2D]">
-              {t('modal.title')}
+              {t('modalMovieRestrict.title')}
             </h3>
 
-            <p className="text-zinc-600 mb-4">{t('modal.text')}</p>
+            <p className="text-zinc-600 mb-4">{t('modalMovieRestrict.text')}</p>
 
             <div className="flex flex-col gap-3 w-full">
               <button
@@ -133,7 +133,7 @@ export function LandingPage() {
                 onClick={() => navigate('/login')}
                 className="w-full bg-[#113A2D] text-white py-3 rounded-xl font-bold hover:scale-105 transition-transform shadow-lg"
               >
-                {t('modal.login')}
+                {t('modalMovieRestrict.login')}
               </button>
 
               <button
@@ -141,7 +141,7 @@ export function LandingPage() {
                 onClick={() => setIsLoginModalOpen(false)}
                 className="w-full bg-transparent text-zinc-500 py-2 font-medium hover:text-[#113A2D] transition-colors"
               >
-                {t('modal.cancel')}
+                {t('modalMovieRestrict.cancel')}
               </button>
             </div>
           </div>
