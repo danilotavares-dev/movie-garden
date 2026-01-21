@@ -42,7 +42,7 @@
     "text": "Es rápido, fácil y totalmente gratis.",
     "button": "Crear Cuenta Gratis"
   },
-  "modal": {
+  "modalMovieRestrict": {
     "title": "¡Ups! Acceso restringido 🌱",
     "text": "Para ver detalles, calificar o guardar esta película en tu jardín, necesitas iniciar sesión.",
     "login": "Iniciar Sesión",
@@ -80,5 +80,11 @@
   "catalogPage": {
     "logOut": "Cerrar sesión",
     "placeholderSearchBar": "Buscar"
+  },
+
+  "modalConfirmLogOut": {
+    "title": "¿Está seguro?",
+    "confirmLogOut": "Confirmar",
+    "cancelLogOut": "Cancelar"
   }
 }

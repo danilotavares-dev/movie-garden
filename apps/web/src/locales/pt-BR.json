@@ -42,7 +42,7 @@
     "text": "É rápido, fácil e totalmente gratuito.",
     "button": "Criar Conta Grátis"
   },
-  "modal": {
+  "modalMovieRestrict": {
     "title": "Ops! Acesso restrito 🌱",
     "text": "Para ver detalhes, avaliar ou salvar este filme no seu jardim, você precisa entrar na sua conta.",
     "login": "Fazer Login",
@@ -80,5 +80,11 @@
   "catalogPage": {
     "logOut": "Sair",
     "placeholderSearchBar": "Buscar"
+  },
+
+  "modalConfirmLogOut": {
+    "title": "Tem certeza?",
+    "confirmLogOut": "Confirmar",
+    "cancelLogOut": "Cancelar"
   }
 }
