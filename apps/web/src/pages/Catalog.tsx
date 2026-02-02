@@ -1,21 +1,31 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { LanguageIcon, Logo, SearchIcon } from '@movie-garden/ui'
+import {
+  HeroBanner,
+  LanguageIcon,
+  Logo,
+  SearchIcon,
+  MovieRow,
+} from '@movie-garden/ui'
 import i18n from '../lib/i18n'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { tmdb } from '../services/tmdb'
 
 interface TMDBMovieResult {
   id: number
   title: string
   poster_path: string
+  backdrop_path: string
   vote_average: number
 }
+
 interface TMDBSeriesResult {
   id: number
   name: string
   poster_path: string
   vote_average: number
 }
+
 interface MediaItem {
   id: number
   title: string
@@ -24,12 +34,20 @@ interface MediaItem {
   category: string
 }
 
+interface BannerItem {
+  id: number
+  title: string
+  description: string
+  backDropUrl: string
+}
+
 export function Catalog() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
 
   const [isLogOutModal, setIsLogOutModal] = useState(false)
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const currentLang = i18n.language
 
@@ -39,6 +57,11 @@ export function Catalog() {
     { code: 'es', label: 'Español', flag: '🇪🇸' },
   ]
 
+  const [featuredMovie, setFeaturedMovie] = useState<BannerItem | null>(null)
+  const [recommendedMovies, setRecommendedMovies] = useState<MediaItem[]>([])
+  const [trendingMovies, setTrendingMovies] = useState<MediaItem[]>([])
+  const [topRatedSeries, setTopRatedSeries] = useState<MediaItem[]>([])
+
   function handleLanguageChange(langCode: string) {
     i18n.changeLanguage(langCode)
     setIsLangMenuOpen(false)
@@ -47,6 +70,45 @@ export function Catalog() {
   function handleLogout() {
     setIsLogOutModal(true)
   }
+
+  useEffect(() => {
+    async function loadContent() {
+      try {
+        const [trendingData, seriesData, TopRatedData] = await Promise.all([
+          tmdb.getTrendingMovies(currentLang),
+          tmdb.getTrendingSeries(currentLang),
+          tmdb.getTopRated(currentLang),
+        ])
+
+        const randomFeatured =
+          trendingData.results[
+            Math.floor(Math.random() * trendingData.results.length)
+          ]
+        setFeaturedMovie({
+          id: randomFeatured.id,
+          title: randomFeatured.title,
+          description: randomFeatured.description,
+          backDropUrl: `https://image.tmdb.org/t/p/original${randomFeatured.backdrop_path}`,
+        })
+
+        const formatMedia = (list: any[], category: string) =>
+          list.map((item: any) => ({
+            id: item.id,
+            title: item.title || item.name,
+            posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+            rating: item.vote_average,
+            category,
+          }))
+
+        setTrendingMovies(formatMedia(trendingData.results, 'Em Alta'))
+        setTopRatedSeries(formatMedia(seriesData.results, 'Séries'))
+        setRecommendedMovies(formatMedia(TopRatedData.results, 'Recomendado'))
+      } catch (error) {
+        console.error('Erro ao carregar catálogo:', error)
+      }
+    }
+    loadContent()
+  }, [currentLang])
 
   return (
     <>
@@ -94,31 +156,32 @@ export function Catalog() {
         </div>
       )}
 
-      <div className="min-h-screen w-full bg-custom-gradient overflow-x-hidden py-3 px-4">
-        <header className="mb-10 sticky top-3 z-50">
-          <div className="h-11 w-full max-w-[1600px] bg-white/60 backdrop-blur-md rounded-full flex items-center justify-between px-3 py-2 mx-auto mb-2 shadow-sm relative z-50">
-            <Logo className="h-8 w-8" />
+      <div className="min-h-screen w-full bg-[#121212] overflow-x-hidden">
+        <header className="fixed top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
+          <div className="h-14 w-full max-w-[1600px] bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
+            <Logo className="h-8 w-8 text-white" />
 
-            <label className="h-full w-[400px] flex items-center cursor-text border border-zinc-700 rounded-xl px-2 hover:scale-x-105 transition-transform mx-12">
-              <SearchIcon className="mr-2 h-4" />
+            <label className="hidden md:flex h-10 w-[400px] items-center cursor-text bg-white/10 rounded-full px-4 hover:bg-white/20 transition-colors border border-transparent focus-within:border-[#113A2D]/50">
+              <SearchIcon className="mr-3 h-4 text-zinc-400" />
 
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder={t('catalogPage.placeholderSearchBar')}
-                className="bg-transparent w-full text-sm outline-none"
+                className="bg-transparent w-full text-sm outline-none text-white placeholder:text-zinc-400"
               />
             </label>
 
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-3 items-center">
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                  className="w-12 h-7 bg-[#616161]/60 hover:bg-[#616161]/80 rounded-full flex items-center justify-center transition-colors text-white relative z-20"
+                  className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
                 >
                   <LanguageIcon className="w-5 h-5" />
                 </button>
-
                 {isLangMenuOpen && (
                   <>
                     <button
@@ -127,21 +190,15 @@ export function Catalog() {
                       className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
                       onClick={() => setIsLangMenuOpen(false)}
                     />
-                    <div className="absolute top-full mt-2 right-0 bg-white/90 backdrop-blur-xl rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/50">
+                    <div className="absolute top-full mt-2 right-0 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
                       {languages.map((lang) => (
                         <button
                           type="button"
                           key={lang.code}
                           onClick={() => handleLanguageChange(lang.code)}
-                          className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-[#113A2D]/10 ${
-                            currentLang === lang.code
-                              ? 'font-bold text-[#113A2D] bg-[#113A2D]/5'
-                              : 'text-zinc-600'
-                          }`}
+                          className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-white/5 text-zinc-300 ${currentLang === lang.code ? 'font-bold text-green-400' : ''}`}
                         >
-                          <span className="text-lg leading-none">
-                            {lang.flag}
-                          </span>
+                          <span>{lang.flag}</span>
                           <span>{lang.label}</span>
                         </button>
                       ))}
@@ -153,7 +210,7 @@ export function Catalog() {
               <button
                 type="button"
                 onClick={() => handleLogout()}
-                className="px-6 h-7 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-bold text-nowrap transition-colors"
+                className="px-5 h-10 bg-red-600/80 hover:bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all shadow-lg hover:shadow-red-900/20"
               >
                 {t('catalogPage.logOut')}
               </button>
@@ -161,8 +218,28 @@ export function Catalog() {
           </div>
         </header>
 
-        <main className="bg-white w-full min-h-screen overflow-hidden rounded-2xl bg-white/60">
-          <div />
+        <main className="relative w-full pb-20">
+          <div className="relative w-full h-[95vh] min-h-[700px]">
+            {featuredMovie && (
+              <HeroBanner
+                title={featuredMovie.title}
+                description={featuredMovie.description}
+                backDropUrl={featuredMovie.backDropUrl}
+              />
+            )}
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#121212] via-[#121212]/60 to-transparent z-10 pointer-events-none" />
+          </div>
+
+          <div className="relative z-20 flex flex-col gap-4 px-4 md:px-6 -mt-24">
+            <MovieRow
+              title="✨ Recomendações Exclusivas"
+              movies={recommendedMovies}
+            />
+
+            <MovieRow title="🔥 Em Alta no Cinema" movies={trendingMovies} />
+
+            <MovieRow title="📺 Séries Populares" movies={topRatedSeries} />
+          </div>
         </main>
       </div>
     </>
