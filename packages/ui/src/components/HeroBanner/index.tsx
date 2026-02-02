@@ -10,7 +10,7 @@ export function HeroBanner({
   backDropUrl,
 }: HeroBannerProps) {
   return (
-    <div className="relative w-full h-[600px] rounded-xl overflow-hidden mb-8 group">
+    <div className="relative w-full h-full overflow-hidden group">
       <img
         src={backDropUrl}
         alt={title}
@@ -19,7 +19,7 @@ export function HeroBanner({
 
       <div className="absolute inset-0 bg-gradient-to-t from-[#040404] via-[#040404]/60 to-transparent" />
 
-      <div className="absolute bottom-0 left-0 p-8 w-full max-w-2xl flex flex-col gap-4">
+      <div className="absolute bottom-32 left-0 p-8 w-full max-w-2xl flex flex-col gap-4">
         <h1 className="text-5xl font-bold text-white drop-shadow-lg">
           {title}
         </h1>
