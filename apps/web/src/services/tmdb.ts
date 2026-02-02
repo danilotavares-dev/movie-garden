@@ -16,4 +16,8 @@ export const tmdb = {
   getTrendingSeries: async (lang?: string) => {
     return await fetchTMDB('/trending/tv/week?', lang)
   },
+
+  getTopRated: async (lang?: string) => {
+    return await fetchTMDB('/movie/top_rated', lang)
+  },
 }
