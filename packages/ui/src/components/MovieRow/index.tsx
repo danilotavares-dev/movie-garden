@@ -12,10 +12,16 @@ interface Movie {
 interface MovieRowProps {
   title: string
   movies: Movie[]
+  className?: string
   onMovieClick?: (movie: Movie) => void
 }
 
-export function MovieRow({ title, movies, onMovieClick }: MovieRowProps) {
+export function MovieRow({
+  title,
+  movies,
+  onMovieClick,
+  className = 'text-2xl font-bold text-white mb-6 border-l-4 border-[#113A2D] pl-3',
+}: MovieRowProps) {
   const listRef = useRef<HTMLDivElement>(null)
 
   const handleScrollLeft = () => {
@@ -32,9 +38,7 @@ export function MovieRow({ title, movies, onMovieClick }: MovieRowProps) {
 
   return (
     <section className="w-full max-w-[1600px] mx-auto px-6 mb-12 relative group">
-      <h2 className="text-2xl font-bold text-[#113A2D] mb-6 border-l-4 border-[#113A2D] pl-3">
-        {title}
-      </h2>
+      <h2 className={className}>{title}</h2>
 
       <button
         type="button"
