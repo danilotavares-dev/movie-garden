@@ -275,12 +275,14 @@ export function LandingPage() {
         <MovieRow
           title={t('sections.movies')}
           movies={movies}
+          className="text-2xl font-bold text-[#113A2D] mb-6 border-l-4 border-[#113A2D] pl-3"
           onMovieClick={handleMovieClick}
         />
 
         <MovieRow
           title={t('sections.series')}
           movies={series}
+          className="text-2xl font-bold text-[#113A2D] mb-6 border-l-4 border-[#113A2D] pl-3"
           onMovieClick={handleMovieClick}
         />
 
