@@ -156,7 +156,7 @@ export function Catalog() {
         </div>
       )}
 
-      <div className="min-h-screen w-full bg-[#121212] overflow-x-hidden">
+      <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
         <header className="fixed top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
           <div className="h-14 w-full max-w-[1600px] bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
             <Logo className="h-8 w-8 text-white" />
@@ -227,7 +227,7 @@ export function Catalog() {
                 backDropUrl={featuredMovie.backDropUrl}
               />
             )}
-            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#121212] via-[#121212]/60 to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-[#000000]/60 to-transparent z-10 pointer-events-none" />
           </div>
 
           <div className="relative z-20 flex flex-col gap-4 px-4 md:px-6 -mt-24">
