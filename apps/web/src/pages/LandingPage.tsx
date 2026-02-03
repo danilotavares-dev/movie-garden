@@ -193,7 +193,7 @@ export function LandingPage() {
             <button
               type="button"
               onClick={() => navigate('/login')}
-              className="px-6 h-7 bg-[#616161]/60 hover:bg-[#616161]/80 rounded-full flex items-center justify-center text-white text-sm font-bold transition-colors"
+              className="px-6 h-7 bg-[#4CB582]/80 hover:bg-[#46A677]/90 rounded-full flex items-center justify-center text-white text-sm font-bold transition-colors"
             >
               {t('login')}
             </button>
