@@ -79,7 +79,7 @@
 
   "catalogPage": {
     "logOut": "Cerrar sesión",
-    "placeholderSearchBar": "Buscar"
+    "placeholderSearchBar": "Pídale una recomendación a la IA."
   },
 
   "modalConfirmLogOut": {
