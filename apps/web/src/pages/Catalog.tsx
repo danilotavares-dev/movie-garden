@@ -77,6 +77,14 @@ export function Catalog() {
     setIsLogOutModal(true)
   }
 
+  function handleNavigateToDetail(item: MediaItem) {
+    if (item.category === 'Séries') {
+      navigate(`/serie/${item.id}`)
+    } else {
+      navigate(`/movie/${item.id}`)
+    }
+  }
+
   async function handleAiSearch(e: React.FormEvent) {
     e.preventDefault()
     if (!searchTerm.trim()) return
@@ -349,11 +357,23 @@ export function Catalog() {
             )}
 
             {aiDiscoveryMovies.length > 0 && (
-              <MovieRow title={discoveryTitle} movies={aiDiscoveryMovies} />
+              <MovieRow
+                title={discoveryTitle}
+                movies={aiDiscoveryMovies}
+                onMovieClick={handleNavigateToDetail}
+              />
             )}
 
-            <MovieRow title="Em Alta no Cinema" movies={trendingMovies} />
-            <MovieRow title="Séries Populares" movies={topRatedSeries} />
+            <MovieRow
+              title="Em Alta no Cinema"
+              movies={trendingMovies}
+              onMovieClick={handleNavigateToDetail}
+            />
+            <MovieRow
+              title="Séries Populares"
+              movies={topRatedSeries}
+              onMovieClick={handleNavigateToDetail}
+            />
           </div>
         </main>
       </div>
