@@ -40,10 +40,10 @@ async def get_recommendations(data: MovieRequest):
 
     if data.movie_title:
         context = f'O usuário gostou do filme: "{data.movie_title}". Preferências: "{data.user_preferences}".'
-        goal = "Recomende 10 filmes similares."
+        goal = "Recomende 9 filmes similares."
     else:
         context = f'O usuário quer descobrir filmes sobre o tema: "{data.user_preferences}".'
-        goal = "Recomende 10 filmes aclamados e populares desse tema."
+        goal = "Recomende 9 filmes aclamados e populares desse tema."
 
     prompt = f"""
     Atue como um especialista em cinema.
