@@ -87,7 +87,7 @@ export function Catalog() {
     try {
       const token = localStorage.getItem('token')
       const response = await axios.post(
-        'http://localhost:3333/recommendations',
+        `${import.meta.env.VITE_API_URL}/recommendations`,
         {
           movieTitle: searchTerm,
           userPreferences: 'Gosto do usuário baseado no prompt',
@@ -157,10 +157,10 @@ export function Catalog() {
         ]
 
         const randomTheme = themes[Math.floor(Math.random() * themes.length)]
-        setDiscoveryTitle(`🤖 Curadoria IA: ${randomTheme}`)
+        setDiscoveryTitle(randomTheme)
 
         const aiResponse = await axios.post(
-          'http://localhost:3333/recommendations',
+          `${import.meta.env.VITE_API_URL}/recommendations`,
           {
             movieTitle: '',
             userPreferences: randomTheme,
@@ -180,7 +180,7 @@ export function Catalog() {
               title: tmdbResult.title,
               posterPath: `https://image.tmdb.org/t/p/w500${tmdbResult.poster_path}`,
               rating: tmdbResult.vote_average,
-              category: 'IA Discovery',
+              category: 'Discovery',
             }
           }),
         )
@@ -256,7 +256,7 @@ export function Catalog() {
                 placeholder={
                   isAiLoading
                     ? 'A IA está pensando...'
-                    : 'Peça uma recomendação à IA'
+                    : t('catalogPage.placeholderSearchBar')
                 }
                 className="bg-transparent w-full text-sm outline-none text-white placeholder:text-zinc-400"
               />
