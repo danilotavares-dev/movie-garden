@@ -35,4 +35,24 @@ export const tmdb = {
       ? result.results[0]
       : null
   },
+
+  getMovieDetails: async (movieId: string, lang: string = 'pt-BR') => {
+    return await fetchTMDB(`/movie/${movieId}`, lang)
+  },
+
+  getMovieCredits: async (movieId: string, lang: string = 'pt-BR') => {
+    return await fetchTMDB(`/movie/${movieId}/credits`, lang)
+  },
+
+  getMovieVideos: async (movieId: string, lang: string = 'pt-BR') => {
+    return await fetchTMDB(`/movie/${movieId}/videos`, lang)
+  },
+
+  getTvDetails: async (tvId: string, lang: string = 'pt-BR') => {
+    return await fetchTMDB(`/tv/${tvId}`, lang)
+  },
+
+  getTvCredits: async (tvId: string, lang: string = 'pt-BR') => {
+    return await fetchTMDB(`/tv/${tvId}/credits`, lang)
+  },
 }
