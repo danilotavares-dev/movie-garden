@@ -32,7 +32,7 @@ class MovieRequest(BaseModel):
 
 @app.get("/")
 def health_check():
-    return {"status": "online", "engine": "Google Gemini Pro"}
+    return {"status": "online", "engine": "Google Gemini"}
 
 @app.post("/recommend")
 async def get_recommendations(data: MovieRequest):
