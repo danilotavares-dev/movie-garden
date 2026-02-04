@@ -31,6 +31,7 @@ export function Login() {
 
         localStorage.setItem('isAuthenticated', 'true')
         localStorage.setItem('userId', data.userId)
+        localStorage.setItem('token', data.token)
 
         navigate('/catalogo')
       } else {
