@@ -87,7 +87,7 @@ app.post('/login', async (request, reply) => {
   })
 })
 
-app.post('/recommendations', getRecommendations)
+app.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
 
 app.listen({ port: 3333 }).then(() => {
   console.log('HTTP Server runnning on http://localhost:3333')
