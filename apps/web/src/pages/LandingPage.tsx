@@ -52,9 +52,9 @@ export function LandingPage() {
   }
 
   const navItems = [
-    { key: 'movies', path: '/moviesPage' },
-    { key: 'series', path: '/seriesPage' },
-    { key: 'releases', path: '/releasesPage' },
+    { key: 'movies', path: '/' },
+    { key: 'series', path: '/' },
+    { key: 'releases', path: '/' },
     {
       key: 'popular',
       path: '/',
