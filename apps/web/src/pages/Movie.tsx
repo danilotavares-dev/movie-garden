@@ -1,3 +1,198 @@
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { tmdb } from '../services/tmdb'
+
+interface MovieDetail {
+  id: number
+  title: string
+  overview: string
+  backdrop_path: string
+  poster_path: string
+  vote_average: number
+  release_date: string
+  runtime: number
+  genres: { id: number; name: string }[]
+}
+
+interface CastMember {
+  id: number
+  name: string
+  character: string
+  profile_path: string | null
+}
+
+interface CrewMember {
+  id: number
+  name: string
+  job: string
+}
+
 export function Movies() {
-  return <h1>Hi</h1>
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  const [movie, setMovie] = useState<MovieDetail | null>(null)
+  const [cast, setCast] = useState<CastMember[]>([])
+  const [director, setDirector] = useState<string>('')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadDetails() {
+      if (!id) return
+
+      try {
+        setLoading(true)
+        window.scrollTo(0, 0)
+
+        const [detailsData, creditsData] = await Promise.all([
+          tmdb.getMovieDetails(id),
+          tmdb.getMovieCredits(id),
+        ])
+
+        setMovie(detailsData)
+
+        setCast(creditsData.cast.slice(0, 20))
+
+        const directorData = creditsData.crew.find(
+          (person: CrewMember) => person.job === 'Director',
+        )
+        setDirector(directorData ? directorData.name : 'Desconhecido')
+      } catch (error) {
+        console.error('Erro ao carregar filme:', error)
+        navigate('/')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadDetails()
+  }, [id, navigate])
+
+  if (loading || !movie) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-green-500 animate-pulse text-xl font-bold">
+          Carregando detalhes...
+        </div>
+      </div>
+    )
+  }
+
+  const formattedDate = new Date(movie.release_date).toLocaleDateString('pt-BR')
+  const hours = Math.floor(movie.runtime / 60)
+  const minutes = movie.runtime % 60
+
+  return (
+    <div className="min-h-screen bg-custom-gradient-night text-white overflow-x-hidden">
+      <header className="absolute top-0 left-0 p-6 z-50">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="bg-green-950 hover:bg-green-600/80 px-4 py-2 rounded-full backdrop-blur-md transition-all flex items-center gap-2 border border-white/10"
+        >
+          Voltar
+        </button>
+      </header>
+
+      <div className="relative w-full h-[65vh] lg:h-[75vh]">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent z-10" />
+
+        <img
+          src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+          alt={movie.title}
+          className="w-full h-full object-cover opacity-60"
+        />
+
+        <div className="flex absolute bottom-0 left-0 p-8 z-20 max-w-7xl w-full md:pl-12 pb-12">
+          <div className="mr-7 z-20 relative">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={`Poster ${movie.title}`}
+              className="w-[280px] rounded-xl shadow-2xl border-4 border-[#1a1a1a] hover:scale-[1.02] transition-transform duration-500"
+            />
+          </div>
+
+          <div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+              {movie.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-4 text-sm md:text-base text-zinc-300 mb-6 font-medium">
+              <span className="text-green-400 font-bold border border-green-400/50 bg-green-400/10 px-2 py-0.5 rounded">
+                {movie.vote_average.toFixed(1)} nota
+              </span>
+              <span>{formattedDate}</span>
+              <span className="w-1 h-1 bg-zinc-500 rounded-full"></span>
+              <span>
+                {hours}h {minutes}m
+              </span>
+              <span className="w-1 h-1 bg-zinc-500 rounded-full"></span>
+              <span className="italic text-zinc-100">
+                {movie.genres.map((g) => g.name).join(', ')}
+              </span>
+            </div>
+
+            <p className="text-zinc-200 text-lg max-w-2xl mb-8 leading-relaxed drop-shadow-md">
+              {movie.overview}
+            </p>
+
+            <div className="flex gap-4">
+              <button
+                type="button"
+                className="absolute bottom-20 w-[200px] h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
+              >
+                + Minha Lista
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto px-6 py-12 gap-12 left-12">
+        <div className="max-w-[1200px] flex flex-col justify-center gap-10">
+          <div className="bg-white/5 p-6 rounded-2xl border border-white/5 inline-block max-w-md">
+            <h3 className="text-zinc-500 text-xs uppercase tracking-widest font-bold mb-1">
+              Direção
+            </h3>
+            <p className="text-2xl font-medium text-white">{director}</p>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-green-400 mb-6 flex items-center border-l-4 border-white pl-3 gap-2">
+              Elenco Principal
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {cast.map((actor) => (
+                <div
+                  key={actor.id}
+                  className="bg-[#111] rounded-xl overflow-hidden border border-white/5 hover:border-green-500/50 transition-all group hover:-translate-y-1 duration-300"
+                >
+                  {actor.profile_path ? (
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                      alt={actor.name}
+                      className="w-full h-48 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                    />
+                  ) : (
+                    <div className="w-full h-48 bg-zinc-800 flex items-center justify-center text-zinc-500 text-3xl">
+                      👤
+                    </div>
+                  )}
+                  <div className="p-4">
+                    <p className="font-bold text-sm truncate text-zinc-100">
+                      {actor.name}
+                    </p>
+                    <p className="text-xs text-green-400/80 truncate mt-1">
+                      {actor.character}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
