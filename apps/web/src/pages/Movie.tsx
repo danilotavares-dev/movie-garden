@@ -104,12 +104,12 @@ export function Movies() {
           className="w-full h-full object-cover opacity-60"
         />
 
-        <div className="flex absolute bottom-0 left-0 p-8 z-20 max-w-7xl w-full md:pl-12 pb-12">
+        <div className="flex absolute bottom-0 left-0 p-8 z-20 max-w-8xl w-full md:pl-12 pb-12">
           <div className="mr-7 z-20 relative">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={`Poster ${movie.title}`}
-              className="w-[280px] rounded-xl shadow-2xl border-4 border-[#1a1a1a] hover:scale-[1.02] transition-transform duration-500"
+              className="w-[300px] rounded-xl shadow-2xl border-4 border-[#1a1a1a] hover:scale-[1.02] transition-transform duration-500"
             />
           </div>
 
@@ -133,18 +133,16 @@ export function Movies() {
               </span>
             </div>
 
-            <p className="text-zinc-200 text-lg max-w-2xl mb-8 leading-relaxed drop-shadow-md">
+            <p className="text-zinc-200 text-lg max-w-5xl mb-[100px] leading-relaxed drop-shadow-md">
               {movie.overview}
             </p>
 
-            <div className="flex gap-4">
-              <button
-                type="button"
-                className="absolute bottom-20 w-[200px] h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
-              >
-                + Minha Lista
-              </button>
-            </div>
+            <button
+              type="button"
+              className="w-[200px] h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
+            >
+              + Minha Lista
+            </button>
           </div>
         </div>
       </div>
