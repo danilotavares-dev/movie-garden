@@ -26,6 +26,7 @@ interface MediaItem {
   posterPath: string
   rating: number
   category: string
+  mediaType: 'movie' | 'tv'
 }
 
 interface BannerItem {
@@ -79,7 +80,7 @@ export function Catalog() {
   }
 
   function handleNavigateToDetail(item: MediaItem) {
-    if (item.category === 'Séries') {
+    if (item.mediaType === 'tv') {
       navigate(`/serie/${item.id}`)
     } else {
       navigate(`/movie/${item.id}`)
@@ -141,7 +142,11 @@ export function Catalog() {
           })
         }
 
-        const formatMedia = (list: any[], fallbackCategory: string) =>
+        const formatMedia = (
+          list: any[],
+          fallbackCategory: string,
+          type: 'movie' | 'tv',
+        ) =>
           list.map((item: any) => {
             const firstGenreId = item.genre_ids ? item.genre_ids[0] : null
             const genreKey = firstGenreId
@@ -155,19 +160,29 @@ export function Catalog() {
               posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
               rating: item.vote_average,
               category: genreName,
+              mediaType: type,
             }
           })
 
         setTrendingMovies(
-          formatMedia(trendingData.results, t('catalogPage.badgesCardMovie')),
+          formatMedia(
+            trendingData.results,
+            t('catalogPage.badgesCardMovie'),
+            'movie',
+          ),
         )
         setTopRatedSeries(
-          formatMedia(seriesData.results, t('catalogPage.badgesCardSerie')),
+          formatMedia(
+            seriesData.results,
+            t('catalogPage.badgesCardSerie'),
+            'tv',
+          ),
         )
         setRecommendedMovies(
           formatMedia(
             TopRatedData.results,
             t('catalogPage.badgesCardRecommended'),
+            'movie',
           ),
         )
 
@@ -379,24 +394,32 @@ export function Catalog() {
               <MovieRow
                 title={discoveryTitle}
                 movies={aiDiscoveryMovies}
-                onMovieClick={handleNavigateToDetail}
+                onMovieClick={(movie) =>
+                  handleNavigateToDetail(movie as MediaItem)
+                }
               />
             )}
 
             <MovieRow
               title={t('catalogPage.trendingCinemas')}
               movies={trendingMovies}
-              onMovieClick={handleNavigateToDetail}
+              onMovieClick={(movie) =>
+                handleNavigateToDetail(movie as MediaItem)
+              }
             />
             <MovieRow
               title={t('catalogPage.popSeries')}
               movies={topRatedSeries}
-              onMovieClick={handleNavigateToDetail}
+              onMovieClick={(movie) =>
+                handleNavigateToDetail(movie as MediaItem)
+              }
             />
             <MovieRow
               title={t('catalogPage.recommended')}
               movies={recommendedMovies}
-              onMovieClick={handleNavigateToDetail}
+              onMovieClick={(movie) =>
+                handleNavigateToDetail(movie as MediaItem)
+              }
             />
           </div>
         </main>
