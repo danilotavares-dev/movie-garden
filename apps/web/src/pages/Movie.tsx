@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { tmdb } from '../services/tmdb'
+import { LanguageIcon } from '@movie-garden/ui'
+import { useTranslation } from 'react-i18next'
 
 interface MovieDetail {
   id: number
@@ -30,11 +32,26 @@ interface CrewMember {
 export function Movies() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { t, i18n } = useTranslation()
 
   const [movie, setMovie] = useState<MovieDetail | null>(null)
   const [cast, setCast] = useState<CastMember[]>([])
   const [director, setDirector] = useState<string>('')
   const [loading, setLoading] = useState(true)
+
+  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
+  const currentLang = i18n.language
+
+  const languages = [
+    { code: 'pt-BR', label: 'Português', flag: '🇧🇷' },
+    { code: 'en-US', label: 'English', flag: '🇺🇸' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+  ]
+
+  function handleLanguageChange(langCode: string) {
+    i18n.changeLanguage(langCode)
+    setIsLangMenuOpen(false)
+  }
 
   useEffect(() => {
     async function loadDetails() {
@@ -45,8 +62,8 @@ export function Movies() {
         window.scrollTo(0, 0)
 
         const [detailsData, creditsData] = await Promise.all([
-          tmdb.getMovieDetails(id),
-          tmdb.getMovieCredits(id),
+          tmdb.getMovieDetails(id, currentLang),
+          tmdb.getMovieCredits(id, currentLang),
         ])
 
         setMovie(detailsData)
@@ -66,7 +83,7 @@ export function Movies() {
     }
 
     loadDetails()
-  }, [id, navigate])
+  }, [id, navigate, currentLang])
 
   if (loading || !movie) {
     return (
@@ -84,14 +101,47 @@ export function Movies() {
 
   return (
     <div className="min-h-screen bg-custom-gradient-night text-white overflow-x-hidden">
-      <header className="absolute top-0 left-0 p-6 z-50">
+      <header className="absolute flex justify-between top-0 items-center left-0 w-full p-6 z-50">
         <button
           type="button"
           onClick={() => navigate(-1)}
           className="bg-green-950 hover:bg-green-600/80 px-4 py-2 rounded-full backdrop-blur-md transition-all flex items-center gap-2 border border-white/10"
         >
-          Voltar
+          {t('MovieDetailPage.backButton')}
         </button>
+
+        <div>
+          <button
+            type="button"
+            onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+            className="w-10 h-10 bg-white/10 border border-zinc-400 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+          >
+            <LanguageIcon className="w-5 h-5" />
+          </button>
+          {isLangMenuOpen && (
+            <>
+              <button
+                type="button"
+                tabIndex={-1}
+                className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
+                onClick={() => setIsLangMenuOpen(false)}
+              />
+              <div className="absolute top-full -mt-3 right-8 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    type="button"
+                    onClick={() => handleLanguageChange(lang.code)}
+                    className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-white/5 text-zinc-300 ${currentLang === lang.code ? 'font-bold text-green-400' : ''}`}
+                  >
+                    <span>{lang.flag}</span>
+                    <span>{lang.label}</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </header>
 
       <div className="relative w-full h-[65vh] lg:h-[75vh]">
@@ -139,9 +189,9 @@ export function Movies() {
 
             <button
               type="button"
-              className="w-[200px] h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
+              className="h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
             >
-              + Minha Lista
+              + {t('MovieDetailPage.MyListbutton')}
             </button>
           </div>
         </div>
@@ -151,14 +201,14 @@ export function Movies() {
         <div className="max-w-[1200px] flex flex-col justify-center gap-10">
           <div className="bg-white/5 p-6 rounded-2xl border border-white/5 inline-block max-w-md">
             <h3 className="text-zinc-500 text-xs uppercase tracking-widest font-bold mb-1">
-              Direção
+              {t('MovieDetailPage.directionMovie')}
             </h3>
             <p className="text-2xl font-medium text-white">{director}</p>
           </div>
 
           <div>
             <h2 className="text-2xl font-bold text-green-400 mb-6 flex items-center border-l-4 border-white pl-3 gap-2">
-              Elenco Principal
+              {t('MovieDetailPage.mainCastMovie')}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {cast.map((actor) => (
