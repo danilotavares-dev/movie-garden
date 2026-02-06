@@ -90,5 +90,12 @@
     "title": "Tem certeza?",
     "confirmLogOut": "Confirmar",
     "cancelLogOut": "Cancelar"
+  },
+
+  "MovieDetailPage": {
+    "backButton": "Voltar",
+    "MyListbutton": "Minha Lista",
+    "directionMovie": "Direção",
+    "mainCast": "Elenco Principal"
   }
 }

@@ -90,5 +90,12 @@
     "title": "He is sure?",
     "confirmLogOut": "Confirm",
     "cancelLogOut": "Cancel"
+  },
+
+  "MovieDetailPage": {
+    "backButton": "Back",
+    "MyListbutton": "My List",
+    "directionMovie": "Direction",
+    "mainCastMovie": "Main Cast"
   }
 }

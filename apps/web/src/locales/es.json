@@ -90,5 +90,12 @@
     "title": "¿Está seguro?",
     "confirmLogOut": "Confirmar",
     "cancelLogOut": "Cancelar"
+  },
+
+  "MovieDetailPage": {
+    "backButton": "Volver",
+    "MyListbutton": "Mi Lista",
+    "directionMovie": "Dirección",
+    "mainCast": "Reparto principal"
   }
 }
