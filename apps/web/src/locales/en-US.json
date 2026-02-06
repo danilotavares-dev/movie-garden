@@ -79,7 +79,9 @@
 
   "catalogPage": {
     "logOut": "Log Out",
-    "placeholderSearchBar": "Ask the AI ​​for a recommendation."
+    "placeholderSearchBar": "Ask the AI ​​for a recommendation.",
+    "myList": "My List",
+    "seeDetails": "See Details"
   },
 
   "modalConfirmLogOut": {

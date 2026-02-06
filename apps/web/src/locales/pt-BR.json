@@ -79,7 +79,9 @@
 
   "catalogPage": {
     "logOut": "Sair",
-    "placeholderSearchBar": "Peça uma recomendação à IA"
+    "placeholderSearchBar": "Peça uma recomendação à IA",
+    "myList": "Minha Lista",
+    "seeDetails": "Ver Detalhes"
   },
 
   "modalConfirmLogOut": {
