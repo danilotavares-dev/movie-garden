@@ -10,6 +10,7 @@ import {
   MovieRow,
 } from '@movie-garden/ui'
 import { tmdb } from '../services/tmdb'
+import { genreMap } from '../utils/genres'
 
 interface TMDBMovieResult {
   id: number
@@ -140,18 +141,35 @@ export function Catalog() {
           })
         }
 
-        const formatMedia = (list: any[], category: string) =>
-          list.map((item: any) => ({
-            id: item.id,
-            title: item.title || item.name,
-            posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-            rating: item.vote_average,
-            category,
-          }))
+        const formatMedia = (list: any[], fallbackCategory: string) =>
+          list.map((item: any) => {
+            const firstGenreId = item.genre_ids ? item.genre_ids[0] : null
+            const genreKey = firstGenreId
+              ? genreMap[firstGenreId]
+              : 'genres.unknown'
+            const genreName = genreKey ? t(genreKey) : fallbackCategory
 
-        setTrendingMovies(formatMedia(trendingData.results, 'Em Alta'))
-        setTopRatedSeries(formatMedia(seriesData.results, 'Séries'))
-        setRecommendedMovies(formatMedia(TopRatedData.results, 'Recomendado'))
+            return {
+              id: item.id,
+              title: item.title || item.name,
+              posterPath: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+              rating: item.vote_average,
+              category: genreName,
+            }
+          })
+
+        setTrendingMovies(
+          formatMedia(trendingData.results, t('catalogPage.badgesCardMovie')),
+        )
+        setTopRatedSeries(
+          formatMedia(seriesData.results, t('catalogPage.badgesCardSerie')),
+        )
+        setRecommendedMovies(
+          formatMedia(
+            TopRatedData.results,
+            t('catalogPage.badgesCardRecommended'),
+          ),
+        )
 
         const themes = [
           'Cyberpunk e Distopias Tecnológicas',
@@ -199,7 +217,7 @@ export function Catalog() {
       }
     }
     loadContent()
-  }, [currentLang])
+  }, [currentLang, t])
 
   return (
     <>
@@ -373,6 +391,11 @@ export function Catalog() {
             <MovieRow
               title={t('catalogPage.popSeries')}
               movies={topRatedSeries}
+              onMovieClick={handleNavigateToDetail}
+            />
+            <MovieRow
+              title={t('catalogPage.recommended')}
+              movies={recommendedMovies}
               onMovieClick={handleNavigateToDetail}
             />
           </div>
