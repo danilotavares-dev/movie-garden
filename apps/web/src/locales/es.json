@@ -84,9 +84,10 @@
     "seeDetails": "ver detalles",
     "trendingCinemas": "Tendencias en los cines",
     "popSeries": "series populares",
+    "recommended": "Recomendado para ti",
     "badgesCardMovie": "Película",
     "badgesCardSerie": "Serie",
-    "recommended": "Recomendado"
+    "badgesCardRecommended": "Mejor valorados"
   },
 
   "modalConfirmLogOut": {

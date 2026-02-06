@@ -82,11 +82,12 @@
     "placeholderSearchBar": "Peça uma recomendação à IA",
     "myList": "Minha Lista",
     "seeDetails": "Ver Detalhes",
-    "trendingCinemas": "Em alta no cinemas ",
+    "trendingCinemas": "Em Alta no Cinema",
     "popSeries": "Séries Populares",
+    "recommended": "Recomendados para Você",
     "badgesCardMovie": "Filme",
     "badgesCardSerie": "Série",
-    "recommended": "Recomendados"
+    "badgesCardRecommended": "Mais bem avaliados"
   },
 
   "modalConfirmLogOut": {
