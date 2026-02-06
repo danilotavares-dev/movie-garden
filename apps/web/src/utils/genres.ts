@@ -1,0 +1,25 @@
+// Dicionário de IDs do TMDB para Chaves de Tradução
+export const genreMap: Record<number, string> = {
+  28: 'genres.action',
+  12: 'genres.adventure',
+  16: 'genres.animation',
+  35: 'genres.comedy',
+  80: 'genres.crime',
+  99: 'genres.documentary',
+  18: 'genres.drama',
+  10751: 'genres.family',
+  14: 'genres.fantasy',
+  36: 'genres.history',
+  27: 'genres.horror',
+  10402: 'genres.music',
+  9648: 'genres.mystery',
+  10749: 'genres.romance',
+  878: 'genres.scifi',
+  10770: 'genres.tvmovie',
+  53: 'genres.thriller',
+  10752: 'genres.war',
+  37: 'genres.western',
+
+  10759: 'genres.actionAdventure',
+  10765: 'genres.scifiFantasy',
+}
