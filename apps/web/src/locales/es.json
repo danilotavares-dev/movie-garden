@@ -96,12 +96,23 @@
     "cancelLogOut": "Cancelar"
   },
 
+  "loadingDatas": "Cargando detalles...",
+
   "MovieDetailPage": {
     "backButton": "Volver",
     "MyListbutton": "Mi Lista",
     "directionMovie": "Dirección",
     "mainCast": "Reparto principal"
   },
+
+  "SerieDetailPage": {
+    "creators": "Creadores",
+    "unknownCreator": "Desconhecido",
+    "seasons": "estaciones",
+    "season": "estación",
+    "unknownData": "fecha desconocida"
+  },
+
 
   "genres": {
     "action": "Acción",
