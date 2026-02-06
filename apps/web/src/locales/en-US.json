@@ -81,7 +81,9 @@
     "logOut": "Log Out",
     "placeholderSearchBar": "Ask the AI ​​for a recommendation.",
     "myList": "My List",
-    "seeDetails": "See Details"
+    "seeDetails": "See Details",
+    "trendingCinemas": "trending in cinemas",
+    "popSeries": "Popular Series"
   },
 
   "modalConfirmLogOut": {

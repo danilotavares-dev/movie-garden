@@ -81,7 +81,9 @@
     "logOut": "Cerrar sesión",
     "placeholderSearchBar": "Pídale una recomendación a la IA.",
     "myList": "Mi Lista",
-    "seeDetails": "ver detalles"
+    "seeDetails": "ver detalles",
+    "trendingCinemas": "Tendencias en los cines",
+    "popSeries": "series populares"
   },
 
   "modalConfirmLogOut": {

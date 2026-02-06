@@ -81,7 +81,9 @@
     "logOut": "Sair",
     "placeholderSearchBar": "Peça uma recomendação à IA",
     "myList": "Minha Lista",
-    "seeDetails": "Ver Detalhes"
+    "seeDetails": "Ver Detalhes",
+    "trendingCinemas": "Em alta no cinemas ",
+    "popSeries": "Séries Populares"
   },
 
   "modalConfirmLogOut": {
