@@ -101,7 +101,7 @@ export function Series() {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="bg-green-950 hover:bg-green-600/80 px-4 py-2 rounded-full backdrop-blur-md transition-all flex items-center gap-2 border border-white/10"
+          className="bg-green-950 hover:bg-green-600/80 px-4 py-2 rounded-full backdrop-blur-md transition-all flex items-center gap-2 border border-zinc-400/90"
         >
           {t('MovieDetailPage.backButton')}
         </button>
@@ -110,7 +110,7 @@ export function Series() {
           <button
             type="button"
             onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-            className="w-10 h-10 bg-white/10 border border-zinc-400 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+            className="border border-zinc-400/90 w-10 h-10 bg-green-900 hover:bg-green-600/80 rounded-full flex items-center justify-center transition-colors text-white"
           >
             <LanguageIcon className="w-5 h-5" />
           </button>
