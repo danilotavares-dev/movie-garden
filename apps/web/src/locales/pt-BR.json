@@ -83,7 +83,10 @@
     "myList": "Minha Lista",
     "seeDetails": "Ver Detalhes",
     "trendingCinemas": "Em alta no cinemas ",
-    "popSeries": "Séries Populares"
+    "popSeries": "Séries Populares",
+    "badgesCardMovie": "Filme",
+    "badgesCardSerie": "Série",
+    "recommended": "Recomendados"
   },
 
   "modalConfirmLogOut": {
@@ -97,5 +100,30 @@
     "MyListbutton": "Minha Lista",
     "directionMovie": "Direção",
     "mainCast": "Elenco Principal"
+  },
+
+  "genres": {
+    "action": "Ação",
+    "adventure": "Aventura",
+    "animation": "Animação",
+    "comedy": "Comédia",
+    "crime": "Crime",
+    "documentary": "Documentário",
+    "drama": "Drama",
+    "family": "Família",
+    "fantasy": "Fantasia",
+    "history": "História",
+    "horror": "Terror",
+    "music": "Música",
+    "mystery": "Mistério",
+    "romance": "Romance",
+    "scifi": "Ficção Científica",
+    "tvmovie": "Filme de TV",
+    "thriller": "Suspense",
+    "war": "Guerra",
+    "western": "Faroeste",
+    "actionAdventure": "Ação e Aventura",
+    "scifiFantasy": "Sci-Fi e Fantasia",
+    "unknown": "Geral"
   }
 }

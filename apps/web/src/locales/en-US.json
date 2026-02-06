@@ -83,7 +83,10 @@
     "myList": "My List",
     "seeDetails": "See Details",
     "trendingCinemas": "trending in cinemas",
-    "popSeries": "Popular Series"
+    "popSeries": "Popular Series",
+    "badgesCardMovie": "Movie",
+    "badgesCardSerie": "Series",
+    "recommended": "Recommended"
   },
 
   "modalConfirmLogOut": {
@@ -97,5 +100,30 @@
     "MyListbutton": "My List",
     "directionMovie": "Direction",
     "mainCastMovie": "Main Cast"
+  },
+
+  "genres": {
+    "action": "Action",
+    "adventure": "Adventure",
+    "animation": "Animation",
+    "comedy": "Comedy",
+    "crime": "Crime",
+    "documentary": "Documentary",
+    "drama": "Drama",
+    "family": "Family",
+    "fantasy": "Fantasy",
+    "history": "History",
+    "horror": "Horror",
+    "music": "Music",
+    "mystery": "Mystery",
+    "romance": "Romance",
+    "scifi": "Science Fiction",
+    "tvmovie": "TV Movie",
+    "thriller": "Thriller",
+    "war": "War",
+    "western": "Western",
+    "actionAdventure": "Action & Adventure",
+    "scifiFantasy": "Sci-Fi & Fantasy",
+    "unknown": "General"
   }
 }
