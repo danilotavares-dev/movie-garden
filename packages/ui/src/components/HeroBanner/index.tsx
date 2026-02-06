@@ -1,14 +1,20 @@
+import { useTranslation } from 'react-i18next'
+
 interface HeroBannerProps {
   title: string
   description: string
   backDropUrl: string
+  onWatchClick?: () => void
 }
 
 export function HeroBanner({
   title,
   description,
   backDropUrl,
+  onWatchClick,
 }: HeroBannerProps) {
+  const { t, i18n } = useTranslation()
+
   return (
     <div className="relative w-full h-full overflow-hidden group">
       <img
@@ -48,14 +54,15 @@ export function HeroBanner({
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            Minha Lista
+            {t('catalogPage.myList')}
           </button>
 
           <button
             type="button"
             className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-8 py-3 rounded-xl font-bold transition-colors cursor-pointer border border-white/10"
+            onClick={onWatchClick}
           >
-            Ver Detalhes
+            {t('catalogPage.seeDetails')}
           </button>
         </div>
       </div>
