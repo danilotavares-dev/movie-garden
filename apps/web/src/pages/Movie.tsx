@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { tmdb } from '../services/tmdb'
 import { LanguageIcon } from '@movie-garden/ui'
