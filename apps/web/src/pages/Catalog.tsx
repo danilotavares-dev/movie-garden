@@ -322,6 +322,7 @@ export function Catalog() {
                 title={featuredMovie.title}
                 description={featuredMovie.description}
                 backDropUrl={featuredMovie.backDropUrl}
+                onWatchClick={() => navigate(`/movie/${featuredMovie.id}`)}
               />
             )}
             <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-[#000000]/60 to-transparent z-10 pointer-events-none" />
@@ -365,12 +366,12 @@ export function Catalog() {
             )}
 
             <MovieRow
-              title="Em Alta no Cinema"
+              title={t('catalogPage.trendingCinemas')}
               movies={trendingMovies}
               onMovieClick={handleNavigateToDetail}
             />
             <MovieRow
-              title="Séries Populares"
+              title={t('catalogPage.popSeries')}
               movies={topRatedSeries}
               onMovieClick={handleNavigateToDetail}
             />
