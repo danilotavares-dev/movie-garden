@@ -17,7 +17,7 @@ export async function addToWatchlist(
     request.body,
   )
 
-  const {sub: userId} = request.user as { sub: string }
+  const { sub: userId } = request.user as { sub: string }
 
   try {
     await prisma.watchlist.create({
@@ -44,7 +44,7 @@ export async function removeFromWatchlist(
   })
 
   const { mediaId } = paramsSchema.parse(request.params)
-  const {sub: userId} = request.user as { sub: string }
+  const { sub: userId } = request.user as { sub: string }
 
   await prisma.watchlist.deleteMany({
     where: {
@@ -65,7 +65,7 @@ export async function checkStatus(
   })
 
   const { mediaId } = paramsSchema.parse(request.params)
-  const {sub: userId} = request.user as { sub: string }
+  const { sub: userId } = request.user as { sub: string }
 
   const item = await prisma.watchlist.findFirst({
     where: {
