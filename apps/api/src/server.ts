@@ -6,6 +6,11 @@ import { PrismaClient } from '@prisma/client'
 import { hash, compare } from 'bcryptjs'
 import { getRecommendations } from './controllers/recommendation.controller'
 import { verifyJwt } from './middlewares/verify-jwt'
+import {
+  addToWatchlist,
+  removeFromWatchlist,
+  checkStatus,
+} from './controllers/WatchlistController'
 
 const app = fastify()
 const prisma = new PrismaClient()
@@ -88,6 +93,14 @@ app.post('/login', async (request, reply) => {
 })
 
 app.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
+
+app.post('watchlist', { onRequest: [verifyJwt] }, addToWatchlist)
+app.delete(
+  '/watchlist/:mediaId',
+  { onRequest: [verifyJwt] },
+  removeFromWatchlist,
+)
+app.get('/watchlist/:mediaId/status', { onRequest: [verifyJwt] }, checkStatus)
 
 app.listen({ port: 3333 }).then(() => {
   console.log('HTTP Server runnning on http://localhost:3333')
