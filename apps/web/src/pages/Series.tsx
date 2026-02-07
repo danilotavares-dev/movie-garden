@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { tmdb } from '../services/tmdb'
-import { LanguageIcon } from '@movie-garden/ui'
+import { LanguageSelector } from '@movie-garden/ui'
 import { useTranslation } from 'react-i18next'
 
 interface SerieDetail {
@@ -34,19 +34,7 @@ export function Series() {
   const [creator, setCreator] = useState<string>('')
   const [loading, setLoading] = useState(true)
 
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
   const currentLang = i18n.language
-
-  const languages = [
-    { code: 'pt-BR', label: 'Português', flag: '🇧🇷' },
-    { code: 'en-US', label: 'English', flag: '🇺🇸' },
-    { code: 'es', label: 'Español', flag: '🇪🇸' },
-  ]
-
-  function handleLanguageChange(langCode: string) {
-    i18n.changeLanguage(langCode)
-    setIsLangMenuOpen(false)
-  }
 
   useEffect(() => {
     async function loadDetails() {
@@ -92,7 +80,7 @@ export function Series() {
 
   const formattedDate = serie.first_air_date
     ? new Date(serie.first_air_date).toLocaleDateString('pt-BR')
-    : t('SerieDetailPage.unknownData') 
+    : t('SerieDetailPage.unknownData')
   const seasons = serie.number_of_seasons
 
   return (
@@ -106,38 +94,7 @@ export function Series() {
           {t('MovieDetailPage.backButton')}
         </button>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-            className="border border-zinc-400/90 w-10 h-10 bg-green-900 hover:bg-green-800/80 rounded-full flex items-center justify-center transition-colors text-white"
-          >
-            <LanguageIcon className="w-5 h-5" />
-          </button>
-          {isLangMenuOpen && (
-            <>
-              <button
-                type="button"
-                tabIndex={-1}
-                className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
-                onClick={() => setIsLangMenuOpen(false)}
-              />
-              <div className="absolute top-full -mt-3 right-8 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    type="button"
-                    onClick={() => handleLanguageChange(lang.code)}
-                    className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-white/5 text-zinc-300 ${currentLang === lang.code ? 'font-bold text-green-400' : ''}`}
-                  >
-                    <span>{lang.flag}</span>
-                    <span>{lang.label}</span>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+        <LanguageSelector />
       </header>
 
       <div className="relative w-full h-[65vh] lg:h-[75vh]">
@@ -172,7 +129,10 @@ export function Series() {
               <span>{formattedDate}</span>
               <span className="w-1 h-1 bg-zinc-500 rounded-full"></span>
               <span>
-                {seasons} {seasons === 1 ? t('SerieDetailPage.season') : t('SerieDetailPage.seasons')}
+                {seasons}{' '}
+                {seasons === 1
+                  ? t('SerieDetailPage.season')
+                  : t('SerieDetailPage.seasons')}
               </span>
               <span className="w-1 h-1 bg-zinc-500 rounded-full"></span>
               <span className="italic text-zinc-100">
