@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { tmdb } from '../services/tmdb'
 import { LanguageSelector } from '@movie-garden/ui'
 import { useTranslation } from 'react-i18next'
+import { WatchListButton } from '../components/watchlistButton.tsx'
 
 interface SerieDetail {
   id: number
@@ -144,12 +145,12 @@ export function Series() {
               {serie.overview}
             </p>
 
-            <button
-              type="button"
-              className="h-[50px] bg-white/10 hover:bg-white/20 border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm"
-            >
-              + {t('MovieDetailPage.MyListbutton')}
-            </button>
+            <WatchListButton
+              mediaId={serie.id}
+              mediaType="tv"
+              title={serie.name}
+              posterPath={serie.poster_path}
+            />
           </div>
         </div>
       </div>
