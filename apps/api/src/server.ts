@@ -94,7 +94,7 @@ app.post('/login', async (request, reply) => {
 
 app.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
 
-app.post('watchlist', { onRequest: [verifyJwt] }, addToWatchlist)
+app.post('/watchlist', { onRequest: [verifyJwt] }, addToWatchlist)
 app.delete(
   '/watchlist/:mediaId',
   { onRequest: [verifyJwt] },
