@@ -17,7 +17,7 @@ export function WatchListButton({
   posterPath,
 }: WatchListButtonProps) {
   const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const [isInList, setIsInList] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -78,8 +78,8 @@ export function WatchListButton({
       {isLoading
         ? '...'
         : isInList
-          ? '✔ Salvo na Lista'
-          : t('MovieDetailPage.MyListbutton')}
+          ? t('MovieDetailPage.AddedListbutton')
+          : t('MovieDetailPage.AddListbutton')}
     </button>
   )
 }
