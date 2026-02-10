@@ -8,6 +8,7 @@ import {
   Logo,
   SearchIcon,
   MovieRow,
+  LibraryIcon,
 } from '@movie-garden/ui'
 import { tmdb } from '../services/tmdb'
 import { genreMap } from '../utils/genres'
@@ -278,72 +279,79 @@ export function Catalog() {
       )}
 
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
-        <header className="fixed top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
-          <div className="h-14 w-full max-w-[1600px] bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
-            <Logo className="h-8 w-8 text-white" />
+        <header className="fixed flex justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
+          <div className="flex items-center gap-3 w-full max-w-[1600px]">
+            <LibraryIcon
+              tooltipText="Your Library"
+              classNameButton="h-12 w-12 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 shadow-lg text-white"
+            />
 
-            <form
-              onSubmit={handleAiSearch}
-              className="hidden md:flex h-10 w-[400px] items-center cursor-text bg-white/10 rounded-full px-4 hover:bg-white/20 transition-colors border border-transparent focus-within:border-green-500/50 focus-within:bg-black/40"
-            >
-              <SearchIcon
-                className={`mr-3 h-4 ${isAiLoading ? 'text-green-400 animate-pulse' : 'text-zinc-400'}`}
-              />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                disabled={isAiLoading}
-                placeholder={
-                  isAiLoading
-                    ? 'A IA está pensando...'
-                    : t('catalogPage.placeholderSearchBar')
-                }
-                className="bg-transparent w-full text-sm outline-none text-white placeholder:text-zinc-400"
-              />
-            </form>
+            <div className="h-14 flex-1 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
+              <Logo className="h-8 w-8 text-white" />
 
-            <div className="flex gap-3 items-center">
-              <div className="relative">
+              <form
+                onSubmit={handleAiSearch}
+                className="hidden md:flex h-10 w-[400px] items-center cursor-text bg-white/10 rounded-full px-4 hover:bg-white/20 transition-colors border border-transparent focus-within:border-green-500/50 focus-within:bg-black/40"
+              >
+                <SearchIcon
+                  className={`mr-3 h-4 ${isAiLoading ? 'text-green-400 animate-pulse' : 'text-zinc-400'}`}
+                />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  disabled={isAiLoading}
+                  placeholder={
+                    isAiLoading
+                      ? 'A IA está pensando...'
+                      : t('catalogPage.placeholderSearchBar')
+                  }
+                  className="bg-transparent w-full text-sm outline-none text-white placeholder:text-zinc-400"
+                />
+              </form>
+
+              <div className="flex gap-3 items-center">
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
+                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+                  >
+                    <LanguageIcon className="w-5 h-5" />
+                  </button>
+                  {isLangMenuOpen && (
+                    <>
+                      <button
+                        type="button"
+                        tabIndex={-1}
+                        className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
+                        onClick={() => setIsLangMenuOpen(false)}
+                      />
+                      <div className="absolute top-full mt-2 right-0 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            type="button"
+                            onClick={() => handleLanguageChange(lang.code)}
+                            className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-white/5 text-zinc-300 ${currentLang === lang.code ? 'font-bold text-green-400' : ''}`}
+                          >
+                            <span>{lang.flag}</span>
+                            <span>{lang.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+
                 <button
                   type="button"
-                  onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                  className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors text-white"
+                  onClick={() => handleLogout()}
+                  className="px-5 h-10 bg-red-600/80 hover:bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all shadow-lg hover:shadow-red-900/20"
                 >
-                  <LanguageIcon className="w-5 h-5" />
+                  {t('catalogPage.logOut')}
                 </button>
-                {isLangMenuOpen && (
-                  <>
-                    <button
-                      type="button"
-                      tabIndex={-1}
-                      className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
-                      onClick={() => setIsLangMenuOpen(false)}
-                    />
-                    <div className="absolute top-full mt-2 right-0 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
-                      {languages.map((lang) => (
-                        <button
-                          key={lang.code}
-                          type="button"
-                          onClick={() => handleLanguageChange(lang.code)}
-                          className={`px-4 py-3 text-left text-sm flex items-center gap-3 transition-colors hover:bg-white/5 text-zinc-300 ${currentLang === lang.code ? 'font-bold text-green-400' : ''}`}
-                        >
-                          <span>{lang.flag}</span>
-                          <span>{lang.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                )}
               </div>
-
-              <button
-                type="button"
-                onClick={() => handleLogout()}
-                className="px-5 h-10 bg-red-600/80 hover:bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all shadow-lg hover:shadow-red-900/20"
-              >
-                {t('catalogPage.logOut')}
-              </button>
             </div>
           </div>
         </header>
