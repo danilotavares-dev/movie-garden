@@ -20,14 +20,14 @@ export function WatchListButton({
   const { t } = useTranslation()
 
   const [isInList, setIsInList] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (token) {
+    if (token && mediaId) {
       myListService
         .checkStatus(mediaId)
         .then((data) => setIsInList(data.isInList))
+        .catch(() => setIsInList(false))
     }
   }, [mediaId])
 
@@ -36,16 +36,17 @@ export function WatchListButton({
 
     if (!token) {
       alert('Faça login para salvar filmes!')
-      navigate('login')
+      navigate('/login')
       return
     }
 
-    setIsLoading(true)
+    const wasInList = isInList
+
+    setIsInList(!wasInList)
 
     try {
-      if (isInList) {
+      if (wasInList) {
         await myListService.remove(mediaId)
-        setIsInList(false)
       } else {
         await myListService.add({
           mediaId,
@@ -53,13 +54,11 @@ export function WatchListButton({
           posterPath,
           mediaType,
         })
-        setIsInList(true)
       }
     } catch (error) {
+      setIsInList(wasInList)
       console.log('Erro ao atualizar lista', error)
       alert('Erro ao atualizar a lista.')
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -67,7 +66,6 @@ export function WatchListButton({
     <button
       type="button"
       onClick={handleToggle}
-      disabled={isLoading}
       className={`h-[50px] border border-white/20 px-8 py-3 rounded-xl font-medium transition-all hover:scale-105 backdrop-blur-sm
         ${
           isInList
@@ -75,11 +73,11 @@ export function WatchListButton({
             : 'bg-white/10 border-white/20 hover:bg-white/20 text-white'
         }`}
     >
-      {isLoading
-        ? '...'
-        : isInList
-          ? t('MovieDetailPage.AddedListbutton')
-          : t('MovieDetailPage.AddListbutton')}
+      {isInList ? (
+        t('MovieDetailPage.AddedListbutton')
+      ) : (
+        t('MovieDetailPage.AddListbutton')
+      )}
     </button>
   )
 }
