@@ -35,26 +35,38 @@ export async function addToWatchlist(
   }
 }
 
+
 export async function removeFromWatchlist(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
+  console.log('Tentando Remover item...')
+
   const paramsSchema = z.object({
-    mediaId: z.string().transform(Number),
+    mediaId: z.string().transform((v) => Number(v)),
   })
 
   const { mediaId } = paramsSchema.parse(request.params)
   const { sub: userId } = request.user as { sub: string }
 
-  await prisma.watchlist.deleteMany({
-    where: {
-      userId,
-      mediaId,
-    },
-  })
+  console.log(`Usuario: ${userId}, Filme: ${mediaId}`)
 
-  return reply.status(204).send()
+  try {
+    await prisma.watchlist.deleteMany({
+      where: {
+        userId,
+        mediaId,
+      },
+    })
+
+    console.log('Item removido com sucesso!')
+    return reply.status(204).send()
+  } catch (error) {
+      console.error('ERRO AO REMOVER:', error)
+      return reply.status(500).send({ message: 'Erro interno ao remover.' })
+  }
 }
+
 
 export async function checkStatus(
   request: FastifyRequest,
