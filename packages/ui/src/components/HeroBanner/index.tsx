@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next'
+import { ReactNode } from 'react'
 
 interface HeroBannerProps {
   title: string
   description: string
   backDropUrl: string
   onWatchClick?: () => void
+  actionSlot ?: ReactNode
 }
 
 export function HeroBanner({
@@ -12,6 +14,7 @@ export function HeroBanner({
   description,
   backDropUrl,
   onWatchClick,
+  actionSlot,
 }: HeroBannerProps) {
   const { t, i18n } = useTranslation()
 
@@ -35,27 +38,11 @@ export function HeroBanner({
         </p>
 
         <div className="flex gap-3 mt-4">
-          <button
-            type="button"
-            className="bg-[#113A2D] hover:bg-[#1a5542] text-white px-8 py-3 rounded-xl font-bold transition-colors flex items-center gap-2 cursor-pointer shadow-lg hover:shadow-[#113A2D]/50"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            {t('catalogPage.myList')}
-          </button>
+          {actionSlot && (
+            <div>
+              {actionSlot}
+            </div>
+          )}
 
           <button
             type="button"

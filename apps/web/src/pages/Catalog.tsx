@@ -12,6 +12,7 @@ import {
 } from '@movie-garden/ui'
 import { tmdb } from '../services/tmdb'
 import { genreMap } from '../utils/genres'
+import { WatchListButton } from '../components/watchlistButton.tsx'
 
 interface TMDBMovieResult {
   id: number
@@ -35,6 +36,7 @@ interface BannerItem {
   title: string
   description: string
   backDropUrl: string
+  posterPatch: string
 }
 
 interface AiRecommendation {
@@ -140,6 +142,7 @@ export function Catalog() {
             title: randomFeatured.title,
             description: randomFeatured.overview || '',
             backDropUrl: `https://image.tmdb.org/t/p/original${randomFeatured.backdrop_path}`,
+            posterPatch: randomFeatured.poster_patch
           })
         }
 
@@ -364,6 +367,14 @@ export function Catalog() {
                 description={featuredMovie.description}
                 backDropUrl={featuredMovie.backDropUrl}
                 onWatchClick={() => navigate(`/movie/${featuredMovie.id}`)}
+                actionSlot={
+                  <WatchListButton
+                    mediaId={featuredMovie.id}
+                    mediaType="movie"
+                    title={featuredMovie.title}
+                    posterPath={featuredMovie.posterPatch}
+                  />
+                }
               />
             )}
             <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black via-[#000000]/60 to-transparent z-10 pointer-events-none" />
