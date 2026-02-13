@@ -101,7 +101,7 @@
   "MovieDetailPage": {
     "backButton": "Volver",
     "AddListbutton": "+ Biblioteca",
-    "AddedListbutton": "✔ Agregado",
+    "AddedListbutton": "Agregado",
     "directionMovie": "Dirección",
     "mainCast": "Reparto principal"
   },
