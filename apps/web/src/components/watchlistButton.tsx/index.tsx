@@ -73,11 +73,9 @@ export function WatchListButton({
             : 'bg-white/10 border-white/20 hover:bg-white/20 text-white'
         }`}
     >
-      {isInList ? (
-        t('MovieDetailPage.AddedListbutton')
-      ) : (
-        t('MovieDetailPage.AddListbutton')
-      )}
+      {isInList
+        ? t('MovieDetailPage.AddedListbutton')
+        : t('MovieDetailPage.AddListbutton')}
     </button>
   )
 }

@@ -17,7 +17,7 @@ const prisma = new PrismaClient()
 
 app.register(cors, {
   origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
+  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
 })
 
 app.register(jwt, {

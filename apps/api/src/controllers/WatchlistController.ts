@@ -35,7 +35,6 @@ export async function addToWatchlist(
   }
 }
 
-
 export async function removeFromWatchlist(
   request: FastifyRequest,
   reply: FastifyReply,
@@ -62,11 +61,10 @@ export async function removeFromWatchlist(
     console.log('Item removido com sucesso!')
     return reply.status(204).send()
   } catch (error) {
-      console.error('ERRO AO REMOVER:', error)
-      return reply.status(500).send({ message: 'Erro interno ao remover.' })
+    console.error('ERRO AO REMOVER:', error)
+    return reply.status(500).send({ message: 'Erro interno ao remover.' })
   }
 }
-
 
 export async function checkStatus(
   request: FastifyRequest,
