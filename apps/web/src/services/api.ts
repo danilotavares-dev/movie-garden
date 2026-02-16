@@ -30,4 +30,9 @@ export const myListService = {
     const response = await api.get(`/watchlist/${mediaId}/status`)
     return response.data
   },
+
+  getAll: async () => {
+    const response = await api.get('/watchlist')
+    return response.data
+  },
 }
