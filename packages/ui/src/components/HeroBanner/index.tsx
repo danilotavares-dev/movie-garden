@@ -6,7 +6,7 @@ interface HeroBannerProps {
   description: string
   backDropUrl: string
   onWatchClick?: () => void
-  actionSlot ?: ReactNode
+  actionSlot?: ReactNode
 }
 
 export function HeroBanner({
@@ -38,11 +38,7 @@ export function HeroBanner({
         </p>
 
         <div className="flex gap-3 mt-4">
-          {actionSlot && (
-            <div>
-              {actionSlot}
-            </div>
-          )}
+          {actionSlot && <div>{actionSlot}</div>}
 
           <button
             type="button"
