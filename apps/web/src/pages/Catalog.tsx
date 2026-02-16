@@ -9,10 +9,12 @@ import {
   SearchIcon,
   MovieRow,
   LibraryButton,
+  type LibraryItemsData,
 } from '@movie-garden/ui'
 import { tmdb } from '../services/tmdb'
 import { genreMap } from '../utils/genres'
 import { WatchListButton } from '../components/watchlistButton.tsx'
+import { myListService } from '../services/api.ts'
 
 interface TMDBMovieResult {
   id: number
@@ -36,7 +38,7 @@ interface BannerItem {
   title: string
   description: string
   backDropUrl: string
-  posterPatch: string
+  posterPath: string
 }
 
 interface AiRecommendation {
@@ -47,6 +49,9 @@ interface AiRecommendation {
 export function Catalog() {
   const navigate = useNavigate()
   const { t, i18n } = useTranslation()
+
+  const [quickLibrary, setQuickLibrary] = useState<LibraryItemsData[]>([])
+  const [isLibraryLoading, setIsLibraryLoading] = useState(false)
 
   const [isLogOutModal, setIsLogOutModal] = useState(false)
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
@@ -142,7 +147,7 @@ export function Catalog() {
             title: randomFeatured.title,
             description: randomFeatured.overview || '',
             backDropUrl: `https://image.tmdb.org/t/p/original${randomFeatured.backdrop_path}`,
-            posterPatch: randomFeatured.poster_patch
+            posterPath: randomFeatured.poster_patch,
           })
         }
 
@@ -238,6 +243,34 @@ export function Catalog() {
     loadContent()
   }, [currentLang, t])
 
+  useEffect(() => {
+    async function loadQuickLibrary() {
+      try {
+        setIsLibraryLoading(true)
+        
+        const data = await myListService.getAll()
+
+        const formatted: LibraryItemsData[] = data
+          .slice(0, 10)
+          .map((item: any) => ({
+            id: item.mediaId,
+            title: item.title,
+            posterPath: item.poster,
+            mediaType: item.mediaType,
+          }))
+
+        setQuickLibrary(formatted)
+      } catch (error) {
+        console.error('Erro ao carregar lista rápida')
+      } finally {
+        setIsLibraryLoading(false)
+      }
+    }
+
+    const token = localStorage.getItem('token')
+    if (token) loadQuickLibrary()
+  }, [])
+
   return (
     <>
       {isLogOutModal && (
@@ -285,8 +318,15 @@ export function Catalog() {
         <header className="fixed flex justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
           <div className="flex items-center gap-3 w-full max-w-[1600px]">
             <LibraryButton
-              tooltipText="Your Library"
-              classNameButton="h-12 w-12 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 shadow-lg text-white"
+              tooltipText={t('Sua Lista')}
+              items={quickLibrary}
+              isLoading={isLibraryLoading}
+              onViewAllClick={() => navigate('/library')}
+              onItemClick={(item) => {
+                if (item.mediaType === 'tv') navigate(`/serie/${item.id}`)
+                else navigate(`/movie/${item.id}`)
+              }}
+              classNameButton="..."
             />
 
             <div className="h-14 flex-1 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
@@ -372,7 +412,7 @@ export function Catalog() {
                     mediaId={featuredMovie.id}
                     mediaType="movie"
                     title={featuredMovie.title}
-                    posterPath={featuredMovie.posterPatch}
+                    posterPath={featuredMovie.posterPath}
                   />
                 }
               />
