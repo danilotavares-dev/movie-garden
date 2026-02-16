@@ -1,15 +1,15 @@
 import { ComponentProps, useState } from 'react'
 
-interface libraryIconProps extends ComponentProps<'button'> {
+interface LibraryButtonProps extends ComponentProps<'button'> {
   classNameButton?: string
   tooltipText?: string
 }
 
-export function LibraryIcon({
+export function LibraryButton({
   tooltipText,
   classNameButton = 'bg-none w-8 h-8',
   ...props
-}: libraryIconProps) {
+}: LibraryButtonProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

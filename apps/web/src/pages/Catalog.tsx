@@ -8,7 +8,7 @@ import {
   Logo,
   SearchIcon,
   MovieRow,
-  LibraryIcon,
+  LibraryButton,
 } from '@movie-garden/ui'
 import { tmdb } from '../services/tmdb'
 import { genreMap } from '../utils/genres'
@@ -284,7 +284,7 @@ export function Catalog() {
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
         <header className="fixed flex justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
           <div className="flex items-center gap-3 w-full max-w-[1600px]">
-            <LibraryIcon
+            <LibraryButton
               tooltipText="Your Library"
               classNameButton="h-12 w-12 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center border border-white/10 shadow-lg text-white"
             />
