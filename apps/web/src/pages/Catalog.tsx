@@ -247,7 +247,7 @@ export function Catalog() {
     async function loadQuickLibrary() {
       try {
         setIsLibraryLoading(true)
-        
+
         const data = await myListService.getAll()
 
         const formatted: LibraryItemsData[] = data
@@ -318,7 +318,7 @@ export function Catalog() {
         <header className="fixed flex justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
           <div className="flex items-center gap-3 w-full max-w-[1600px]">
             <LibraryButton
-              tooltipText={t('Sua Lista')}
+              tooltipText={t('catalogPage.openYourList')}
               items={quickLibrary}
               isLoading={isLibraryLoading}
               onViewAllClick={() => navigate('/library')}
@@ -326,7 +326,7 @@ export function Catalog() {
                 if (item.mediaType === 'tv') navigate(`/serie/${item.id}`)
                 else navigate(`/movie/${item.id}`)
               }}
-              classNameButton="..."
+              classNameButton="... bg-black/40 backdrop-blur-md"
             />
 
             <div className="h-14 flex-1 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
