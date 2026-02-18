@@ -10,6 +10,7 @@ import {
   addToWatchlist,
   removeFromWatchlist,
   checkStatus,
+  getWatchlist,
 } from './controllers/WatchlistController'
 
 const app = fastify()
@@ -102,6 +103,8 @@ app.delete(
   removeFromWatchlist,
 )
 app.get('/watchlist/:mediaId/status', { onRequest: [verifyJwt] }, checkStatus)
+
+app.get('/watchlist', { onRequest: [verifyJwt] }, getWatchlist)
 
 app.listen({ port: 3333 }).then(() => {
   console.log('HTTP Server runnning on http://localhost:3333')
