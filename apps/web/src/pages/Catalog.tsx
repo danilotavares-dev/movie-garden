@@ -399,7 +399,7 @@ export function Catalog() {
           </div>
         </header>
 
-        <main className="relative w-full pb-20">
+        <main className="relative w-full">
           <div className="relative w-full h-[95vh] min-h-[700px]">
             {featuredMovie && (
               <HeroBanner
@@ -482,6 +482,11 @@ export function Catalog() {
             />
           </div>
         </main>
+
+        <footer className="bg-none w-full min-h-[200px] backdrop-blur-sm p-8 flex items-center justify-center text-zinc-500">
+          <Logo className="absolute bottom-5 w-8 " />
+          <p>© 2026 Movie Garden</p>
+        </footer>
       </div>
     </>
   )
