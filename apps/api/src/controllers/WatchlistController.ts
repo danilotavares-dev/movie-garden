@@ -86,3 +86,28 @@ export async function checkStatus(
 
   return reply.send({ isInList: !!item })
 }
+
+export async function getWatchlist(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  try {
+    const { sub: userId } = request.user as { sub: string }
+    console.log('🔍 Buscando lista para o usuário:', userId)
+
+    const watchlist = await prisma.watchlist.findMany({
+      where: {
+        userId,
+      },
+      orderBy: { createdAt: 'desc' },
+    })
+
+    console.log('✅ Itens encontrados:', watchlist.length)
+    return reply.send(watchlist)
+  } catch (error) {
+    console.error('🚨 ERRO GRAVE NO GETWATCHLIST:', error)
+    return reply
+      .status(500)
+      .send({ message: 'Erro ao buscar lista', error: String(error) })
+  }
+}
