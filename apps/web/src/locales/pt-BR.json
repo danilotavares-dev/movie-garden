@@ -87,7 +87,8 @@
     "recommended": "Recomendados para Você",
     "badgesCardMovie": "Filme",
     "badgesCardSerie": "Série",
-    "badgesCardRecommended": "Mais bem avaliados"
+    "badgesCardRecommended": "Mais bem avaliados",
+    "openYourList": "Abrir Sua Lista"
   },
 
   "modalConfirmLogOut": {
