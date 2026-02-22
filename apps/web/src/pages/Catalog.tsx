@@ -315,7 +315,7 @@ export function Catalog() {
       )}
 
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
-        <header className="fixed flex justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
+        <header className="fixed flex flex-col justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
           <div className="flex items-center gap-3 w-full max-w-[1600px]">
             <LibraryButton
               tooltipText={t('catalogPage.openYourList')}
@@ -330,7 +330,11 @@ export function Catalog() {
             />
 
             <div className="h-14 flex-1 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-4 py-2 mx-auto border border-white/10 shadow-lg">
-              <Logo className="h-8 w-8 text-white" />
+              <div className="flex flex-row">
+                <Logo className="h-8 w-8 text-white" />
+
+                <div className="h-8 w-8 mx-5" />
+              </div>
 
               <form
                 onSubmit={handleAiSearch}
@@ -397,6 +401,8 @@ export function Catalog() {
               </div>
             </div>
           </div>
+
+          <div className="flex justify-center border border-white/10 items-center bg-green-800/40 backdrop-blur-md max-w-[1000px] w-[600px] h-4 rounded-full"></div>
         </header>
 
         <main className="relative w-full">
