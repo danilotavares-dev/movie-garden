@@ -316,7 +316,7 @@ export function Catalog() {
 
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
         <header className="fixed flex flex-col justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
-          <div className="flex items-center gap-3 w-full max-w-[1600px]">
+          <div className="flex items-center gap-3 w-full max-w-[1600px] mb-1">
             <LibraryButton
               tooltipText={t('catalogPage.openYourList')}
               items={quickLibrary}
