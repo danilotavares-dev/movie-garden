@@ -54,7 +54,7 @@ export function LibraryButton({
       >
         <svg
           viewBox="0 0 100 100"
-          className="w-[17px] transition-colors duration-300 fill-none stroke-current text-zinc-300 group-hover:text-zinc-400"
+          className="w-[17px] transition-colors duration-300 fill-none stroke-current text-green-300 group-hover:text-green-400"
           strokeWidth="8"
           strokeLinecap="round"
           strokeLinejoin="round"
