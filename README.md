@@ -13,7 +13,7 @@
 
 O **Movie Garden** é uma aplicação web completa (Fullstack) construída com uma arquitetura moderna de **Monorepo**. Ele consome a API do TMDB para um catálogo rico de mídia e utiliza Inteligência Artificial para sugerir conteúdos com base nas descrições e preferências do usuário.
 
-## 📸 Preview
+## Preview
 ![Página Inicial](assets/inicial.png)
 ![Página de Catálogo](assets/catalogo.gif)
 
