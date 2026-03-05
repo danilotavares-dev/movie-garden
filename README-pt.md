@@ -1,5 +1,7 @@
 # Movie Garden
 
+[🌍 Read in English](./README.md) | [🇧🇷 Leia em Português](./README-pt.md)
+
 <div align="left">
   <img width="40" src="https://skillicons.dev/icons?i=react" alt="React" />
   <img width="40" src="https://skillicons.dev/icons?i=ts" alt="TypeScript" />
