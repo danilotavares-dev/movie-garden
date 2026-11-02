@@ -3,7 +3,7 @@ name = "ml-engine"
 version = "0.1.0"
 description = ""
 authors = [
-    { name = "Your Name", email = "you@example.com" }
+    { name = "Danilo Tavares", email = "danilotavares070@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
@@ -15,6 +15,9 @@ dependencies = [
 
 [tool.poetry]
 package-mode = false
+
+[tool.uv]
+package = false
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
