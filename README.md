@@ -49,7 +49,7 @@ O projeto reúne uma interface React, uma API Fastify, um banco PostgreSQL e um 
 - A recomendação depende do serviço Python e de uma chave do Gemini válida.
 - As rotas de watchlist e comunidade exigem login.
 - Não há suíte de testes automatizados configurada neste momento; lint, type-check e build são as verificações disponíveis.
-- O repositório ainda não declara uma licença open source.
+- O código do projeto está disponível sob a licença Apache 2.0. Componentes, dados e serviços externos continuam sujeitos aos próprios termos.
 
 ## Arquitetura em uma página
 
@@ -209,6 +209,8 @@ Antes de publicar, revise limites e termos do TMDB e do Google Gemini, logs, ret
 
 O Movie Garden utiliza dados e imagens do TMDB, mas não é endossado nem certificado pelo TMDB. Consulte os [termos de uso do TMDB](https://www.themoviedb.org/terms-of-use).
 
-O projeto ainda não declara uma licença open source. Para reutilização externa, obtenha autorização dos mantenedores.
+O código deste projeto está disponível sob a [Apache License 2.0](LICENSE). Consulte o arquivo [LICENSE](LICENSE) para conhecer os termos completos.
+
+A licença cobre apenas o código que pode ser licenciado pelos mantenedores. O TMDB, imagens, logotipo, dados de catálogo e dependências externas permanecem sujeitos às próprias licenças e termos de uso.
 
 Feito com 💚 e 🍿 pela comunidade Movie Garden.
