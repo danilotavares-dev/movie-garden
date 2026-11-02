@@ -187,11 +187,6 @@ export function Catalog() {
           (item): item is MediaItem => item !== null,
         ),
       )
-      setTimeout(() => {
-        document
-          .getElementById('ai-results')
-          ?.scrollIntoView({ behavior: 'smooth' })
-      }, 100)
     } catch (error) {
       console.error(error)
       showDialog('Não foi possível obter recomendações da IA no momento.', {
@@ -868,66 +863,6 @@ export function Catalog() {
                 )}
               </section>
             )}
-
-            {aiRecommendations.length > 0 && (
-              <div
-                id="ai-results"
-                className="w-full max-w-[1500px] mb-8 rounded-2xl border border-green-500/30 bg-gradient-to-r from-green-900/20 to-black p-4 backdrop-blur-sm sm:p-6"
-              >
-                <div className="mb-4 flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-green-400">
-                      {t('catalogPage.aiLabel')}
-                    </p>
-                    <h2 className="mt-1 text-xl font-bold text-white">
-                      {t('catalogPage.aiResultsFor', { query: searchTerm })}
-                    </h2>
-                  </div>
-                  <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-xs text-zinc-300">
-                    {aiRecommendations.length} {t('catalogPage.aiResultsCount')}
-                  </span>
-                </div>
-                <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                  {aiRecommendations.map((rec) => (
-                    <div
-                      key={`${rec.mediaType}-${rec.title}`}
-                      className="rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:border-green-500/50 hover:bg-white/10"
-                    >
-                      <div className="mb-2 flex items-center justify-between gap-2">
-                        <h3 className="text-lg font-bold text-white">
-                          {rec.title}
-                        </h3>
-                        <span className="shrink-0 text-xs text-green-300">
-                          {rec.mediaType === 'tv'
-                            ? t('catalogPage.aiSeries')
-                            : t('catalogPage.aiMovie')}
-                        </span>
-                      </div>
-                      <p className="text-sm italic text-zinc-300">
-                        {rec.reason}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {aiRecommendationMovies.length > 0 && (
-              <MovieRow
-                title={t('catalogPage.aiCatalogResults')}
-                movies={aiRecommendationMovies}
-                onMovieClick={(movie) =>
-                  handleNavigateToDetail(movie as MediaItem)
-                }
-              />
-            )}
-
-            {aiRecommendations.length > 0 &&
-              aiRecommendationMovies.length === 0 && (
-                <p className="w-full max-w-[1500px] rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-100">
-                  {t('catalogPage.aiNoCatalogResults')}
-                </p>
-              )}
 
             {aiDiscoveryMovies.length > 0 && (
               <MovieRow
