@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import path from 'node:path'
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
-import fastify from 'fastify'
+import fastify, { type FastifyInstance } from 'fastify'
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import { z } from 'zod'
@@ -40,7 +40,7 @@ app.register(cors, {
   origin: env.CORS_ORIGIN.split(',')
     .map((origin) => origin.trim())
     .filter(Boolean),
-  methods: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
 })
 
 app.register(jwt, {
@@ -59,114 +59,118 @@ app.setErrorHandler((error, request, reply) => {
     .send({ message: 'Não foi possível concluir a operação.' })
 })
 
-app.get('/health', async () => ({ status: 'ok' }))
+async function registerApiRoutes(api: FastifyInstance) {
+  api.get('/health', async () => ({ status: 'ok' }))
 
-app.post('/users', async (request, reply) => {
-  const registerBodySchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-    password: z.string().min(6),
-  })
-
-  const { name, email, password } = registerBodySchema.parse(request.body)
-
-  try {
-    const userAlreadyExists = await prisma.user.findUnique({
-      where: { email },
+  api.post('/users', async (request, reply) => {
+    const registerBodySchema = z.object({
+      name: z.string(),
+      email: z.string().email(),
+      password: z.string().min(6),
     })
 
-    if (userAlreadyExists) {
-      return reply
-        .status(409)
-        .send({ message: 'Este e-mail já está cadastrado.' })
+    const { name, email, password } = registerBodySchema.parse(request.body)
+
+    try {
+      const userAlreadyExists = await prisma.user.findUnique({
+        where: { email },
+      })
+
+      if (userAlreadyExists) {
+        return reply
+          .status(409)
+          .send({ message: 'Este e-mail já está cadastrado.' })
+      }
+
+      const passwordHash = await hash(password, 6)
+
+      const user = await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: passwordHash,
+        },
+      })
+
+      return reply.status(201).send({
+        userId: user.id,
+        message: 'Usuário criado com sucesso!',
+      })
+    } catch (error) {
+      request.log.error({ err: error }, 'Could not create user')
+      return reply.status(503).send({
+        message:
+          'Não foi possível criar a conta agora. Tente novamente mais tarde.',
+      })
+    }
+  })
+
+  api.post('/login', async (request, reply) => {
+    const loginBodySchema = z.object({
+      email: z.string().email(),
+      password: z.string(),
+    })
+
+    const { email, password } = loginBodySchema.parse(request.body)
+
+    const user = await prisma.user.findUnique({ where: { email } })
+
+    if (!user) {
+      return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
     }
 
-    const passwordHash = await hash(password, 6)
+    const isPasswordValid = await compare(password, user.password)
 
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: passwordHash,
+    if (!isPasswordValid) {
+      return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
+    }
+
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user.id,
+        },
       },
-    })
+    )
 
-    return reply.status(201).send({
+    return reply.status(200).send({
       userId: user.id,
-      message: 'Usuário criado com sucesso!',
+      token,
+      message: 'Login realizado com sucesso!.',
     })
-  } catch (error) {
-    request.log.error({ err: error }, 'Could not create user')
-    return reply.status(503).send({
-      message:
-        'Não foi possível criar a conta agora. Tente novamente mais tarde.',
-    })
-  }
-})
-
-app.post('/login', async (request, reply) => {
-  const loginBodySchema = z.object({
-    email: z.string().email(),
-    password: z.string(),
   })
 
-  const { email, password } = loginBodySchema.parse(request.body)
+  api.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
 
-  const user = await prisma.user.findUnique({ where: { email } })
-
-  if (!user) {
-    return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
-  }
-
-  const isPasswordValid = await compare(password, user.password)
-
-  if (!isPasswordValid) {
-    return reply.status(400).send({ message: 'E-mail ou senha inválido(s).' })
-  }
-
-  const token = await reply.jwtSign(
-    {},
-    {
-      sign: {
-        sub: user.id,
-      },
-    },
+  api.post('/watchlist', { onRequest: [verifyJwt] }, addToWatchlist)
+  api.delete(
+    '/watchlist/:mediaId',
+    { onRequest: [verifyJwt] },
+    removeFromWatchlist,
   )
+  api.get('/watchlist/:mediaId/status', { onRequest: [verifyJwt] }, checkStatus)
 
-  return reply.status(200).send({
-    userId: user.id,
-    token,
-    message: 'Login realizado com sucesso!.',
-  })
-})
+  api.get('/watchlist', { onRequest: [verifyJwt] }, getWatchlist)
 
-app.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
+  api.get(
+    '/media/:mediaType/:mediaId/community',
+    { onRequest: [verifyJwt] },
+    getMediaCommunity,
+  )
+  api.put(
+    '/media/:mediaType/:mediaId/rating',
+    { onRequest: [verifyJwt] },
+    rateMedia,
+  )
+  api.post(
+    '/media/:mediaType/:mediaId/messages',
+    { onRequest: [verifyJwt] },
+    addMediaMessage,
+  )
+}
 
-app.post('/watchlist', { onRequest: [verifyJwt] }, addToWatchlist)
-app.delete(
-  '/watchlist/:mediaId',
-  { onRequest: [verifyJwt] },
-  removeFromWatchlist,
-)
-app.get('/watchlist/:mediaId/status', { onRequest: [verifyJwt] }, checkStatus)
-
-app.get('/watchlist', { onRequest: [verifyJwt] }, getWatchlist)
-
-app.get(
-  '/media/:mediaType/:mediaId/community',
-  { onRequest: [verifyJwt] },
-  getMediaCommunity,
-)
-app.put(
-  '/media/:mediaType/:mediaId/rating',
-  { onRequest: [verifyJwt] },
-  rateMedia,
-)
-app.post(
-  '/media/:mediaType/:mediaId/messages',
-  { onRequest: [verifyJwt] },
-  addMediaMessage,
-)
+app.register(registerApiRoutes, { prefix: '/api' })
 
 app
   .listen({ port: env.PORT, host: '0.0.0.0' })

@@ -142,7 +142,7 @@ Use um valor aleatório forte para `JWT_SECRET` e mantenha todos os segredos for
 Crie `apps/web/.env`:
 
 ```env
-VITE_API_URL="http://localhost:3333"
+VITE_API_URL="/api"
 VITE_TMDB_API_KEY="sua_chave_tmdb"
 VITE_TMDB_BASE_URL="https://api.themoviedb.org/3"
 ```
@@ -195,7 +195,7 @@ pnpm --filter api dev
 ```
 
 A API ficará disponível em `http://localhost:3333`.
-O endpoint `GET /health` retorna o status da API.
+O endpoint `GET /api/health` retorna o status da API.
 
 ### 2. Motor de IA
 
@@ -246,16 +246,16 @@ pnpm --filter api start
 
 | Método | Rota | Autenticação | Descrição |
 |---|---|---:|---|
-| `POST` | `/users` | Não | Cria uma conta |
-| `POST` | `/login` | Não | Autentica um usuário |
-| `POST` | `/recommendations` | Sim | Solicita recomendações à IA |
-| `GET` | `/watchlist` | Sim | Lista a watchlist do usuário |
-| `POST` | `/watchlist` | Sim | Adiciona um título à watchlist |
-| `DELETE` | `/watchlist/:mediaId` | Sim | Remove um título da watchlist |
-| `GET` | `/watchlist/:mediaId/status` | Sim | Consulta o status de um título |
-| `GET` | `/media/:mediaType/:mediaId/community` | Sim | Lista mensagens e avaliação |
-| `PUT` | `/media/:mediaType/:mediaId/rating` | Sim | Registra ou atualiza uma avaliação |
-| `POST` | `/media/:mediaType/:mediaId/messages` | Sim | Publica uma mensagem |
+| `POST` | `/api/users` | Não | Cria uma conta |
+| `POST` | `/api/login` | Não | Autentica um usuário |
+| `POST` | `/api/recommendations` | Sim | Solicita recomendações à IA |
+| `GET` | `/api/watchlist` | Sim | Lista a watchlist do usuário |
+| `POST` | `/api/watchlist` | Sim | Adiciona um título à watchlist |
+| `DELETE` | `/api/watchlist/:mediaId` | Sim | Remove um título da watchlist |
+| `GET` | `/api/watchlist/:mediaId/status` | Sim | Consulta o status de um título |
+| `GET` | `/api/media/:mediaType/:mediaId/community` | Sim | Lista mensagens e avaliação |
+| `PUT` | `/api/media/:mediaType/:mediaId/rating` | Sim | Registra ou atualiza uma avaliação |
+| `POST` | `/api/media/:mediaType/:mediaId/messages` | Sim | Publica uma mensagem |
 
 As rotas protegidas esperam um token JWT no header:
 

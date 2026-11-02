@@ -25,7 +25,9 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/index"
+      "destination": {
+        "service": "api"
+      }
     },
     {
       "source": "/(.*)",
