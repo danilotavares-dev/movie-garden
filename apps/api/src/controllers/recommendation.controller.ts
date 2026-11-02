@@ -18,10 +18,14 @@ export async function getRecommendations(
   )
 
   try {
-    const response = await axios.post(`${aiEngineUrl}/recommend`, {
-      movie_title: movieTitle,
-      user_preferences: userPreferences,
-    })
+    const response = await axios.post(
+      `${aiEngineUrl}/recommend`,
+      {
+        movie_title: movieTitle,
+        user_preferences: userPreferences,
+      },
+      { timeout: 45_000 },
+    )
 
     return reply.status(200).send(response.data.data)
   } catch (error) {

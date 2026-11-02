@@ -15,6 +15,7 @@ if not api_key:
     raise ValueError("A chave GEMINI_API_KEY não foi encontrada no arquivo .env!")
 
 client = genai.Client(api_key=api_key)
+gemini_model = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 app = FastAPI(title="Movie Garden ML (Gemini Safe)")
 
@@ -42,30 +43,25 @@ def health_check():
 async def get_recommendations(data: MovieRequest):
     print(f"🤖 Buscando recomendações para: {data.movie_title}")
 
-    context = f'Pedido do usuário: "{data.movie_title}". Preferências adicionais: "{data.user_preferences}".'
-    goal = "Recomende exatamente 9 filmes ou séries que atendam ao pedido."
-
     prompt = f"""
-    Você é um especialista em cinema e séries, responsável por uma busca de catálogo.
-    {context}
-    {goal}
-
-    Interprete linguagem natural, inclusive gênero, humor, época, duração,
-    idioma, plataforma, atores, diretores e pedidos como "algo parecido com...".
-    Priorize títulos conhecidos e realmente existentes. Não invente títulos.
-    Misture filmes e séries quando isso fizer sentido. Responda os motivos em português.
-    Não inclua introdução, markdown ou texto fora do JSON.
-    Responda APENAS com um array JSON válido, estritamente neste formato:
-    [
-      {{ "title": "Título original ou mais conhecido", "mediaType": "movie", "reason": "Motivo curto em português" }},
-      ...
-    ]
-    """
+Você é um especialista em cinema e séries. Recomende exatamente 9 títulos reais
+para este pedido: "{data.movie_title}".
+Preferências: "{data.user_preferences}".
+Considere gênero, humor, época, duração, idioma, plataforma, atores e diretores.
+Responda os motivos em português e misture filmes e séries quando fizer sentido.
+Responda apenas um array JSON válido, sem markdown ou texto adicional:
+[{{"title":"Título","mediaType":"movie","reason":"Motivo curto"}}]
+"""
 
     try:
-        response = client.models.generate_content(
-            model='gemini-3.8-flash',
+        response = await client.aio.models.generate_content(
+            model=gemini_model,
             contents=prompt,
+            config={
+                "response_mime_type": "application/json",
+                "max_output_tokens": 1200,
+                "temperature": 0.4,
+            },
         )
 
         raw_text = response.text
