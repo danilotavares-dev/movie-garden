@@ -21,6 +21,8 @@ import {
   checkStatus,
   getWatchlist,
 } from './controllers/WatchlistController'
+import { createPasswordResetController } from './controllers/password-reset.controller'
+import { createMailer } from './lib/mailer'
 
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1, 'DATABASE_URL é obrigatória'),
@@ -30,11 +32,37 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(3333),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
   AI_ENGINE_URL: z.string().url().default('http://127.0.0.1:8000'),
+  FRONTEND_URL: z.string().url().default('http://localhost:5173'),
+  SMTP_HOST: z.string().min(1).optional(),
+  SMTP_PORT: z.coerce.number().int().positive().default(587),
+  SMTP_SECURE: z
+    .string()
+    .optional()
+    .default('false')
+    .transform((value) => value.toLowerCase() === 'true'),
+  SMTP_USER: z.string().min(1).optional(),
+  SMTP_PASSWORD: z.string().min(1).optional(),
+  SMTP_FROM: z.string().min(1).optional(),
 })
 
 const env = envSchema.parse(process.env)
 const app = fastify()
 const prisma = new PrismaClient()
+const smtpConfig =
+  env.SMTP_HOST && env.SMTP_USER && env.SMTP_PASSWORD && env.SMTP_FROM
+    ? {
+        host: env.SMTP_HOST,
+        port: env.SMTP_PORT,
+        secure: env.SMTP_SECURE,
+        user: env.SMTP_USER,
+        password: env.SMTP_PASSWORD,
+        from: env.SMTP_FROM,
+      }
+    : undefined
+const passwordReset = createPasswordResetController({
+  frontendUrl: env.FRONTEND_URL,
+  mailer: smtpConfig ? createMailer(smtpConfig) : undefined,
+})
 
 app.register(cors, {
   origin: env.CORS_ORIGIN.split(',')
@@ -140,6 +168,9 @@ async function registerApiRoutes(api: FastifyInstance) {
       message: 'Login realizado com sucesso!.',
     })
   })
+
+  api.post('/password-reset/request', passwordReset.requestReset)
+  api.post('/password-reset/confirm', passwordReset.resetPassword)
 
   api.post('/recommendations', { onRequest: [verifyJwt] }, getRecommendations)
 
