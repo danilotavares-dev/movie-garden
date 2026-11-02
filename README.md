@@ -142,12 +142,14 @@ Use um valor aleatório forte para `JWT_SECRET` e mantenha todos os segredos for
 Crie `apps/web/.env`:
 
 ```env
-VITE_API_URL="/api"
+VITE_API_URL="http://localhost:3333/api"
 VITE_TMDB_API_KEY="sua_chave_tmdb"
 VITE_TMDB_BASE_URL="https://api.themoviedb.org/3"
 ```
 
 Variáveis com prefixo `VITE_` são incorporadas ao bundle e podem ser visualizadas no navegador. A chave do TMDB usada no frontend deve ser tratada como uma chave pública, com as restrições e configurações de segurança disponíveis no TMDB. Nunca coloque chaves privadas ou credenciais de banco nesse arquivo.
+
+Na Vercel, configure `VITE_API_URL=/api`, pois o `vercel.json` encaminha esse caminho para o serviço da API. Localmente, use `http://localhost:3333/api`.
 
 ### Motor de IA
 

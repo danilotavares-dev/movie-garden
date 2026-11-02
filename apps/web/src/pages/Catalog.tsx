@@ -559,8 +559,8 @@ export function Catalog() {
       )}
 
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
-        <header className="fixed flex flex-col justify-center items-center top-3 left-0 right-0 z-50 px-4 transition-all duration-300">
-          <div className="flex items-center gap-1 sm:gap-3 w-full max-w-[1600px] mb-1">
+        <header className="fixed left-0 right-0 top-2 z-50 flex flex-col items-center justify-center px-3 transition-all duration-300 sm:top-3 sm:px-4">
+          <div className="mb-1 flex w-full max-w-[1600px] items-center gap-2 sm:gap-3">
             <LibraryButton
               tooltipText={t('catalogPage.openYourList')}
               items={quickLibrary}
@@ -573,8 +573,8 @@ export function Catalog() {
               classNameButton="... bg-black/40 backdrop-blur-md"
             />
 
-            <div className="h-12 sm:h-14 flex-1 min-w-0 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-between px-2 sm:px-4 py-2 mx-auto border border-white/10 shadow-lg">
-              <div className="flex flex-row">
+            <div className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-2 rounded-2xl border border-white/10 bg-black/40 px-3 py-3 shadow-lg backdrop-blur-md sm:h-14 sm:flex-nowrap sm:gap-0 sm:rounded-full sm:px-4 sm:py-2">
+              <div className="flex shrink-0 flex-row">
                 <Logo className="h-8 w-8 text-white" />
 
                 <div className="h-8 w-2 sm:w-8 sm:mx-5" />
@@ -582,7 +582,7 @@ export function Catalog() {
 
               <form
                 onSubmit={handleCatalogSearch}
-                className="flex h-10 min-w-0 w-full max-w-[400px] items-center cursor-text rounded-full border border-transparent bg-white/10 px-3 transition-colors hover:bg-white/20 focus-within:border-green-500/50 focus-within:bg-black/40"
+                className="order-last flex h-11 min-w-0 basis-full cursor-text items-center rounded-full border border-transparent bg-white/10 px-3 transition-colors hover:bg-white/20 focus-within:border-green-500/50 focus-within:bg-black/40 sm:order-none sm:h-10 sm:w-full sm:max-w-[400px] sm:basis-auto"
               >
                 <SearchIcon className="mr-3 h-4 text-zinc-400" />
                 <input
@@ -595,11 +595,11 @@ export function Catalog() {
                 />
               </form>
 
-              <div className="flex gap-1 sm:gap-3 items-center">
+              <div className="flex shrink-0 items-center gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAiPanelOpen(true)}
-                  className="flex h-9 items-center gap-2 rounded-full bg-green-500/15 px-3 text-xs font-semibold text-green-300 transition-colors hover:bg-green-500/25 sm:h-10 sm:px-4"
+                  className="flex h-10 items-center gap-2 rounded-full bg-green-500/15 px-3 text-xs font-semibold text-green-300 transition-colors hover:bg-green-500/25 sm:px-4"
                   aria-label="Abrir busca por inteligência artificial"
                 >
                   <span aria-hidden="true">✦</span>
@@ -679,7 +679,7 @@ export function Catalog() {
                 </button>
               </div>
 
-              <form onSubmit={handleAiSearch} className="flex gap-2">
+              <form onSubmit={handleAiSearch} className="flex flex-col gap-3 sm:flex-row">
                 <input
                   type="text"
                   value={searchTerm}
@@ -691,7 +691,7 @@ export function Catalog() {
                 <button
                   type="submit"
                   disabled={isAiLoading || !searchTerm.trim()}
-                  className="rounded-xl bg-green-500 px-4 font-bold text-black transition-colors hover:bg-green-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="rounded-xl bg-green-500 px-4 py-3 font-bold text-black transition-colors hover:bg-green-400 disabled:cursor-not-allowed disabled:opacity-50 sm:py-0"
                 >
                   {isAiLoading ? '...' : 'Enviar'}
                 </button>
