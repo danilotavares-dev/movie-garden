@@ -706,7 +706,10 @@ export function Catalog() {
                 </button>
               </div>
 
-              <form onSubmit={handleAiSearch} className="flex flex-col gap-3 sm:flex-row">
+              <form
+                onSubmit={handleAiSearch}
+                className="flex flex-col gap-3 sm:flex-row"
+              >
                 <input
                   type="text"
                   value={searchTerm}
