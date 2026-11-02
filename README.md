@@ -1,136 +1,307 @@
 # Movie Garden
 
-[🌍 Read in English](./README.md) | [🇧🇷 Leia em Português](./README-pt.md)
+![React](https://img.shields.io/badge/React-19-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Fastify](https://img.shields.io/badge/Fastify-5-000000?style=for-the-badge&logo=fastify&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.13%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 
-<div align="left">
-  <img width="40" src="https://skillicons.dev/icons?i=react" alt="React" />
-  <img width="40" src="https://skillicons.dev/icons?i=ts" alt="TypeScript" />
-  <img width="40" src="https://skillicons.dev/icons?i=fastify" alt="Fastify" />
-  <img width="40" src="https://skillicons.dev/icons?i=prisma" alt="Prisma" />
-  <img width="40" src="https://skillicons.dev/icons?i=tailwind" alt="TailwindCSS" />
-  <img width="40" src="https://skillicons.dev/icons?i=py" alt="Python" />
-</div>
+> Seu jardim pessoal para descobrir, organizar e conversar sobre filmes e séries.
 
-### 🔴 Project Status: Active Development (Work in Progress). Core catalog, library, and AI recommendation engine features are functional, but review features are still being refined.
+O **Movie Garden** é uma aplicação fullstack para explorar o catálogo do [TMDB](https://www.themoviedb.org/), salvar títulos em uma watchlist, avaliar conteúdos e receber recomendações personalizadas por inteligência artificial.
 
-> Your personal garden for movies and series. Discover, save, and get smart recommendations based on your taste.
+O projeto está em desenvolvimento ativo. As funcionalidades principais de catálogo, autenticação, biblioteca, comunidade e recomendações estão implementadas, mas a API e a interface ainda podem sofrer alterações.
 
-**Movie Garden** is a full-stack web application built with a modern **Monorepo** architecture. It consumes the TMDB API for a rich media catalog and utilizes Artificial Intelligence to suggest content based on user descriptions and preferences.
+## Demonstração
 
-## Preview
-![Home Page](assets/inicial.png)
-![Catalog Page](assets/catalogo.gif)
+![Página inicial](assets/inicial.png)
 
-## Features
+![Página de catálogo](assets/catalogo.gif)
 
-- **Dynamic Catalog:** Trending, highly-rated, and recommended movies and series, consuming the TMDB API.
-- **AI-Powered Search:** Don't know the name of the movie? Describe what you want to watch, and the AI recommends the best titles.
-- **My Library (Watchlist):** Save your favorite movies and series to watch later.
-- **Optimistic UI:** Instant visual feedback when saving movies to your library.
-- **Internationalization (i18n):** Native support for Portuguese (PT-BR), English (EN-US), and Spanish (ES).
-- **Secure Authentication:** JWT-protected user login and registration.
-- **Custom Design System:** Reusable UI components isolated in a dedicated package (`@movie-garden/ui`).
+## Funcionalidades
 
-## Technologies Used
+- Catálogo de filmes e séries consumido pela API do TMDB.
+- Busca geral por títulos, com resultados paginados e opção de carregar mais resultados.
+- Busca por IA em um painel lateral, usando linguagem natural para pedidos como:
+  - “filmes de terror psicológico”;
+  - “séries parecidas com Dark”;
+  - “comédias inteligentes dos anos 90”.
+- Recomendações geradas pelo Google Gemini e associadas aos títulos encontrados no TMDB.
+- Cadastro e login de usuários.
+- Autenticação por JWT e proteção das rotas privadas.
+- Watchlist pessoal para salvar filmes e séries.
+- Avaliações e mensagens na comunidade de cada título.
+- Interface responsiva construída com Tailwind CSS.
+- Internacionalização em português, inglês e espanhol.
+- Componentes compartilhados no pacote `@movie-garden/ui`.
 
-This project utilizes a modern ecosystem focused on performance and end-to-end static typing.
+## Arquitetura
 
-**Frontend (`apps/web`):**
-- React (with Vite)
-- TypeScript
-- Tailwind CSS (Styling)
-- React Router DOM (Navigation)
-- Axios (HTTP Requests)
-- i18next (Multi-language support)
-
-**Backend (`apps/api`):**
-- Node.js
-- Fastify (Blazing fast web framework)
-- Prisma ORM (Database)
-- PostgreSQL (Relational database)
-- Zod (Data validation)
-- JWT (JSON Web Tokens for authentication)
-
-**Architecture & Tools:**
-- Monorepo (pnpm workspaces / Turborepo)
-- ESLint & Prettier
-
-## Monorepo Structure
-
-The project is divided into the following main areas:
+O repositório usa `pnpm workspaces` para organizar o frontend, a API, o motor de IA e o design system em um único monorepo.
 
 ```text
 projeto-movie-garden/
 ├── apps/
-│   ├── api/          # Backend (Fastify + Prisma)
-│   ├── ml-engine/    # AI Engine (Python, Gemini)
-│   └── web/          # Frontend (React + Vite)
+│   ├── api/                 # API HTTP: Fastify, Prisma e PostgreSQL
+│   ├── ai-engine/           # Serviço de recomendações: FastAPI e Gemini
+│   └── web/                 # Aplicação web: React, Vite e TypeScript
 ├── packages/
-│   └── ui/           # Component Library (Tailwind + React)
-└── package.json
+│   └── ui/                 # Componentes compartilhados do frontend
+├── assets/                 # Imagens usadas na documentação
+├── docker-compose.yml       # PostgreSQL para desenvolvimento local
+├── package.json             # Scripts e dependências da workspace
+└── pnpm-workspace.yaml
 ```
 
-## How to Run the Project Locally
+### Fluxo de recomendações
 
-### Prerequisites
+1. O frontend envia o pedido autenticado para `POST /recommendations`.
+2. A API encaminha o pedido para o serviço Python em `POST /recommend`.
+3. O Gemini interpreta o pedido e retorna uma lista JSON de filmes e séries.
+4. O frontend consulta o TMDB para localizar os títulos e exibe os resultados.
 
-Before you begin, you will need to have the following installed on your machine:
+## Tecnologias
 
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [pnpm](https://pnpm.io/) (package manager)
-- A running PostgreSQL database (local or cloud)
-- A **TMDB (The Movie Database)** API key
+### Frontend
 
----
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS
+- Axios
+- i18next e `react-i18next`
 
-### Step-by-Step Guide
+### API
 
-#### 1. Clone the repository
+- Node.js 20+
+- Fastify
+- Prisma ORM
+- PostgreSQL
+- Zod
+- JSON Web Token
+- bcryptjs
+
+### Motor de IA
+
+- Python 3.13+
+- FastAPI
+- Uvicorn
+- Google Gen AI SDK
+- Pydantic
+
+## Pré-requisitos
+
+Instale antes de começar:
+
+- [Node.js](https://nodejs.org/) 20 ou superior;
+- [pnpm](https://pnpm.io/) 10 ou superior;
+- [Python](https://www.python.org/) 3.13 ou superior;
+- [Poetry](https://python-poetry.org/) para gerenciar o motor de IA;
+- [Docker](https://www.docker.com/) e Docker Compose, ou uma instância PostgreSQL compatível;
+- uma chave da API do [TMDB](https://www.themoviedb.org/settings/api);
+- uma chave da API do [Google Gemini](https://aistudio.google.com/apikey).
+
+## Instalação
+
+Clone o repositório e instale as dependências JavaScript:
 
 ```bash
-git clone [https://github.com/SEU_USUARIO/projeto-movie-garden.git](https://github.com/SEU_USUARIO/projeto-movie-garden.git)
-cd projeto-movie-garden
-```
-
-#### 2. Install dependencies
-
-```bash
+git clone https://github.com/nilo-labs/movie-garden.git
+cd movie-garden
 pnpm install
 ```
 
-#### 3. Configure Environment Variables
+Instale as dependências Python:
 
-- In the apps/api directory, create a .env file and add:
-
+```bash
+cd apps/ai-engine
+poetry install
+cd ../..
 ```
-DATABASE_URL="postgresql://user:password@localhost:5432/movie_garden"
-JWT_SECRET="your_super_secure_secret_key"
+
+## Variáveis de ambiente
+
+### API e banco de dados
+
+O servidor Fastify carrega o arquivo `.env` da raiz do repositório. Crie `./.env`:
+
+```env
+DATABASE_URL="postgresql://movie_garden:movie_garden@localhost:5433/movie_garden?schema=public"
 ```
 
-- In the apps/web directory, create a .env file and add:
+O `JWT_SECRET` ainda está definido diretamente no servidor para o ambiente atual. Antes de publicar a aplicação, substitua esse comportamento por uma variável de ambiente forte e mantenha todos os segredos fora do Git.
 
-```
+### Frontend
+
+Crie `apps/web/.env`:
+
+```env
 VITE_API_URL="http://localhost:3333"
-VITE_TMDB_API_KEY="your_tmdb_api_key_here"
+VITE_TMDB_API_KEY="sua_chave_tmdb"
+VITE_TMDB_BASE_URL="https://api.themoviedb.org/3"
 ```
 
-#### 4. Configure the Database (Prisma)
+Variáveis com prefixo `VITE_` são incorporadas ao bundle e podem ser visualizadas no navegador. A chave do TMDB usada no frontend deve ser tratada como uma chave pública, com as restrições e configurações de segurança disponíveis no TMDB. Nunca coloque chaves privadas ou credenciais de banco nesse arquivo.
 
-Navigate to the API folder and create the database tables:
+### Motor de IA
+
+O serviço Python carrega o arquivo `.env` localizado em `apps/ai-engine/.env`. Crie:
+
+```env
+GEMINI_API_KEY="sua_chave_gemini"
+```
+
+Não versionar arquivos `.env`, chaves de API, tokens ou credenciais.
+
+## Banco de dados
+
+Suba o PostgreSQL com Docker Compose a partir da raiz:
 
 ```bash
-cd apps/api
-npx prisma db push
-# or npx prisma migrate dev
+docker compose up -d postgres
 ```
 
-#### 5. Start the development server
+O container publica o PostgreSQL na porta `5433` do host. Caso use outro banco, ajuste `DATABASE_URL`.
 
-Go back to the project root and run the main command:
+Gere o cliente Prisma e aplique as migrações:
 
 ```bash
-pnpm dev
+pnpm --filter api exec prisma generate
+pnpm --filter api exec prisma migrate deploy
 ```
-This command will concurrently start the Backend (port 3333) and the Frontend (port 5173).
 
-#### Made with 💚 and 🍿 in the TypeScript ecosystem.
+Para desenvolvimento com alterações no schema, use:
+
+```bash
+pnpm --filter api exec prisma migrate dev
+```
+
+## Executando localmente
+
+O projeto possui três processos de desenvolvimento. Abra um terminal para cada um.
+
+### 1. API Fastify
+
+```bash
+pnpm --filter api dev
+```
+
+A API ficará disponível em `http://localhost:3333`.
+
+### 2. Motor de IA
+
+```bash
+cd apps/ai-engine
+poetry run uvicorn main:app --reload --host 127.0.0.1 --port 8000
+```
+
+O motor de IA ficará disponível em `http://127.0.0.1:8000`.
+
+Endpoint de verificação:
+
+```bash
+curl http://127.0.0.1:8000/
+```
+
+### 3. Frontend
+
+```bash
+pnpm --filter web dev
+```
+
+Abra `http://localhost:5173`.
+
+O frontend exige autenticação para acessar o catálogo. Crie uma conta pela tela de cadastro antes de testar as áreas privadas.
+
+## Scripts disponíveis
+
+Na raiz:
+
+```bash
+pnpm install       # instala as dependências das workspaces
+pnpm build         # executa os builds disponíveis nas workspaces
+pnpm lint          # executa o Biome
+pnpm format        # formata os arquivos com o Biome
+```
+
+Por aplicação:
+
+```bash
+pnpm --filter web dev
+pnpm --filter web build
+pnpm --filter api dev
+```
+
+## Rotas principais da API
+
+| Método | Rota | Autenticação | Descrição |
+|---|---|---:|---|
+| `POST` | `/users` | Não | Cria uma conta |
+| `POST` | `/login` | Não | Autentica um usuário |
+| `POST` | `/recommendations` | Sim | Solicita recomendações à IA |
+| `GET` | `/watchlist` | Sim | Lista a watchlist do usuário |
+| `POST` | `/watchlist` | Sim | Adiciona um título à watchlist |
+| `DELETE` | `/watchlist/:mediaId` | Sim | Remove um título da watchlist |
+| `GET` | `/watchlist/:mediaId/status` | Sim | Consulta o status de um título |
+| `GET` | `/media/:mediaType/:mediaId/community` | Sim | Lista mensagens e avaliação |
+| `PUT` | `/media/:mediaType/:mediaId/rating` | Sim | Registra ou atualiza uma avaliação |
+| `POST` | `/media/:mediaType/:mediaId/messages` | Sim | Publica uma mensagem |
+
+As rotas protegidas esperam um token JWT no header:
+
+```http
+Authorization: Bearer <token>
+```
+
+## Build e verificação
+
+Para validar o frontend:
+
+```bash
+pnpm --filter web exec tsc -b
+pnpm --filter web build
+```
+
+Para validar o workspace:
+
+```bash
+pnpm lint
+pnpm build
+```
+
+## Desenvolvimento e contribuição
+
+1. Crie um fork ou uma branch a partir de `main`.
+2. Faça uma alteração pequena e focada.
+3. Atualize a documentação quando o comportamento público mudar.
+4. Execute o type-check, o build e o lint relevantes.
+5. Abra um pull request descrevendo o problema, a solução e como validar.
+
+### Diretrizes importantes
+
+- Não inclua segredos, arquivos `.env` ou tokens em commits.
+- Preserve a tipagem TypeScript e valide entradas na API.
+- Prefira os componentes existentes em `packages/ui`.
+- Evite alterar funcionalidades não relacionadas ao seu pull request.
+- Ao alterar o schema Prisma, inclua a migração correspondente.
+
+## Roadmap
+
+- [ ] Externalizar o segredo JWT para uma variável de ambiente obrigatória.
+- [ ] Adicionar testes automatizados para API e frontend.
+- [ ] Criar um endpoint de saúde para a API Fastify.
+- [ ] Implementar chat contextual sobre um filme ou série específica.
+- [ ] Melhorar a experiência em dispositivos móveis.
+- [ ] Permitir perfis de usuário customizáveis.
+
+## Licença e atribuições
+
+Este repositório ainda não define uma licença open source. Consulte os mantenedores antes de reutilizar o código em projetos externos.
+
+O catálogo e as imagens de filmes e séries são fornecidos pelo TMDB. Este projeto não é endossado nem certificado pelo TMDB. Consulte os [termos de uso do TMDB](https://www.themoviedb.org/terms-of-use) antes de publicar uma instância.
+
+---
+
+Feito com 💚 e 🍿 pela comunidade Movie Garden.
