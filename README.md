@@ -129,9 +129,13 @@ O servidor Fastify carrega o arquivo `.env` da raiz do repositório. Crie `./.en
 
 ```env
 DATABASE_URL="postgresql://movie_garden:movie_garden@localhost:5433/movie_garden?schema=public"
+JWT_SECRET="use-at-least-32-random-characters"
+PORT=3333
+CORS_ORIGIN="http://localhost:5173"
+AI_ENGINE_URL="http://127.0.0.1:8000"
 ```
 
-O `JWT_SECRET` ainda está definido diretamente no servidor para o ambiente atual. Antes de publicar a aplicação, substitua esse comportamento por uma variável de ambiente forte e mantenha todos os segredos fora do Git.
+Use um valor aleatório forte para `JWT_SECRET` e mantenha todos os segredos fora do Git.
 
 ### Frontend
 
@@ -151,6 +155,8 @@ O serviço Python carrega o arquivo `.env` localizado em `apps/ai-engine/.env`. 
 
 ```env
 GEMINI_API_KEY="sua_chave_gemini"
+PORT=8000
+CORS_ORIGINS="http://localhost:3333"
 ```
 
 Não versionar arquivos `.env`, chaves de API, tokens ou credenciais.
@@ -189,12 +195,13 @@ pnpm --filter api dev
 ```
 
 A API ficará disponível em `http://localhost:3333`.
+O endpoint `GET /health` retorna o status da API.
 
 ### 2. Motor de IA
 
 ```bash
 cd apps/ai-engine
-poetry run uvicorn main:app --reload --host 127.0.0.1 --port 8000
+poetry run python main.py
 ```
 
 O motor de IA ficará disponível em `http://127.0.0.1:8000`.
@@ -232,6 +239,7 @@ Por aplicação:
 pnpm --filter web dev
 pnpm --filter web build
 pnpm --filter api dev
+pnpm --filter api start
 ```
 
 ## Rotas principais da API

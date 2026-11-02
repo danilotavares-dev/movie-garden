@@ -2,6 +2,8 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import axios from 'axios'
 import { z } from 'zod'
 
+const aiEngineUrl = process.env.AI_ENGINE_URL ?? 'http://127.0.0.1:8000'
+
 export async function getRecommendations(
   request: FastifyRequest,
   reply: FastifyReply,
@@ -16,7 +18,7 @@ export async function getRecommendations(
   )
 
   try {
-    const response = await axios.post('http://127.0.0.1:8000/recommend', {
+    const response = await axios.post(`${aiEngineUrl}/recommend`, {
       movie_title: movieTitle,
       user_preferences: userPreferences,
     })

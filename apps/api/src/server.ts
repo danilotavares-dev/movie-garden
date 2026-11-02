@@ -22,16 +22,29 @@ import {
   getWatchlist,
 } from './controllers/WatchlistController'
 
+const envSchema = z.object({
+  DATABASE_URL: z.string().min(1, 'DATABASE_URL é obrigatória'),
+  JWT_SECRET: z
+    .string()
+    .min(32, 'JWT_SECRET deve ter pelo menos 32 caracteres'),
+  PORT: z.coerce.number().int().positive().default(3333),
+  CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  AI_ENGINE_URL: z.string().url().default('http://127.0.0.1:8000'),
+})
+
+const env = envSchema.parse(process.env)
 const app = fastify()
 const prisma = new PrismaClient()
 
 app.register(cors, {
-  origin: '*',
+  origin: env.CORS_ORIGIN.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean),
   methods: ['GET', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
 })
 
 app.register(jwt, {
-  secret: 'movie-garden-secret-key-123',
+  secret: env.JWT_SECRET,
 })
 
 app.setErrorHandler((error, request, reply) => {
@@ -45,6 +58,8 @@ app.setErrorHandler((error, request, reply) => {
     .status(500)
     .send({ message: 'Não foi possível concluir a operação.' })
 })
+
+app.get('/health', async () => ({ status: 'ok' }))
 
 app.post('/users', async (request, reply) => {
   const registerBodySchema = z.object({
@@ -153,6 +168,13 @@ app.post(
   addMediaMessage,
 )
 
-app.listen({ port: 3333 }).then(() => {
-  console.log('HTTP Server runnning on http://localhost:3333')
-})
+app
+  .listen({ port: env.PORT, host: '0.0.0.0' })
+  .then(() => {
+    console.log(`HTTP Server running on port ${env.PORT}`)
+  })
+  .catch(async (error) => {
+    app.log.error(error, 'Could not start HTTP server')
+    await prisma.$disconnect()
+    process.exit(1)
+  })

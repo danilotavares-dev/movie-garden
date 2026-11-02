@@ -34,3 +34,5 @@ ml-engine/venv
 *.env
 .Python
 poetry.lock
+
+*.env.example

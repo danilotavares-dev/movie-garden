@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from google import genai
+import uvicorn
 
 load_dotenv(Path(__file__).with_name(".env"), override=True)
 
@@ -19,7 +20,11 @@ app = FastAPI(title="Movie Garden ML (Gemini Safe)")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in os.getenv("CORS_ORIGINS", "http://localhost:3333").split(",")
+        if origin.strip()
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -74,3 +79,11 @@ async def get_recommendations(data: MovieRequest):
     except Exception as e:
         print(f"Erro no Gemini: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "8000")),
+    )
