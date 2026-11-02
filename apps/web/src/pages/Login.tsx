@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAppDialog } from '../components/AppDialog'
+import { api } from '../services/api'
 
 export function Login() {
   const { t } = useTranslation()
@@ -17,20 +18,13 @@ export function Login() {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:3333/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/JSON',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+      const response = await api.post('/login', {
+        email,
+        password,
       })
 
-      if (response.ok) {
-        const data = await response.json()
-
+      if (response.status === 200) {
+        const data = response.data
         localStorage.setItem('isAuthenticated', 'true')
         localStorage.setItem('userId', data.userId)
         localStorage.setItem('token', data.token)

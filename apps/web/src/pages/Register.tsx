@@ -3,6 +3,7 @@ import { Logo } from '@movie-garden/ui'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAppDialog } from '../components/AppDialog'
+import { api } from '../services/api'
 
 export function Register() {
   const { t } = useTranslation()
@@ -31,41 +32,37 @@ export function Register() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('http://localhost:3333/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
+      const response = await api.post('/users', {
+        name,
+        email,
+        password,
       })
 
-      if (response.status === 201) {
-        showDialog('Conta criada com sucesso! 🌱', {
-          title: 'Tudo certo',
-          variant: 'success',
-        })
-        navigate('/login')
-      } else {
-        const data: unknown = await response.json().catch(() => null)
-        const message =
-          typeof data === 'object' &&
-          data !== null &&
-          'message' in data &&
-          typeof data.message === 'string'
-            ? data.message
-            : 'Ocorreu um erro ao criar a conta.'
-        showDialog(message, {
-          title: 'Não foi possível criar a conta',
-          variant: 'error',
-        })
+      if (response.status !== 201) {
+        throw new Error('Não foi possível criar a conta.')
       }
+
+      showDialog('Conta criada com sucesso! 🌱', {
+        title: 'Tudo certo',
+        variant: 'success',
+      })
+      navigate('/login')
     } catch (error) {
       console.error(error)
-      showDialog('Erro de conexão com o servidor.', {
+      const message =
+        typeof error === 'object' &&
+        error !== null &&
+        'response' in error &&
+        typeof error.response === 'object' &&
+        error.response !== null &&
+        'data' in error.response &&
+        typeof error.response.data === 'object' &&
+        error.response.data !== null &&
+        'message' in error.response.data &&
+        typeof error.response.data.message === 'string'
+          ? error.response.data.message
+          : 'Erro de conexão com o servidor.'
+      showDialog(message, {
         title: 'Falha de conexão',
         variant: 'error',
       })
