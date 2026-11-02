@@ -48,14 +48,11 @@ export async function getMediaCommunity(
   })
 }
 
-export async function rateMedia(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+export async function rateMedia(request: FastifyRequest, reply: FastifyReply) {
   const { mediaId, mediaType } = paramsSchema.parse(request.params)
-  const { value } = z.object({ value: z.number().int().min(1).max(5) }).parse(
-    request.body,
-  )
+  const { value } = z
+    .object({ value: z.number().int().min(1).max(5) })
+    .parse(request.body)
 
   const rating = await prisma.rating.upsert({
     where: {

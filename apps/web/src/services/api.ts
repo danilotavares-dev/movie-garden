@@ -53,10 +53,9 @@ export const mediaCommunityService = {
     mediaId: number,
     content: string,
   ) => {
-    const response = await api.post(
-      `/media/${mediaType}/${mediaId}/messages`,
-      { content },
-    )
+    const response = await api.post(`/media/${mediaType}/${mediaId}/messages`, {
+      content,
+    })
     return response.data
   },
 }

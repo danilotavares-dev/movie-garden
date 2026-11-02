@@ -73,7 +73,10 @@ export function MediaCommunity({
           Compartilhe sua opinião sobre este título.
         </p>
       </div>
-      <form onSubmit={handleSendMessage} className="mt-4 flex flex-col gap-2 sm:flex-row">
+      <form
+        onSubmit={handleSendMessage}
+        className="mt-4 flex flex-col gap-2 sm:flex-row"
+      >
         <input
           value={message}
           onChange={(event) => setMessage(event.target.value)}
@@ -95,8 +98,12 @@ export function MediaCommunity({
         ) : (
           messages.map((item) => (
             <div key={item.id} className="rounded-xl bg-white/5 p-3">
-              <p className="text-xs font-bold text-green-400">{item.userName}</p>
-              <p className="mt-1 break-words text-sm text-zinc-200">{item.content}</p>
+              <p className="text-xs font-bold text-green-400">
+                {item.userName}
+              </p>
+              <p className="mt-1 break-words text-sm text-zinc-200">
+                {item.content}
+              </p>
             </div>
           ))
         )}

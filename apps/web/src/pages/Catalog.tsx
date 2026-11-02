@@ -88,8 +88,12 @@ export function Catalog() {
   const [popularMovies, setPopularMovies] = useState<MediaItem[]>([])
   const [popularSeries, setPopularSeries] = useState<MediaItem[]>([])
   const [nowPlayingMovies, setNowPlayingMovies] = useState<MediaItem[]>([])
-  const [popularMoviesPageTwo, setPopularMoviesPageTwo] = useState<MediaItem[]>([])
-  const [popularSeriesPageTwo, setPopularSeriesPageTwo] = useState<MediaItem[]>([])
+  const [popularMoviesPageTwo, setPopularMoviesPageTwo] = useState<MediaItem[]>(
+    [],
+  )
+  const [popularSeriesPageTwo, setPopularSeriesPageTwo] = useState<MediaItem[]>(
+    [],
+  )
   const [upcomingMovies, setUpcomingMovies] = useState<MediaItem[]>([])
   const [topRatedSeriesList, setTopRatedSeriesList] = useState<MediaItem[]>([])
   const [airingTodaySeries, setAiringTodaySeries] = useState<MediaItem[]>([])
@@ -174,7 +178,6 @@ export function Catalog() {
     } finally {
       setIsAiLoading(false)
     }
-
   }
 
   async function handleCatalogSearch(e: React.FormEvent) {
@@ -189,22 +192,26 @@ export function Catalog() {
         tmdb.searchSeries(query, currentLang),
       ])
       const results = [
-        ...movies.results.map((movie: any): CatalogSearchResult => ({
-          id: movie.id,
-          title: movie.title,
-          posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          rating: movie.vote_average,
-          category: t('catalogPage.badgesCardMovie'),
-          mediaType: 'movie',
-        })),
-        ...series.results.map((show: any): CatalogSearchResult => ({
-          id: show.id,
-          title: show.name,
-          posterPath: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
-          rating: show.vote_average,
-          category: t('catalogPage.badgesCardSerie'),
-          mediaType: 'tv',
-        })),
+        ...movies.results.map(
+          (movie: any): CatalogSearchResult => ({
+            id: movie.id,
+            title: movie.title,
+            posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            rating: movie.vote_average,
+            category: t('catalogPage.badgesCardMovie'),
+            mediaType: 'movie',
+          }),
+        ),
+        ...series.results.map(
+          (show: any): CatalogSearchResult => ({
+            id: show.id,
+            title: show.name,
+            posterPath: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
+            rating: show.vote_average,
+            category: t('catalogPage.badgesCardSerie'),
+            mediaType: 'tv',
+          }),
+        ),
       ]
 
       setCatalogSearchResults(results)
@@ -240,22 +247,26 @@ export function Catalog() {
         tmdb.searchSeries(catalogSearchTerm, currentLang, nextPage),
       ])
       const nextResults = [
-        ...movies.results.map((movie: any): CatalogSearchResult => ({
-          id: movie.id,
-          title: movie.title,
-          posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-          rating: movie.vote_average,
-          category: t('catalogPage.badgesCardMovie'),
-          mediaType: 'movie',
-        })),
-        ...series.results.map((show: any): CatalogSearchResult => ({
-          id: show.id,
-          title: show.name,
-          posterPath: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
-          rating: show.vote_average,
-          category: t('catalogPage.badgesCardSerie'),
-          mediaType: 'tv',
-        })),
+        ...movies.results.map(
+          (movie: any): CatalogSearchResult => ({
+            id: movie.id,
+            title: movie.title,
+            posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+            rating: movie.vote_average,
+            category: t('catalogPage.badgesCardMovie'),
+            mediaType: 'movie',
+          }),
+        ),
+        ...series.results.map(
+          (show: any): CatalogSearchResult => ({
+            id: show.id,
+            title: show.name,
+            posterPath: `https://image.tmdb.org/t/p/w500${show.poster_path}`,
+            rating: show.vote_average,
+            category: t('catalogPage.badgesCardSerie'),
+            mediaType: 'tv',
+          }),
+        ),
       ]
 
       setCatalogSearchResults((currentResults) => [
@@ -828,8 +839,7 @@ export function Catalog() {
                     </h2>
                   </div>
                   <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-xs text-zinc-300">
-                    {aiRecommendations.length}{' '}
-                    {t('catalogPage.aiResultsCount')}
+                    {aiRecommendations.length} {t('catalogPage.aiResultsCount')}
                   </span>
                 </div>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
@@ -848,7 +858,9 @@ export function Catalog() {
                             : t('catalogPage.aiMovie')}
                         </span>
                       </div>
-                      <p className="text-sm italic text-zinc-300">{rec.reason}</p>
+                      <p className="text-sm italic text-zinc-300">
+                        {rec.reason}
+                      </p>
                     </div>
                   ))}
                 </div>

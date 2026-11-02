@@ -158,7 +158,11 @@ export function Movies() {
 
       <div className="mx-auto px-4 sm:px-6 py-8 sm:py-12 gap-12">
         <div className="max-w-[1200px] flex flex-col justify-center gap-10">
-          <MediaCommunity mediaId={movie.id} mediaType="movie" title={movie.title} />
+          <MediaCommunity
+            mediaId={movie.id}
+            mediaType="movie"
+            title={movie.title}
+          />
           <div className="bg-white/5 p-6 rounded-2xl border border-white/5 inline-block max-w-md">
             <h3 className="text-zinc-500 text-xs uppercase tracking-widest font-bold mb-1">
               {t('MovieDetailPage.directionMovie')}

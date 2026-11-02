@@ -16,17 +16,19 @@ export function Library() {
       .getAll()
       .then((data) => {
         setItems(
-          data.map((item: {
-            mediaId: number
-            title: string
-            poster: string | null
-            mediaType: 'movie' | 'tv'
-          }) => ({
-            id: item.mediaId,
-            title: item.title,
-            posterPath: item.poster,
-            mediaType: item.mediaType,
-          })),
+          data.map(
+            (item: {
+              mediaId: number
+              title: string
+              poster: string | null
+              mediaType: 'movie' | 'tv'
+            }) => ({
+              id: item.mediaId,
+              title: item.title,
+              posterPath: item.poster,
+              mediaType: item.mediaType,
+            }),
+          ),
         )
       })
       .catch((error) => {
@@ -59,9 +61,7 @@ export function Library() {
         <h1 className="text-3xl font-bold text-green-400 sm:text-4xl">
           {t('libraryPage.title')}
         </h1>
-        <p className="mt-2 text-zinc-400">
-          {t('libraryPage.subtitle')}
-        </p>
+        <p className="mt-2 text-zinc-400">{t('libraryPage.subtitle')}</p>
 
         {isLoading ? (
           <p className="py-16 text-center text-zinc-400">
