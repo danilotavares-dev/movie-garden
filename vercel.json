@@ -7,7 +7,15 @@
     },
     "api": {
       "root": "apps/api",
-      "framework": "fastify"
+      "framework": "fastify",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "ai-engine",
+          "format": "url",
+          "env": "AI_ENGINE_URL"
+        }
+      ]
     },
     "web": {
       "root": "apps/web",
