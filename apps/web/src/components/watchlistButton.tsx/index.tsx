@@ -37,8 +37,8 @@ export function WatchListButton({
     const token = localStorage.getItem('token')
 
     if (!token) {
-      showDialog('Faça login para salvar filmes!', {
-        title: 'Faça login',
+      showDialog(t('watchlist.loginRequired'), {
+        title: t('watchlist.loginTitle'),
         variant: 'info',
       })
       navigate('/login')
@@ -63,8 +63,8 @@ export function WatchListButton({
     } catch (error) {
       setIsInList(wasInList)
       console.log('Erro ao atualizar lista', error)
-      showDialog('Erro ao atualizar a lista.', {
-        title: 'Não foi possível atualizar',
+      showDialog(t('watchlist.updateError'), {
+        title: t('watchlist.updateTitle'),
         variant: 'error',
       })
     }

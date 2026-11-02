@@ -98,6 +98,25 @@
     "badgesCardSerie": "Series",
     "badgesCardRecommended": "Top Rated",
     "openYourList": "Open Your List",
+    "listTitle": "My List",
+    "viewAllList": "View All →",
+    "listLoading": "Loading...",
+    "listEmpty": "Your list is empty",
+    "noImage": "No image",
+    "searchResultsFor": "Results for \"{{query}}\"",
+    "clearSearch": "Clear",
+    "searchLoading": "Loading...",
+    "loadMore": "Load more",
+    "catalogSearchPlaceholder": "Search movies and TV shows",
+    "openAiSearch": "Open artificial intelligence search",
+    "closeAiSearch": "Close AI search",
+    "closeAiPanel": "Close panel",
+    "aiButton": "AI Search",
+    "aiTitle": "AI Search",
+    "aiDescription": "Describe what you want to watch and get recommendations.",
+    "aiPlaceholder": "E.g.: shows similar to Dark",
+    "aiSubmit": "Send",
+    "aiThinking": "The AI is thinking...",
     "aiLabel": "Smart search",
     "aiResultsFor": "Suggestions for \"{{query}}\"",
     "aiResultsCount": "results",
@@ -124,6 +143,13 @@
   },
 
   "loadingDatas": "Loading details...",
+
+  "watchlist": {
+    "loginRequired": "Sign in to save movies!",
+    "loginTitle": "Sign in",
+    "updateError": "Error updating the list.",
+    "updateTitle": "Could not update"
+  },
 
   "MovieDetailPage": {
     "backButton": "Back",

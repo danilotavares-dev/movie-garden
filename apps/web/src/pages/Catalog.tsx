@@ -590,6 +590,11 @@ export function Catalog() {
           <div className="mb-1 flex w-full max-w-[1600px] items-center gap-2 sm:gap-3">
             <LibraryButton
               tooltipText={t('catalogPage.openYourList')}
+              listTitle={t('catalogPage.listTitle')}
+              viewAllLabel={t('catalogPage.viewAllList')}
+              loadingLabel={t('catalogPage.listLoading')}
+              emptyLabel={t('catalogPage.listEmpty')}
+              noImageLabel={t('catalogPage.noImage')}
               items={quickLibrary}
               isLoading={isLibraryLoading}
               onViewAllClick={() => navigate('/library')}
@@ -617,7 +622,7 @@ export function Catalog() {
                   value={catalogSearchTerm}
                   onChange={(e) => setCatalogSearchTerm(e.target.value)}
                   disabled={isCatalogSearching}
-                  placeholder="Pesquisar filmes e séries"
+                  placeholder={t('catalogPage.catalogSearchPlaceholder')}
                   className="bg-transparent w-full text-sm outline-none text-white placeholder:text-zinc-400"
                 />
               </form>
@@ -627,10 +632,12 @@ export function Catalog() {
                   type="button"
                   onClick={() => setIsAiPanelOpen(true)}
                   className="flex h-10 items-center gap-2 rounded-full bg-green-500/15 px-3 text-xs font-semibold text-green-300 transition-colors hover:bg-green-500/25 sm:px-4"
-                  aria-label="Abrir busca por inteligência artificial"
+                  aria-label={t('catalogPage.openAiSearch')}
                 >
                   <span aria-hidden="true">✦</span>
-                  <span className="hidden sm:inline">Busca IA</span>
+                  <span className="hidden sm:inline">
+                    {t('catalogPage.aiButton')}
+                  </span>
                 </button>
                 <div className="relative">
                   <button
@@ -681,7 +688,7 @@ export function Catalog() {
           <>
             <button
               type="button"
-              aria-label="Fechar busca por IA"
+              aria-label={t('catalogPage.closeAiSearch')}
               className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm"
               onClick={() => setIsAiPanelOpen(false)}
             />
@@ -691,16 +698,18 @@ export function Catalog() {
                   <p className="text-xs font-semibold uppercase tracking-widest text-green-400">
                     Movie Garden AI
                   </p>
-                  <h2 className="mt-1 text-2xl font-bold">Busca por IA</h2>
+                  <h2 className="mt-1 text-2xl font-bold">
+                    {t('catalogPage.aiTitle')}
+                  </h2>
                   <p className="mt-2 text-sm text-zinc-400">
-                    Descreva o que você quer assistir e receba recomendações.
+                    {t('catalogPage.aiDescription')}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setIsAiPanelOpen(false)}
                   className="rounded-full bg-white/10 px-3 py-2 text-zinc-300 hover:bg-white/20"
-                  aria-label="Fechar painel"
+                  aria-label={t('catalogPage.closeAiPanel')}
                 >
                   ×
                 </button>
@@ -715,7 +724,7 @@ export function Catalog() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   disabled={isAiLoading}
-                  placeholder="Ex.: séries parecidas com Dark"
+                  placeholder={t('catalogPage.aiPlaceholder')}
                   className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-sm outline-none placeholder:text-zinc-500 focus:border-green-500/60"
                 />
                 <button
@@ -723,14 +732,14 @@ export function Catalog() {
                   disabled={isAiLoading || !searchTerm.trim()}
                   className="rounded-xl bg-green-500 px-4 py-3 font-bold text-black transition-colors hover:bg-green-400 disabled:cursor-not-allowed disabled:opacity-50 sm:py-0"
                 >
-                  {isAiLoading ? '...' : 'Enviar'}
+                  {isAiLoading ? '...' : t('catalogPage.aiSubmit')}
                 </button>
               </form>
 
               <div className="mt-6 flex-1 space-y-3 overflow-y-auto pr-1">
                 {isAiLoading && (
                   <p className="rounded-xl bg-white/5 p-4 text-sm text-zinc-300">
-                    A IA está pensando...
+                    {t('catalogPage.aiThinking')}
                   </p>
                 )}
                 {aiRecommendations.map((recommendation) => (
@@ -741,7 +750,9 @@ export function Catalog() {
                     <div className="flex items-start justify-between gap-3">
                       <h3 className="font-bold">{recommendation.title}</h3>
                       <span className="shrink-0 text-xs text-green-300">
-                        {recommendation.mediaType === 'tv' ? 'Série' : 'Filme'}
+                        {recommendation.mediaType === 'tv'
+                          ? t('catalogPage.aiSeries')
+                          : t('catalogPage.aiMovie')}
                       </span>
                     </div>
                     <p className="mt-2 text-sm text-zinc-300">
@@ -804,7 +815,9 @@ export function Catalog() {
               <section className="w-full max-w-[1500px] rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-sm sm:p-6">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <h2 className="text-xl font-bold text-white">
-                    Resultados para "{catalogSearchTerm}"
+                    {t('catalogPage.searchResultsFor', {
+                      query: catalogSearchTerm,
+                    })}
                   </h2>
                   <button
                     type="button"
@@ -816,7 +829,7 @@ export function Catalog() {
                     }}
                     className="text-sm text-zinc-400 hover:text-white"
                   >
-                    Limpar
+                    {t('catalogPage.clearSearch')}
                   </button>
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-6">
@@ -848,7 +861,9 @@ export function Catalog() {
                     disabled={isCatalogSearching}
                     className="mx-auto mt-6 block rounded-full bg-white/10 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {isCatalogSearching ? 'Carregando...' : 'Carregar mais'}
+                    {isCatalogSearching
+                      ? t('catalogPage.searchLoading')
+                      : t('catalogPage.loadMore')}
                   </button>
                 )}
               </section>

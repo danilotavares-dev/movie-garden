@@ -10,6 +10,11 @@ export interface LibraryItemsData {
 interface LibraryButtonProps extends ComponentProps<'button'> {
   classNameButton?: string
   tooltipText?: string
+  listTitle?: string
+  viewAllLabel?: string
+  loadingLabel?: string
+  emptyLabel?: string
+  noImageLabel?: string
   items?: LibraryItemsData[]
   isLoading: boolean
   onViewAllClick?: () => void
@@ -18,6 +23,11 @@ interface LibraryButtonProps extends ComponentProps<'button'> {
 
 export function LibraryButton({
   tooltipText,
+  listTitle = 'Sua Lista',
+  viewAllLabel = 'Ver Tudo →',
+  loadingLabel = 'Carregando...',
+  emptyLabel = 'Sua lista está vazia',
+  noImageLabel = 'No Image',
   classNameButton = 'bg-none w-8 h-8',
   items = [],
   isLoading = false,
@@ -85,25 +95,25 @@ export function LibraryButton({
       {isOpen && (
         <div className="absolute left-0 top-[52px] max-h-[calc(100dvh-5rem)] w-[calc(100vw-1rem)] max-w-[320px] overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-[#0a0a0a]/95 p-4 shadow-2xl backdrop-blur-xl sm:top-[60px] sm:right-0 sm:left-auto sm:origin-top-right">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-white font-bold text-sm">Sua Lista</h3>
+            <h3 className="text-white font-bold text-sm">{listTitle}</h3>
             {onViewAllClick && (
               <button
                 type="button"
                 onClick={onViewAllClick}
                 className="text-xs text-green-400 hover:text-green-300 font-medium"
               >
-                Ver Tudo →
+                {viewAllLabel}
               </button>
             )}
           </div>
 
           {isLoading ? (
             <div className="h-24 flex items-center justify-center text-zinc-500 text-xs">
-              Carregando...
+              {loadingLabel}
             </div>
           ) : items.length === 0 ? (
             <div className="h-24 flex flex-col items-center justify-center text-zinc-500 text-xs gap-2">
-              <span>Sua lista está vazia</span>
+              <span>{emptyLabel}</span>
             </div>
           ) : (
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
@@ -123,7 +133,7 @@ export function LibraryButton({
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-[10px] text-zinc-600">
-                        No Image
+                        {noImageLabel}
                       </div>
                     )}
                   </div>

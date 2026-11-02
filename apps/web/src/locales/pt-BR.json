@@ -98,6 +98,25 @@
     "badgesCardSerie": "Série",
     "badgesCardRecommended": "Mais bem avaliados",
     "openYourList": "Abrir Sua Lista",
+    "listTitle": "Sua Lista",
+    "viewAllList": "Ver Tudo →",
+    "listLoading": "Carregando...",
+    "listEmpty": "Sua lista está vazia",
+    "noImage": "Sem imagem",
+    "searchResultsFor": "Resultados para \"{{query}}\"",
+    "clearSearch": "Limpar",
+    "searchLoading": "Carregando...",
+    "loadMore": "Carregar mais",
+    "catalogSearchPlaceholder": "Pesquisar filmes e séries",
+    "openAiSearch": "Abrir busca por inteligência artificial",
+    "closeAiSearch": "Fechar busca por IA",
+    "closeAiPanel": "Fechar painel",
+    "aiButton": "Busca IA",
+    "aiTitle": "Busca por IA",
+    "aiDescription": "Descreva o que você quer assistir e receba recomendações.",
+    "aiPlaceholder": "Ex.: séries parecidas com Dark",
+    "aiSubmit": "Enviar",
+    "aiThinking": "A IA está pensando...",
     "aiLabel": "Busca inteligente",
     "aiResultsFor": "Sugestões para \"{{query}}\"",
     "aiResultsCount": "resultados",
@@ -124,6 +143,13 @@
   },
 
   "loadingDatas": "Carregando detalhes...",
+
+  "watchlist": {
+    "loginRequired": "Faça login para salvar filmes!",
+    "loginTitle": "Faça login",
+    "updateError": "Erro ao atualizar a lista.",
+    "updateTitle": "Não foi possível atualizar"
+  },
 
   "MovieDetailPage": {
     "backButton": "Voltar",
