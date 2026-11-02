@@ -27,7 +27,7 @@ dist-ssr
 # Python / ML Engine 
 ml-engine/.venv
 ml-engine/venv
-__pycache__/
+*__pycache__/
 *.pyc
 *.pyo
 *.pyd
