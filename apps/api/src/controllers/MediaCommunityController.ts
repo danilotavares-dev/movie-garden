@@ -39,7 +39,7 @@ export async function getMediaCommunity(
     averageRating: ratings._avg.value ?? 0,
     ratingCount: ratings._count.value,
     userRating: userRating?.value ?? 0,
-    messages: messages.map((message) => ({
+    messages: messages.map((message: any) => ({
       id: message.id,
       content: message.content,
       createdAt: message.createdAt,
