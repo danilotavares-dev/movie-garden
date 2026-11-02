@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -53,6 +53,8 @@ export function Catalog() {
   const [isLogOutModal, setIsLogOutModal] = useState(false)
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
   const [isAiPanelOpen, setIsAiPanelOpen] = useState(false)
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
+  const lastScrollY = useRef(0)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [catalogSearchTerm, setCatalogSearchTerm] = useState('')
@@ -74,6 +76,27 @@ export function Catalog() {
   const [discoveryTitle, setDiscoveryTitle] = useState('')
 
   const currentLang = i18n.language
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY
+
+    function handleScroll() {
+      const currentScrollY = window.scrollY
+
+      if (currentScrollY <= 8) {
+        setIsHeaderVisible(true)
+      } else if (currentScrollY > lastScrollY.current + 4) {
+        setIsHeaderVisible(false)
+      } else if (currentScrollY < lastScrollY.current - 4) {
+        setIsHeaderVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const languages = [
     { code: 'pt-BR', label: 'Português', flag: '🇧🇷' },
@@ -559,7 +582,11 @@ export function Catalog() {
       )}
 
       <div className="min-h-screen w-full bg-custom-gradient-night overflow-x-hidden">
-        <header className="fixed left-0 right-0 top-2 z-50 flex flex-col items-center justify-center px-3 transition-all duration-300 sm:top-3 sm:px-4">
+        <header
+          className={`fixed left-0 right-0 top-2 z-50 flex flex-col items-center justify-center px-3 transition-transform duration-300 ease-out sm:top-3 sm:px-4 ${
+            isHeaderVisible ? 'translate-y-0' : '-translate-y-[calc(100%+1rem)]'
+          }`}
+        >
           <div className="mb-1 flex w-full max-w-[1600px] items-center gap-2 sm:gap-3">
             <LibraryButton
               tooltipText={t('catalogPage.openYourList')}
