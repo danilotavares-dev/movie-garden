@@ -60,6 +60,28 @@
     "noAccount": "Não tem uma conta?",
     "register": "Cadastre-se"
   },
+  "forgotPasswordPage": {
+    "title": "Recupere sua senha",
+    "subtitle": "Informe seu e-mail e enviaremos um link seguro para redefinir sua senha.",
+    "success": "Se o e-mail estiver cadastrado, enviaremos as instruções em alguns instantes.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "submit": "Enviar link",
+    "sending": "Enviando...",
+    "error": "Não foi possível solicitar a recuperação agora.",
+    "backToLogin": "Voltar para o login",
+    "passwordMismatch": "As senhas não coincidem.",
+    "invalidToken": "O link é inválido ou expirou."
+  },
+  "resetPasswordPage": {
+    "title": "Crie uma nova senha",
+    "subtitle": "Escolha uma senha com pelo menos 6 caracteres.",
+    "success": "Senha redefinida com sucesso. Agora você já pode entrar.",
+    "passwordPlaceholder": "Nova senha",
+    "confirmPlaceholder": "Confirme a nova senha",
+    "submit": "Salvar nova senha",
+    "saving": "Salvando..."
+  },
   "registerPage": {
     "title": "Crie sua conta",
     "subtitle": "Junte-se à comunidade Movie Garden",

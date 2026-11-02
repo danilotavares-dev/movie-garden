@@ -9,6 +9,7 @@ import { Series } from './pages/Series'
 import { PrivateRoute } from './components/PrivateRoute'
 import { AppDialogProvider } from './components/AppDialog'
 import { Library } from './pages/Library'
+import { ForgotPassword, ResetPassword } from './pages/ForgotPassword'
 
 export function App() {
   return (
@@ -18,6 +19,8 @@ export function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<Register />} />
+          <Route path="/esqueci-senha" element={<ForgotPassword />} />
+          <Route path="/redefinir-senha" element={<ResetPassword />} />
           <Route path="/movie/:id" element={<Movies />} />
           <Route path="/serie/:id" element={<Series />} />
 

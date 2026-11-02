@@ -60,6 +60,28 @@
     "noAccount": "Don't have an account?",
     "register": "Sign up"
   },
+  "forgotPasswordPage": {
+    "title": "Recover your password",
+    "subtitle": "Enter your email and we will send a secure reset link.",
+    "success": "If the email is registered, we will send instructions shortly.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@email.com",
+    "submit": "Send link",
+    "sending": "Sending...",
+    "error": "We could not request a reset right now. Check your connection and try again.",
+    "backToLogin": "Back to sign in",
+    "passwordMismatch": "The passwords do not match.",
+    "invalidToken": "This link is invalid or has expired."
+  },
+  "resetPasswordPage": {
+    "title": "Create a new password",
+    "subtitle": "Choose a password with at least 6 characters.",
+    "success": "Password reset successfully. You can now sign in.",
+    "passwordPlaceholder": "New password",
+    "confirmPlaceholder": "Confirm new password",
+    "submit": "Save new password",
+    "saving": "Saving..."
+  },
   "registerPage": {
     "title": "Create your account",
     "subtitle": "Join the Movie Garden community",

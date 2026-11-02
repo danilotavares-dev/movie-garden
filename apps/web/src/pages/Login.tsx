@@ -1,4 +1,5 @@
 import { Logo } from '@movie-garden/ui'
+import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -37,11 +38,19 @@ export function Login() {
         })
       }
     } catch (error) {
-      console.error('Erro de conexão:', error)
-      showDialog('Erro ao conectar com o servidor.', {
+      console.error('Erro ao fazer login:', error)
+      const serverMessage = axios.isAxiosError(error)
+        ? error.response?.data?.message
+        : undefined
+      showDialog(
+        typeof serverMessage === 'string'
+          ? serverMessage
+          : 'Erro ao conectar com o servidor.',
+        {
         title: 'Falha de conexão',
         variant: 'error',
-      })
+        },
+      )
     }
   }
 
@@ -134,12 +143,12 @@ export function Login() {
               </button>
             </div>
 
-            <a
-              href="/"
+            <Link
+              to="/esqueci-senha"
               className="text-xs text-[#113A2D] hover:text-[#1a5542] font-semibold transition-colors"
             >
               {t('loginPage.forgetPassword')}
-            </a>
+            </Link>
           </div>
 
           <button
