@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { myListService } from '../../services/api'
 import { useNavigate } from 'react-router-dom'
+import { useAppDialog } from '../AppDialog'
 
 interface WatchListButtonProps {
   mediaId: number
@@ -18,6 +19,7 @@ export function WatchListButton({
 }: WatchListButtonProps) {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const { showDialog } = useAppDialog()
 
   const [isInList, setIsInList] = useState(false)
 
@@ -35,7 +37,10 @@ export function WatchListButton({
     const token = localStorage.getItem('token')
 
     if (!token) {
-      alert('Faça login para salvar filmes!')
+      showDialog('Faça login para salvar filmes!', {
+        title: 'Faça login',
+        variant: 'info',
+      })
       navigate('/login')
       return
     }
@@ -58,7 +63,10 @@ export function WatchListButton({
     } catch (error) {
       setIsInList(wasInList)
       console.log('Erro ao atualizar lista', error)
-      alert('Erro ao atualizar a lista.')
+      showDialog('Erro ao atualizar a lista.', {
+        title: 'Não foi possível atualizar',
+        variant: 'error',
+      })
     }
   }
 

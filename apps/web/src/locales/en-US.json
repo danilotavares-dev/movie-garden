@@ -85,16 +85,42 @@
     "trendingCinemas": "trending in cinemas",
     "popSeries": "Popular Series",
     "recommended": "Recommended for You",
+    "popularMovies": "Popular Movies",
+    "popularSeries": "Most Watched Series",
+    "nowPlaying": "Now Playing",
+    "topRatedSeries": "Top Rated Series",
+    "upcoming": "Coming Soon to Theaters",
+    "airingToday": "Series Premiering Today",
+    "onTheAir": "On the Air",
+    "morePopularMovies": "More Popular Movies",
+    "morePopularSeries": "More Popular Series",
     "badgesCardMovie": "Movie",
     "badgesCardSerie": "Series",
     "badgesCardRecommended": "Top Rated",
-    "openYourList": "Open Your List"
+    "openYourList": "Open Your List",
+    "aiLabel": "Smart search",
+    "aiResultsFor": "Suggestions for \"{{query}}\"",
+    "aiResultsCount": "results",
+    "aiMovie": "Movie",
+    "aiSeries": "Series",
+    "aiCatalogResults": "Found in the catalog",
+    "aiNoCatalogResults": "The AI found suggestions, but we could not locate these titles in the catalog."
   },
 
   "modalConfirmLogOut": {
     "title": "He is sure?",
     "confirmLogOut": "Confirm",
     "cancelLogOut": "Cancel"
+  },
+
+  "libraryPage": {
+    "back": "Back",
+    "title": "My watchlist",
+    "subtitle": "All movies and TV shows saved to watch later.",
+    "loading": "Loading your list...",
+    "empty": "Your watchlist is empty.",
+    "noImage": "No image",
+    "posterAlt": "Poster for {{title}}"
   },
 
   "loadingDatas": "Loading details...",

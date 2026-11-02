@@ -4,6 +4,7 @@ import { tmdb } from '../services/tmdb'
 import { LanguageSelector } from '@movie-garden/ui'
 import { useTranslation } from 'react-i18next'
 import { WatchListButton } from '../components/watchlistButton.tsx'
+import { MediaCommunity } from '../components/MediaCommunity'
 
 interface MovieDetail {
   id: number
@@ -90,7 +91,7 @@ export function Movies() {
 
   return (
     <div className="min-h-screen bg-custom-gradient-night text-white overflow-x-hidden">
-      <header className="absolute flex justify-between top-0 items-center left-0 w-full p-6 z-50">
+      <header className="absolute flex justify-between top-0 items-center left-0 w-full p-3 sm:p-6 z-50">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -102,7 +103,7 @@ export function Movies() {
         <LanguageSelector />
       </header>
 
-      <div className="relative w-full h-[65vh] lg:h-[75vh]">
+      <div className="relative w-full min-h-[720px] sm:h-[65vh] sm:min-h-0 lg:h-[75vh]">
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent z-10" />
 
@@ -112,17 +113,17 @@ export function Movies() {
           className="w-full h-full object-cover opacity-60"
         />
 
-        <div className="flex absolute bottom-0 left-0 p-8 z-20 max-w-8xl w-full md:pl-12 pb-12">
-          <div className="mr-7 z-20 relative">
+        <div className="flex flex-col sm:flex-row absolute bottom-0 left-0 p-4 sm:p-8 z-20 max-w-8xl w-full md:pl-12 pb-8 sm:pb-12">
+          <div className="mr-0 sm:mr-7 mb-4 sm:mb-0 z-20 relative">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={`Poster ${movie.title}`}
-              className="w-[300px] rounded-xl shadow-2xl border-4 border-[#1a1a1a] hover:scale-[1.02] transition-transform duration-500"
+              className="w-36 sm:w-[300px] rounded-xl shadow-2xl border-4 border-[#1a1a1a] hover:scale-[1.02] transition-transform duration-500"
             />
           </div>
 
           <div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-4 drop-shadow-lg">
               {movie.title}
             </h1>
 
@@ -141,7 +142,7 @@ export function Movies() {
               </span>
             </div>
 
-            <p className="text-zinc-200 text-lg max-w-5xl mb-[100px] leading-relaxed drop-shadow-md">
+            <p className="text-sm sm:text-lg max-w-5xl mb-6 sm:mb-[100px] leading-relaxed drop-shadow-md line-clamp-5 sm:line-clamp-none">
               {movie.overview}
             </p>
 
@@ -155,8 +156,9 @@ export function Movies() {
         </div>
       </div>
 
-      <div className="mx-auto px-6 py-12 gap-12 left-12">
+      <div className="mx-auto px-4 sm:px-6 py-8 sm:py-12 gap-12">
         <div className="max-w-[1200px] flex flex-col justify-center gap-10">
+          <MediaCommunity mediaId={movie.id} mediaType="movie" title={movie.title} />
           <div className="bg-white/5 p-6 rounded-2xl border border-white/5 inline-block max-w-md">
             <h3 className="text-zinc-500 text-xs uppercase tracking-widest font-bold mb-1">
               {t('MovieDetailPage.directionMovie')}
@@ -168,7 +170,7 @@ export function Movies() {
             <h2 className="text-2xl font-bold text-green-400 mb-6 flex items-center border-l-4 border-white pl-3 gap-2">
               {t('MovieDetailPage.mainCastMovie')}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
               {cast.map((actor) => (
                 <div
                   key={actor.id}

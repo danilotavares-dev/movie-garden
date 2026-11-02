@@ -85,16 +85,42 @@
     "trendingCinemas": "Em Alta no Cinema",
     "popSeries": "Séries Populares",
     "recommended": "Recomendados para Você",
+    "popularMovies": "Filmes Populares",
+    "popularSeries": "Séries Mais Assistidas",
+    "nowPlaying": "Em Cartaz",
+    "topRatedSeries": "Séries Mais Bem Avaliadas",
+    "upcoming": "Em Breve nos Cinemas",
+    "airingToday": "Séries Estreando Hoje",
+    "onTheAir": "Séries no Ar",
+    "morePopularMovies": "Mais Filmes Populares",
+    "morePopularSeries": "Mais Séries Populares",
     "badgesCardMovie": "Filme",
     "badgesCardSerie": "Série",
     "badgesCardRecommended": "Mais bem avaliados",
-    "openYourList": "Abrir Sua Lista"
+    "openYourList": "Abrir Sua Lista",
+    "aiLabel": "Busca inteligente",
+    "aiResultsFor": "Sugestões para \"{{query}}\"",
+    "aiResultsCount": "resultados",
+    "aiMovie": "Filme",
+    "aiSeries": "Série",
+    "aiCatalogResults": "Encontrados no catálogo",
+    "aiNoCatalogResults": "A IA encontrou sugestões, mas não localizamos esses títulos no catálogo."
   },
 
   "modalConfirmLogOut": {
     "title": "Tem certeza?",
     "confirmLogOut": "Confirmar",
     "cancelLogOut": "Cancelar"
+  },
+
+  "libraryPage": {
+    "back": "Voltar",
+    "title": "Minha Lista",
+    "subtitle": "Todos os filmes e séries salvos para assistir depois.",
+    "loading": "Carregando sua lista...",
+    "empty": "Sua watchlist está vazia.",
+    "noImage": "Sem imagem",
+    "posterAlt": "Pôster de {{title}}"
   },
 
   "loadingDatas": "Carregando detalhes...",

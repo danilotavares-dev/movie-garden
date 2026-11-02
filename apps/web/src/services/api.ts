@@ -36,3 +36,27 @@ export const myListService = {
     return response.data
   },
 }
+
+export const mediaCommunityService = {
+  get: async (mediaType: 'movie' | 'tv', mediaId: number) => {
+    const response = await api.get(`/media/${mediaType}/${mediaId}/community`)
+    return response.data
+  },
+  rate: async (mediaType: 'movie' | 'tv', mediaId: number, value: number) => {
+    const response = await api.put(`/media/${mediaType}/${mediaId}/rating`, {
+      value,
+    })
+    return response.data
+  },
+  sendMessage: async (
+    mediaType: 'movie' | 'tv',
+    mediaId: number,
+    content: string,
+  ) => {
+    const response = await api.post(
+      `/media/${mediaType}/${mediaId}/messages`,
+      { content },
+    )
+    return response.data
+  },
+}

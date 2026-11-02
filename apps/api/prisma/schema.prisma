@@ -22,8 +22,40 @@ model User {
   updatedAt DateTime @updatedAt
 
   watchlist Watchlist[]
+  ratings Rating[]
+  messages MediaMessage[]
 
   @@map("users")
+}
+
+model Rating {
+  id        String   @id @default(uuid())
+  userId    String
+  mediaId   Int
+  mediaType String
+  value     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mediaId, mediaType])
+  @@index([mediaId, mediaType])
+  @@map("ratings")
+}
+
+model MediaMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  mediaId   Int
+  mediaType String
+  content   String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([mediaId, mediaType, createdAt])
+  @@map("media_messages")
 }
 
 model Watchlist {

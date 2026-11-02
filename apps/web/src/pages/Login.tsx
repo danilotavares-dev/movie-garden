@@ -2,10 +2,12 @@ import { Logo } from '@movie-garden/ui'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useAppDialog } from '../components/AppDialog'
 
 export function Login() {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { showDialog } = useAppDialog()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -35,20 +37,26 @@ export function Login() {
 
         navigate('/catalogo')
       } else {
-        alert('Email ou senha incorretos!')
+        showDialog('Email ou senha incorretos.', {
+          title: 'Não foi possível entrar',
+          variant: 'error',
+        })
       }
     } catch (error) {
       console.error('Erro de conexão:', error)
-      alert('Erro ao conectar com o servidor.')
+      showDialog('Erro ao conectar com o servidor.', {
+        title: 'Falha de conexão',
+        variant: 'error',
+      })
     }
   }
 
   return (
-    <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
-      <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 rounded-3xl p-8 shadow-2xl">
+    <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-3 sm:p-4">
+      <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 rounded-3xl p-5 sm:p-8 shadow-2xl">
         <div className="flex flex-col items-center gap-4 mb-8">
           <Logo className="h-16 w-16" />
-          <h1 className="text-2xl font-bold text-[#113A2D] tracking-wide">
+          <h1 className="text-xl sm:text-2xl font-bold text-[#113A2D] tracking-wide">
             {t('loginPage.title')}
           </h1>
           <p className="text-zinc-600 text-sm">{t('loginPage.subtitle')}</p>

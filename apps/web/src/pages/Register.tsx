@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Logo } from '@movie-garden/ui'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useAppDialog } from '../components/AppDialog'
 
 export function Register() {
   const { t } = useTranslation()
@@ -14,12 +15,16 @@ export function Register() {
   const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
+  const { showDialog } = useAppDialog()
 
   async function handleRegisterEvent(event: FormEvent) {
     event.preventDefault()
 
     if (password !== confirmPassword) {
-      alert('As senhas não coincidem!')
+      showDialog('As senhas não coincidem.', {
+        title: 'Verifique os dados',
+        variant: 'error',
+      })
       return
     }
 
@@ -39,26 +44,42 @@ export function Register() {
       })
 
       if (response.status === 201) {
-        alert('Conta criada com sucesso! 🌱')
+        showDialog('Conta criada com sucesso! 🌱', {
+          title: 'Tudo certo',
+          variant: 'success',
+        })
         navigate('/login')
       } else {
-        const data = await response.json()
-        alert(`Erro: ${data.message || 'Ocorreu um erro ao criar a conta'}`)
+        const data: unknown = await response.json().catch(() => null)
+        const message =
+          typeof data === 'object' &&
+          data !== null &&
+          'message' in data &&
+          typeof data.message === 'string'
+            ? data.message
+            : 'Ocorreu um erro ao criar a conta.'
+        showDialog(message, {
+          title: 'Não foi possível criar a conta',
+          variant: 'error',
+        })
       }
     } catch (error) {
       console.error(error)
-      alert('Erro de conexão com o servidor!')
+      showDialog('Erro de conexão com o servidor.', {
+        title: 'Falha de conexão',
+        variant: 'error',
+      })
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-4">
-      <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 backdrop-blur-md rounded-3xl px-12 py-11 shadow-2xl animate-fade-in">
+    <div className="min-h-screen w-full bg-custom-gradient flex items-center justify-center p-3 sm:p-4">
+      <div className="w-full max-w-[600px] bg-[#D9D9D9] bg-opacity-60 backdrop-blur-md rounded-3xl px-5 sm:px-12 py-7 sm:py-11 shadow-2xl animate-fade-in">
         <div className="flex flex-col items-center mb-8">
           <Logo className="h-16 w-16" />
-          <h1 className="text-[#113A2D] text-3xl font-bold tracking-wide">
+          <h1 className="text-[#113A2D] text-2xl sm:text-3xl font-bold tracking-wide">
             {t('registerPage.title')}
           </h1>
           <p className="text-zinc-600 text-sm mt-2">

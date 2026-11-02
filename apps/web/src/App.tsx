@@ -7,21 +7,26 @@ import { LandingPage } from './pages/LandingPage'
 import { Movies } from './pages/Movie'
 import { Series } from './pages/Series'
 import { PrivateRoute } from './components/PrivateRoute'
+import { AppDialogProvider } from './components/AppDialog'
+import { Library } from './pages/Library'
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<Register />} />
-        <Route path="/movie/:id" element={<Movies />} />
-        <Route path="/serie/:id" element={<Series />} />
+    <AppDialogProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Register />} />
+          <Route path="/movie/:id" element={<Movies />} />
+          <Route path="/serie/:id" element={<Series />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route path="catalogo" element={<Catalog />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route element={<PrivateRoute />}>
+            <Route path="catalogo" element={<Catalog />} />
+            <Route path="library" element={<Library />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AppDialogProvider>
   )
 }
