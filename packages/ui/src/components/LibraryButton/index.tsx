@@ -1,4 +1,4 @@
-import { ComponentProps, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ComponentProps } from 'react'
 
 export interface LibraryItemsData {
   id: number
@@ -83,7 +83,7 @@ export function LibraryButton({
       )}
 
       {isOpen && (
-        <div className="absolute p-4 top-[60px] right-[-80px] md:right-0 w-[320px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl z-50 animate-fade-in origin-top-right">
+        <div className="absolute left-0 top-[52px] max-h-[calc(100dvh-5rem)] w-[calc(100vw-1rem)] max-w-[320px] overflow-y-auto overscroll-contain rounded-xl border border-white/10 bg-[#0a0a0a]/95 p-4 shadow-2xl backdrop-blur-xl sm:top-[60px] sm:right-0 sm:left-auto sm:origin-top-right">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-white font-bold text-sm">Sua Lista</h3>
             {onViewAllClick && (

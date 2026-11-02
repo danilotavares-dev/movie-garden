@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 export function LanguageSelector() {
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
 
   const currentLang = i18n.language
 
@@ -20,7 +20,7 @@ export function LanguageSelector() {
   }
 
   return (
-    <div>
+    <div className="relative">
       <button
         type="button"
         onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
@@ -36,7 +36,7 @@ export function LanguageSelector() {
             className="fixed inset-0 z-10 cursor-default w-full h-full bg-transparent border-none"
             onClick={() => setIsLangMenuOpen(false)}
           />
-          <div className="absolute top-full -mt-3 right-8 bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden min-w-[160px] flex flex-col z-20 border border-white/10">
+          <div className="absolute top-full right-0 mt-2 w-max min-w-[160px] max-w-[calc(100vw-1rem)] bg-[#1e1e1e] rounded-xl shadow-2xl overflow-hidden flex flex-col z-20 border border-white/10">
             {languages.map((lang) => (
               <button
                 key={lang.code}

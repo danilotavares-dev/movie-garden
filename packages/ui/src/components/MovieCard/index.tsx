@@ -23,14 +23,14 @@ export function MovieCard({
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90" />
 
-      <div className="absolute bottom-0 left-0 p-4 w-full">
+      <div className="absolute bottom-0 left-0 p-2 sm:p-4 w-full">
         {category && (
           <span className="mb-2 inline-block rounded-full bg-green-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-green-400 backdrop-blur-sm">
             {category}
           </span>
         )}
 
-        <h3 className="text-lg font-bold text-white leading-tight drop-shadow-sm">
+        <h3 className="text-sm sm:text-lg font-bold text-white leading-tight drop-shadow-sm line-clamp-2">
           {title}
         </h3>
 

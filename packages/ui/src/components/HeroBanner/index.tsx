@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface HeroBannerProps {
   title: string
@@ -16,7 +16,7 @@ export function HeroBanner({
   onWatchClick,
   actionSlot,
 }: HeroBannerProps) {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className="relative w-full h-full overflow-hidden group">
@@ -28,21 +28,21 @@ export function HeroBanner({
 
       <div className="absolute inset-0 bg-gradient-to-t from-[#040404] via-[#040404]/60 to-transparent" />
 
-      <div className="absolute bottom-32 left-0 p-8 w-full max-w-2xl flex flex-col gap-4">
-        <h1 className="text-5xl font-bold text-white drop-shadow-lg">
+      <div className="absolute bottom-16 sm:bottom-32 left-0 p-4 sm:p-8 w-full max-w-2xl flex flex-col gap-3 sm:gap-4">
+        <h1 className="text-3xl sm:text-5xl font-bold text-white drop-shadow-lg line-clamp-2">
           {title}
         </h1>
 
-        <p className="text-zinc-200 text-lg line-clamp-3 drop-shadow-md">
+        <p className="text-sm sm:text-lg text-zinc-200 line-clamp-3 drop-shadow-md">
           {description}
         </p>
 
-        <div className="flex gap-3 mt-4">
+        <div className="flex flex-wrap gap-2 sm:gap-3 mt-2 sm:mt-4">
           {actionSlot && <div>{actionSlot}</div>}
 
           <button
             type="button"
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-8 py-3 rounded-xl font-bold transition-colors cursor-pointer border border-white/10"
+            className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-4 sm:px-8 py-3 rounded-xl font-bold transition-colors cursor-pointer border border-white/10"
             onClick={onWatchClick}
           >
             {t('catalogPage.seeDetails')}

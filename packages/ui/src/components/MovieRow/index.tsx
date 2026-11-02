@@ -37,13 +37,13 @@ export function MovieRow({
   }
 
   return (
-    <section className="w-full max-w-[1600px] mx-auto px-6 mb-12 relative group">
+    <section className="w-full max-w-[1600px] mx-auto px-0 sm:px-6 mb-8 sm:mb-12 relative group">
       <h2 className={className}>{title}</h2>
 
       <button
         type="button"
         onClick={handleScrollLeft}
-        className="absolute left-0 top-[60%] -translate-y-1/2 z-10 bg-black/50 hover:bg-[#113A2D] text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-0 cursor-pointer backdrop-blur-sm"
+        className="absolute left-1 top-[58%] -translate-y-1/2 z-10 bg-black/60 hover:bg-[#113A2D] text-white p-2 sm:p-3 rounded-full opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-0 cursor-pointer backdrop-blur-sm"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,29 +63,33 @@ export function MovieRow({
 
       <div
         ref={listRef}
-        className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide p-3 snap-x scroll-smooth"
+        className="flex gap-3 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide p-2 sm:p-3 snap-x scroll-smooth"
       >
         {movies.map((movie) => (
-          <button
-            type="button"
+          <div
             key={movie.id}
-            className="min-w-[220px] max-w-[220px] w-full h-auto snap-center"
-            onClick={() => onMovieClick?.(movie)}
+            className="min-w-[150px] max-w-[150px] sm:min-w-[220px] sm:max-w-[220px] w-full h-auto snap-center"
           >
-            <MovieCard
-              title={movie.title}
-              posterPath={movie.posterPath}
-              rating={movie.rating}
-              category={movie.category}
-            />
-          </button>
+            <button
+              type="button"
+              className="w-full"
+              onClick={() => onMovieClick?.(movie)}
+            >
+              <MovieCard
+                title={movie.title}
+                posterPath={movie.posterPath}
+                rating={movie.rating}
+                category={movie.category}
+              />
+            </button>
+          </div>
         ))}
       </div>
 
       <button
         type="button"
         onClick={handleScrollRight}
-        className="absolute right-0 top-[60%] -translate-y-1/2 z-10 bg-black/50 hover:bg-[#113A2D] text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-sm"
+        className="absolute right-1 top-[58%] -translate-y-1/2 z-10 bg-black/60 hover:bg-[#113A2D] text-white p-2 sm:p-3 rounded-full opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-sm"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
