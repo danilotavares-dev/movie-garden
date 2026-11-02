@@ -56,6 +56,7 @@ O Prisma usa PostgreSQL. O schema possui:
 - `Watchlist`: itens salvos, únicos por usuário e mídia;
 - `Rating`: nota de 1 a 5, única por usuário, mídia e tipo;
 - `MediaMessage`: mensagem textual associada a uma mídia.
+- `PasswordResetToken`: hash de um token temporário de recuperação, com expiração e marca de uso.
 
 Filmes e séries não possuem tabela própria: `mediaId` e `mediaType` referenciam o catálogo externo do TMDB.
 
@@ -84,6 +85,16 @@ Filmes e séries não possuem tabela própria: `mediaId` e `mediaType` referenci
 4. O frontend busca cada título no TMDB, descarta resultados não encontrados e renderiza os cards.
 
 Esse desenho separa a chave do Gemini do navegador. A chave do TMDB, por decisão da integração atual, é usada no frontend e deve ser tratada como pública.
+
+### Recuperação de senha
+
+1. A pessoa informa o e-mail em `/esqueci-senha`.
+2. A API responde com a mesma mensagem para e-mails existentes e inexistentes.
+3. Para uma conta existente, a API cria um token aleatório de 32 bytes, persiste somente o hash SHA-256 e envia o token bruto por SMTP.
+4. O link aponta para `/redefinir-senha?token=...` e expira em 60 minutos.
+5. A nova senha é armazenada com bcrypt e o token é marcado como usado dentro de uma transação.
+
+O token nunca é salvo em texto puro no banco. O envio é feito pelo servidor, e não pelo navegador, para que a credencial SMTP permaneça privada.
 
 ## Integrações e deploy
 

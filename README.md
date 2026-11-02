@@ -119,10 +119,13 @@ cp apps/ai-engine/.env.example apps/ai-engine/.env
 Preencha os valores necessários:
 
 - `./.env`: conexão da API com o PostgreSQL, `JWT_SECRET` com pelo menos 32 caracteres, porta, CORS e URL do motor de IA;
+- no mesmo `./.env`: `FRONTEND_URL` e as credenciais SMTP usadas para enviar links de recuperação de senha;
 - `apps/web/.env`: URL da API e chave pública do TMDB;
 - `apps/ai-engine/.env`: chave do Gemini, modelo opcional, porta e origens permitidas.
 
 Os exemplos são a fonte de verdade dos nomes das variáveis. Não copie credenciais reais para commits, issues, logs ou documentação.
+
+Para recuperação de senha, configure `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASSWORD` e `SMTP_FROM`. O sistema usa SMTP genérico, portanto pode ser conectado a Gmail, Outlook, Amazon SES ou outro servidor compatível. Para contas com autenticação em duas etapas, use uma senha de aplicativo quando o provedor exigir.
 
 ### 4. Suba o banco e aplique o schema
 
@@ -171,6 +174,7 @@ curl http://localhost:8000/
 | IA indisponível | Confirme `GEMINI_API_KEY`, o processo Python na porta `8000` e `AI_ENGINE_URL` na API. |
 | CORS no navegador | Compare `CORS_ORIGIN`, `CORS_ORIGINS` e a origem real do frontend. |
 | Rotas privadas retornam 401 | Faça login novamente e verifique se o token está presente no armazenamento local do navegador. |
+| Link de recuperação não chega | Confira as variáveis SMTP, a pasta de spam e os logs da API; o `SMTP_FROM` deve ser aceito pelo provedor. |
 
 ## Comandos de desenvolvimento
 
@@ -202,6 +206,8 @@ Leia [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) antes de alterar o projeto. Em r
 ## Deploy
 
 O [vercel.json](vercel.json) define três serviços na Vercel: `web`, `api` e `ai-engine`. Em produção, configure as variáveis de ambiente em cada serviço, use `VITE_API_URL=/api` no frontend e forneça um PostgreSQL acessível pela API. A configuração de CORS deve permitir somente as origens reais.
+
+O serviço `api` também precisa das variáveis SMTP e de `FRONTEND_URL` com a URL pública do frontend. Sem SMTP configurado, a recuperação de senha não deve ser habilitada em produção.
 
 Antes de publicar, revise limites e termos do TMDB e do Google Gemini, logs, retenção de dados, proteção de credenciais e o custo das chamadas externas.
 

@@ -59,6 +59,31 @@ Resposta `200`:
 
 A API encaminha o pedido ao motor Python e devolve a lista gerada pelo serviço. A resposta esperada contém itens com `title`, `mediaType` (`movie` ou `tv`) e `reason`.
 
+## Recuperação de senha
+
+### `POST /api/password-reset/request`
+
+Solicita um link de recuperação por e-mail:
+
+```json
+{ "email": "pessoa@example.com" }
+```
+
+A resposta é sempre `202` com uma mensagem genérica, evitando revelar se o e-mail existe. Quando a conta existe, a API gera um token aleatório, armazena somente seu hash, invalida tokens anteriores e envia um link SMTP válido por 60 minutos.
+
+### `POST /api/password-reset/confirm`
+
+Consome o token recebido no link e altera a senha:
+
+```json
+{
+  "token": "token-de-64-caracteres",
+  "password": "nova-senha-com-pelo-menos-6"
+}
+```
+
+O token é de uso único e retorna `400` quando está ausente, expirado ou já utilizado.
+
 ## Watchlist
 
 ### `GET /api/watchlist` — protegido
