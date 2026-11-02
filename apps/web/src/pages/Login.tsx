@@ -47,8 +47,8 @@ export function Login() {
           ? serverMessage
           : 'Erro ao conectar com o servidor.',
         {
-        title: 'Falha de conexão',
-        variant: 'error',
+          title: 'Falha de conexão',
+          variant: 'error',
         },
       )
     }
