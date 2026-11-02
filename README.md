@@ -24,9 +24,11 @@ O projeto reúne uma interface React, uma API Fastify, um banco PostgreSQL e um 
 
 ## Demonstração
 
-![Página inicial](assets/inicial.png)
+![Página inicial](assets/image3.png)
 
-![Página de catálogo](assets/catalogo.gif)
+![Página de catálogo](assets/image1.png)
+
+![Página de catálogo/AI](assets/image2.png)
 
 ## O que já está disponível
 
